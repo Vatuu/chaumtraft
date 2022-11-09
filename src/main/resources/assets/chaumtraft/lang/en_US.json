@@ -1,0 +1,14 @@
+{
+  "itemGroup.chaumtraft": "Chaumtraft",
+
+  "block.chaumtraft.crucible": "Crucible",
+
+  "item.chaumtraft.thaumonomicon": "Thaumaninamunanumayeahicon",
+
+  "key.chaumtraft.category.debug": "Thaumcraft - Debug",
+  "key.chaumtraft.debug.research": "Open Research Debug Screen",
+
+  "research.chaumtraft.category.debug.name": "Debug Quests",
+  "research.chaumtraft.category.fundamentals.name": "Fundamentals",
+  "research.chaumtraft.category.artifice.name": "Artifice"
+}

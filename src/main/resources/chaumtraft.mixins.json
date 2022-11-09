@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "tld.unknown.chaumtraft.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "chaumtraft.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

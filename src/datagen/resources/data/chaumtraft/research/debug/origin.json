@@ -1,0 +1,18 @@
+{
+  "display": {
+    "gridLocation": [
+      0,
+      0
+    ],
+    "icons": [
+      "chaumtraft:textures/unknown.png"
+    ]
+  },
+  "stages": [
+    {
+      "recipes": [
+        "chaumtraft:test_recipe"
+      ]
+    }
+  ]
+}

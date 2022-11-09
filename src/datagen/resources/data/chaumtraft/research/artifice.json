@@ -1,0 +1,6 @@
+{
+  "icon": "chaumtraft:textures/ui/research/categories/artifice.png",
+  "requirements": [
+    "chaumtraft:fundamentals/unlock_alchemy"
+  ]
+}
