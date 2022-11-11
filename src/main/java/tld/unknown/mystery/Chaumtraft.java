@@ -15,6 +15,7 @@ import net.minecraftforge.fml.loading.FMLLoader;
 import org.slf4j.Logger;
 import tld.unknown.mystery.client.ChaumtraftKeybinds;
 import tld.unknown.mystery.registries.ChaumtraftBlocks;
+import tld.unknown.mystery.registries.ChaumtraftEntities;
 import tld.unknown.mystery.registries.ChaumtraftItems;
 import tld.unknown.mystery.networking.ChaumtraftNetworking;
 import tld.unknown.mystery.registries.ChaumtraftRecipes;
@@ -46,6 +47,7 @@ public class Chaumtraft {
         ChaumtraftItems.init(modEventBus);
         ChaumtraftBlocks.init(modEventBus);
         ChaumtraftRecipes.init(modEventBus);
+        ChaumtraftEntities.init(modEventBus);
 
         ChaumtraftNetworking.init();
     }

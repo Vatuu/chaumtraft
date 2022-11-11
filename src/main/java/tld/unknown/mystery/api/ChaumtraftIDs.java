@@ -4,7 +4,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.registries.ForgeRegistries;
 import tld.unknown.mystery.Chaumtraft;
 
 public final class ChaumtraftIDs {
@@ -49,6 +48,11 @@ public final class ChaumtraftIDs {
     public static final class Items {
 
         public static final ResourceLocation THAUMONOMICON = Chaumtraft.id("thaumonomicon");
+
+        public static final ResourceLocation UPGRADE_SPEED = Chaumtraft.id("upgrade_speed");
+        public static final ResourceLocation UPGRADE_CAPACITY = Chaumtraft.id("upgrade_capacity");
+        public static final ResourceLocation UPGRADE_RAGE = Chaumtraft.id("upgrade_rage");
+        public static final ResourceLocation UPGRADE_EFFICIENCY = Chaumtraft.id("upgrade_efficiency");
     }
 
     public static final class Tags {
@@ -59,6 +63,11 @@ public final class ChaumtraftIDs {
     public static final class Blocks {
 
         public static final ResourceLocation CRUCIBLE = Chaumtraft.id("crucible");
+    }
+
+    public static final class Entities {
+
+        public static final ResourceLocation TRAVELING_TRUNK = Chaumtraft.id("traveling_trunk");
     }
 
     /**

@@ -10,9 +10,11 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import tld.unknown.mystery.Chaumtraft;
 import tld.unknown.mystery.client.rendering.ber.CrucibleBER;
+import tld.unknown.mystery.client.rendering.entity.TrunkEntityRenderer;
 import tld.unknown.mystery.client.rendering.ui.AspectTooltip;
 import tld.unknown.mystery.data.ChaumtraftData;
 import tld.unknown.mystery.registries.ChaumtraftBlocks;
+import tld.unknown.mystery.registries.ChaumtraftEntities;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Chaumtraft.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class RenderingEventHandlers {
@@ -37,6 +39,8 @@ public final class RenderingEventHandlers {
         @SubscribeEvent
         public static void onBlockEntityRendererRegister(EntityRenderersEvent.RegisterRenderers e) {
             e.registerBlockEntityRenderer(ChaumtraftBlocks.CRUCIBLE.entityType(), CrucibleBER::new);
+
+            e.registerEntityRenderer(ChaumtraftEntities.LIVING_TRUNK.entityType(), TrunkEntityRenderer::new);
         }
     }
 }

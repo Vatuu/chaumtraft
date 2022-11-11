@@ -8,8 +8,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import tld.unknown.mystery.Chaumtraft;
 import tld.unknown.mystery.api.ChaumtraftIDs;
+import tld.unknown.mystery.items.UpgradeItem;
 
 import java.util.function.Supplier;
+
+import static tld.unknown.mystery.api.ChaumtraftIDs.Items;
 
 public final class ChaumtraftItems {
 
@@ -17,13 +20,16 @@ public final class ChaumtraftItems {
 
     /* -------------------------------------------------------------------------------------------------------------- */
 
-    //public static RegistryObject<Item> THAUMONOMICON = register(ChaumtraftIDs.Items.THAUMONOMICON, ThaumonomiconItem::new);
+    public static RegistryObject<UpgradeItem> UPGRADE_SPEED = register(Items.UPGRADE_SPEED, () -> new UpgradeItem((byte)0b00000001));
+    public static RegistryObject<UpgradeItem> UPGRADE_CAPACITY = register(Items.UPGRADE_CAPACITY, () -> new UpgradeItem((byte)0b00000010));
+    public static RegistryObject<UpgradeItem> UPGRADE_RAGE = register(Items.UPGRADE_RAGE, () -> new UpgradeItem((byte)0b00000100));
+    public static RegistryObject<UpgradeItem> UPGRADE_EFFICIENCY = register(Items.UPGRADE_EFFICIENCY, () -> new UpgradeItem((byte)0b00001000));
 
     /* -------------------------------------------------------------------------------------------------------------- */
 
     public static void init(IEventBus bus) { REGISTRY.register(bus); }
 
-    private static RegistryObject<Item> register(ResourceLocation location, Supplier<? extends Item> instance) {
+    private static <T extends Item> RegistryObject<T> register(ResourceLocation location, Supplier<T> instance) {
         return REGISTRY.register(location.getPath(), instance);
     }
 }
