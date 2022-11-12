@@ -2,6 +2,7 @@ package tld.unknown.mystery.data.generator;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -33,6 +34,7 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         //------------------------------------------------------[BLOCKS]------------------------------------------------------------------------
         //STONES
         bothTag(Tags.Blocks.STONE, new AspectList().add(Aspects.CRYSTAL, 6));
+        bothTag(BlockTags.TERRACOTTA, new AspectList().add(Aspects.FIRE, 5).add(Aspects.SENSE, 1));
         bothTag(Tags.Items.END_STONES, new AspectList().add(Aspects.EARTH, 5).add(Aspects.DARKNESS, 5));
         //GLASS
         bothTag(Tags.Blocks.GLASS, new AspectList().add(Aspects.CRYSTAL, 6));
@@ -125,23 +127,6 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         both(new AspectList().add(Aspects.EARTH, 5).add(Aspects.PLANT, 1), Blocks.GRASS);
         both(new AspectList().add(Aspects.EARTH, 5).add(Aspects.PLANT, 1), Blocks.FARMLAND);
         //COOKABLE-CLAY-LIKE
-        both(new AspectList().add(Aspects.FIRE, 5).add(Aspects.SENSE, 1), Blocks.TERRACOTTA);
-        both(new AspectList().add(Aspects.FIRE, 5).add(Aspects.SENSE, 1), Blocks.BLACK_TERRACOTTA);
-        both(new AspectList().add(Aspects.FIRE, 5).add(Aspects.SENSE, 1), Blocks.BLUE_TERRACOTTA);
-        both(new AspectList().add(Aspects.FIRE, 5).add(Aspects.SENSE, 1), Blocks.BROWN_TERRACOTTA);
-        both(new AspectList().add(Aspects.FIRE, 5).add(Aspects.SENSE, 1), Blocks.CYAN_TERRACOTTA);
-        both(new AspectList().add(Aspects.FIRE, 5).add(Aspects.SENSE, 1), Blocks.GRAY_TERRACOTTA);
-        both(new AspectList().add(Aspects.FIRE, 5).add(Aspects.SENSE, 1), Blocks.GREEN_TERRACOTTA);
-        both(new AspectList().add(Aspects.FIRE, 5).add(Aspects.SENSE, 1), Blocks.LIGHT_BLUE_TERRACOTTA);
-        both(new AspectList().add(Aspects.FIRE, 5).add(Aspects.SENSE, 1), Blocks.LIGHT_GRAY_TERRACOTTA);
-        both(new AspectList().add(Aspects.FIRE, 5).add(Aspects.SENSE, 1), Blocks.LIME_TERRACOTTA);
-        both(new AspectList().add(Aspects.FIRE, 5).add(Aspects.SENSE, 1), Blocks.MAGENTA_TERRACOTTA);
-        both(new AspectList().add(Aspects.FIRE, 5).add(Aspects.SENSE, 1), Blocks.ORANGE_TERRACOTTA);
-        both(new AspectList().add(Aspects.FIRE, 5).add(Aspects.SENSE, 1), Blocks.PINK_TERRACOTTA);
-        both(new AspectList().add(Aspects.FIRE, 5).add(Aspects.SENSE, 1), Blocks.PURPLE_TERRACOTTA);
-        both(new AspectList().add(Aspects.FIRE, 5).add(Aspects.SENSE, 1), Blocks.RED_TERRACOTTA);
-        both(new AspectList().add(Aspects.FIRE, 5).add(Aspects.SENSE, 1), Blocks.WHITE_TERRACOTTA);
-        both(new AspectList().add(Aspects.FIRE, 5).add(Aspects.SENSE, 1), Blocks.YELLOW_TERRACOTTA);
         both(new AspectList().add(Aspects.FIRE, 5).add(Aspects.SENSE, 1), Blocks.BLACK_GLAZED_TERRACOTTA);
         both(new AspectList().add(Aspects.FIRE, 5).add(Aspects.SENSE, 1), Blocks.BLUE_GLAZED_TERRACOTTA);
         both(new AspectList().add(Aspects.FIRE, 5).add(Aspects.SENSE, 1), Blocks.BROWN_GLAZED_TERRACOTTA);
