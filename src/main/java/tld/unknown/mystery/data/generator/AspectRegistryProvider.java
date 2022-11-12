@@ -3,6 +3,7 @@ package tld.unknown.mystery.data.generator;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -59,6 +60,8 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         bothTag(UncommonTags.ORES_URANIUM, new AspectList().add(Aspects.METAL, 10).add(Aspects.DEATH, 5).add(Aspects.POWER, 10));
         //ORGANICS
         bothTag(Tags.Items.SEEDS, new AspectList().add(Aspects.PLANT, 5).add(Aspects.LIFE, 1));//SAND - LIKE
+        bothTag(BlockTags.SAPLINGS, new AspectList().add(Aspects.LIFE, 5).add(Aspects.PLANT, 15));//SAND - LIKE
+        bothTag(BlockTags.LOGS, new AspectList().add(Aspects.PLANT, 20));//SAND - LIKE
         bothTag(Tags.Items.SAND, new AspectList().add(Aspects.EARTH, 5).add(Aspects.DESTRUCTION, 5));
         bothTag(Tags.Items.GRAVEL, new AspectList().add(Aspects.EARTH, 5).add(Aspects.DESTRUCTION, 2));
         bothTag(Tags.Items.SANDSTONE, new AspectList().add(Aspects.ORDER, 2));
@@ -195,30 +198,23 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         both(new AspectList().add(Aspects.PLANT, 5), Blocks.MANGROVE_ROOTS);
 
         //COAL
-        item(new AspectList().add(Aspects.POWER, 10).add(Aspects.FIRE, 10), Items.COAL);
         both(new AspectList().add(Aspects.POWER, 90).add(Aspects.FIRE, 90), Blocks.COAL_BLOCK);
-        item(new AspectList().add(Aspects.POWER, 10).add(Aspects.FIRE, 10), Items.CHARCOAL);
         both(new AspectList().add(Aspects.SENSE, 10).add(Aspects.LIGHT, 10), Blocks.GLOWSTONE);
         //WOODS
-        item(new AspectList().add(Aspects.PLANT, 20), Items.OAK_LOG);
-        item(new AspectList().add(Aspects.PLANT, 20), Items.SPRUCE_LOG);
-        item(new AspectList().add(Aspects.PLANT, 20), Items.BIRCH_LOG);
-        item(new AspectList().add(Aspects.PLANT, 20), Items.JUNGLE_LOG);
-        item(new AspectList().add(Aspects.PLANT, 20), Items.ACACIA_LOG);
-        item(new AspectList().add(Aspects.PLANT, 20), Items.DARK_OAK_LOG);
-        item(new AspectList().add(Aspects.PLANT, 20), Items.MANGROVE_LOG);
-        item(new AspectList().add(Aspects.PLANT, 15).add(Aspects.CHANGE, 5), Items.STRIPPED_OAK_LOG);
-        item(new AspectList().add(Aspects.PLANT, 15).add(Aspects.CHANGE, 5), Items.STRIPPED_SPRUCE_LOG);
-        item(new AspectList().add(Aspects.PLANT, 15).add(Aspects.CHANGE, 5), Items.STRIPPED_BIRCH_LOG);
-        item(new AspectList().add(Aspects.PLANT, 15).add(Aspects.CHANGE, 5), Items.STRIPPED_JUNGLE_LOG);
-        item(new AspectList().add(Aspects.PLANT, 15).add(Aspects.CHANGE, 5), Items.STRIPPED_ACACIA_LOG);
-        item(new AspectList().add(Aspects.PLANT, 15).add(Aspects.CHANGE, 5), Items.STRIPPED_DARK_OAK_LOG);
-        item(new AspectList().add(Aspects.PLANT, 15).add(Aspects.CHANGE, 5), Items.STRIPPED_MANGROVE_LOG);
+
+        item(new AspectList().add(Aspects.CHANGE, 5), Items.STRIPPED_OAK_LOG);
+        item(new AspectList().add(Aspects.CHANGE, 5), Items.STRIPPED_SPRUCE_LOG);
+        item(new AspectList().add(Aspects.CHANGE, 5), Items.STRIPPED_BIRCH_LOG);
+        item(new AspectList().add(Aspects.CHANGE, 5), Items.STRIPPED_JUNGLE_LOG);
+        item(new AspectList().add(Aspects.CHANGE, 5), Items.STRIPPED_ACACIA_LOG);
+        item(new AspectList().add(Aspects.CHANGE, 5), Items.STRIPPED_DARK_OAK_LOG);
+        item(new AspectList().add(Aspects.CHANGE, 5), Items.STRIPPED_MANGROVE_LOG);
 
 
         //------------------------------------------------------[ITEMS]------------------------------------------------------------------------
         //PLANTS
         bothTag(Tags.Items.DYES, new AspectList().add(Aspects.SENSE, 5).add(Aspects.CHANGE, 5).add(Aspects.LIFE, 5));
+        itemTag(ItemTags.COALS, new AspectList().add(Aspects.POWER, 10).add(Aspects.FIRE, 10));//SAND - LIKE
 
         //GEMS
         itemTag(Tags.Items.GEMS, new AspectList().add(Aspects.CRYSTAL, 5));
