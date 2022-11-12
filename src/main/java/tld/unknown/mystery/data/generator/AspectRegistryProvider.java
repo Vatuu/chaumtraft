@@ -86,6 +86,66 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         bothTag(BlockTags.FENCE_GATES, new AspectList().add(Aspects.TRAP, 5).add(Aspects.MOVEMENT, 5));
         //SHULKER BOXES
         bothTag(BlockTags.SHULKER_BOXES, new AspectList().add(Aspects.EMPTY, 15).add(Aspects.CREATURE, 15).add(Aspects.CHANGE, 5)); // THIS NEEDS PROTECT AND ELDRITCH TO MATCH THAUMCRAFT
+        //BANNERS
+        bothTag(BlockTags.BANNERS, new AspectList().add(Aspects.AURA, 15).add(Aspects.MAGIC, 5));
+        //BEACON_BASE
+        bothTag(BlockTags.BEACON_BASE_BLOCKS, new AspectList().add(Aspects.DESIRE, 15).add(Aspects.MIND, 5));
+        //BEDS
+        bothTag(BlockTags.BEDS, new AspectList().add(Aspects.HUMAN, 15).add(Aspects.MIND, 5));
+        //BEEHIVES
+        bothTag(BlockTags.BEEHIVES, new AspectList().add(Aspects.CREATURE, 15).add(Aspects.MIND, 5));
+        //BEE_GROWABLES
+        bothTag(BlockTags.BEE_GROWABLES, new AspectList().add(Aspects.CREATURE, 5).add(Aspects.LIFE, 5));
+        //BUTTONS
+        bothTag(BlockTags.BUTTONS, new AspectList().add(Aspects.MACHINE, 5).add(Aspects.POWER, 5));
+        //CAMPFIRES
+        bothTag(BlockTags.CAMPFIRES, new AspectList().add(Aspects.FIRE, 15).add(Aspects.MIND, 5));
+        //CANDEL_CAKES
+        bothTag(BlockTags.CANDLE_CAKES, new AspectList().add(Aspects.FIRE, 5).add(Aspects.DESIRE, 10));
+        //CANDLES
+        bothTag(BlockTags.CANDLES, new AspectList().add(Aspects.FIRE, 5));
+        //CAULDRONS
+        bothTag(BlockTags.CAULDRONS, new AspectList().add(Aspects.MACHINE, 5).add(Aspects.METAL, 5).add(Aspects.EMPTY, 5));
+        //CLIMBABLE
+        bothTag(BlockTags.CLIMBABLE, new AspectList().add(Aspects.MOVEMENT, 5).add(Aspects.MIND, 5));
+        //DRAGON_IMMUNE
+        bothTag(BlockTags.DRAGON_IMMUNE, new AspectList().add(Aspects.MAGIC, 25).add(Aspects.MIND, 5));
+        //FALL_DAMAGE_IMMUNE
+        bothTag(BlockTags.FALL_DAMAGE_RESETTING, new AspectList().add(Aspects.MOVEMENT, 2));
+        //FIRE
+        bothTag(BlockTags.FIRE, new AspectList().add(Aspects.FIRE, 5));
+        //FLOWER_POTS
+        bothTag(BlockTags.FLOWER_POTS, new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 5));
+        //FLOWERS
+        bothTag(BlockTags.FLOWERS, new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 5));
+        //INSIDE_STEP_SOUND
+        bothTag(BlockTags.INSIDE_STEP_SOUND_BLOCKS, new AspectList().add(Aspects.MOVEMENT, 1));
+        //LEAVES
+        bothTag(BlockTags.LEAVES, new AspectList().add(Aspects.PLANT, 5));
+        //NYLIUM
+        bothTag(BlockTags.NYLIUM, new AspectList().add(Aspects.MAGIC, 5).add(Aspects.FLUX, 5));
+        //RAILS
+        bothTag(BlockTags.RAILS, new AspectList().add(Aspects.MOVEMENT, 5).add(Aspects.MACHINE, 5).add(Aspects.METAL, 5));
+        //SIGNS
+        bothTag(BlockTags.SIGNS, new AspectList().add(Aspects.PLANT, 2).add(Aspects.CRAFT, 2));
+        //SLABS
+        bothTag(BlockTags.SLABS, new AspectList().add(Aspects.CRAFT, 1));
+        //SNOW
+        bothTag(BlockTags.SNOW, new AspectList().add(Aspects.ICE, 5));
+        //STAIRS
+        bothTag(BlockTags.STAIRS, new AspectList().add(Aspects.MOVEMENT, 1));
+        //STONE_BRICKS
+        bothTag(BlockTags.STONE_BRICKS, new AspectList().add(Aspects.EARTH, 5).add(Aspects.CRAFT, 2));
+        //TRAPDOORS
+        bothTag(BlockTags.TRAPDOORS, new AspectList().add(Aspects.TRAP, 5).add(Aspects.MOVEMENT, 5));
+        //WALLS
+        bothTag(BlockTags.WALLS, new AspectList().add(Aspects.CRAFT, 1));
+        //WALL_CORALS
+        bothTag(BlockTags.WALL_CORALS, new AspectList().add(Aspects.PLANT, 5).add(Aspects.WATER, 5));
+        //WARPED_STEMS
+        bothTag(BlockTags.WARPED_STEMS, new AspectList().add(Aspects.MAGIC, 5).add(Aspects.FLUX, 5));
+        //WART_BLOCKS
+        bothTag(BlockTags.WART_BLOCKS, new AspectList().add(Aspects.PLANT, 5).add(Aspects.MAGIC, 5).add(Aspects.ALCHEMY, 25).add(Aspects.FLUX, 5));
 
         //------------------------------------------------------[NON-TAGGED]------------------------------------------------------------------------
         //NETHER
@@ -96,22 +156,6 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         item(new AspectList().add(Aspects.EMPTY, 15).add(Aspects.CREATURE, 15).add(Aspects.CHANGE, 5), Items.SHULKER_SHELL);
 
         //PLANTS
-        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.DANDELION);
-        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.POPPY);
-        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.BLUE_ORCHID);
-        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.ALLIUM);
-        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.AZURE_BLUET);
-        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.RED_TULIP);
-        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.ORANGE_TULIP);
-        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.WHITE_TULIP);
-        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.PINK_TULIP);
-        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.OXEYE_DAISY);
-        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.CORNFLOWER);
-        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.LILY_OF_THE_VALLEY);
-        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.SUNFLOWER);
-        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.LILAC);
-        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.ROSE_BUSH);
-        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.PEONY);
         both(new AspectList().add(Aspects.PLANT, 2), Blocks.TALL_GRASS);
         both(new AspectList().add(Aspects.PLANT, 4), Blocks.LARGE_FERN);
         both(new AspectList().add(Aspects.PLANT, 5), Blocks.FERN);
@@ -130,10 +174,6 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
 
         //STONES
         both(new AspectList().add(Aspects.EARTH, 5), Blocks.BRICKS);
-        both(new AspectList().add(Aspects.EARTH, 5), Blocks.STONE_BRICKS);
-        both(new AspectList().add(Aspects.EARTH, 5), Blocks.CRACKED_STONE_BRICKS);
-        both(new AspectList().add(Aspects.EARTH, 5).add(Aspects.PLANT, 2), Blocks.MOSSY_STONE_BRICKS);
-        both(new AspectList().add(Aspects.EARTH, 5), Blocks.CHISELED_STONE_BRICKS);
         both(new AspectList().add(Aspects.EARTH, 5), Blocks.STONE);
         both(new AspectList().add(Aspects.EARTH, 5), Blocks.GRANITE);
         both(new AspectList().add(Aspects.EARTH, 5), Blocks.ANDESITE);
@@ -205,13 +245,6 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         both(new AspectList().add(Aspects.LIFE, 5).add(Aspects.PLANT, 15), Blocks.OAK_SAPLING);
         both(new AspectList().add(Aspects.LIFE, 5).add(Aspects.PLANT, 15), Blocks.SPRUCE_SAPLING);
         both(new AspectList().add(Aspects.LIFE, 5).add(Aspects.PLANT, 15), Blocks.MANGROVE_PROPAGULE);
-        both(new AspectList().add(Aspects.PLANT, 5), Blocks.ACACIA_LEAVES);
-        both(new AspectList().add(Aspects.PLANT, 5), Blocks.BIRCH_LEAVES);
-        both(new AspectList().add(Aspects.PLANT, 5), Blocks.DARK_OAK_LEAVES);
-        both(new AspectList().add(Aspects.PLANT, 5), Blocks.JUNGLE_LEAVES);
-        both(new AspectList().add(Aspects.PLANT, 5), Blocks.OAK_LEAVES);
-        both(new AspectList().add(Aspects.PLANT, 5), Blocks.SPRUCE_LEAVES);
-        both(new AspectList().add(Aspects.PLANT, 5), Blocks.MANGROVE_LEAVES);
         both(new AspectList().add(Aspects.PLANT, 5), Blocks.MANGROVE_ROOTS);
 
         //COAL
@@ -229,6 +262,22 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
 
 
         //------------------------------------------------------[ITEMS]------------------------------------------------------------------------
+        //ARROWS
+        itemTag(ItemTags.ARROWS, new AspectList().add(Aspects.AVERSION, 5).add(Aspects.FLIGHT, 5));
+        //BOATS
+        itemTag(ItemTags.BOATS, new AspectList().add(Aspects.WATER, 5).add(Aspects.MOVEMENT, 5));
+        //CHEST_BOATS
+        itemTag(ItemTags.CHEST_BOATS, new AspectList().add(Aspects.WATER, 5).add(Aspects.MOVEMENT, 5).add(Aspects.EMPTY, 5));
+        //COMPASSES
+        itemTag(ItemTags.COMPASSES, new AspectList().add(Aspects.MIND, 5).add(Aspects.MOVEMENT, 5));
+        //FISHES
+        itemTag(ItemTags.FISHES, new AspectList().add(Aspects.WATER, 5).add(Aspects.LIFE, 5));
+        //MUSIC_DISCS
+        itemTag(ItemTags.MUSIC_DISCS, new AspectList().add(Aspects.MIND, 25).add(Aspects.DESIRE, 25).add(Aspects.SENSE, 5));
+        //PLANKS
+
+
+
         //PLANTS
         bothTag(Tags.Items.DYES, new AspectList().add(Aspects.SENSE, 5).add(Aspects.CHANGE, 5).add(Aspects.LIFE, 5));
         itemTag(ItemTags.COALS, new AspectList().add(Aspects.POWER, 10).add(Aspects.FIRE, 10));//SAND - LIKE
