@@ -1,6 +1,0 @@
-{
-  "icon": "chaumtraft:textures/ui/research/categories/debug.png",
-  "requirements": [
-    "chaumtraft:internal/unlock_debug"
-  ]
-}
