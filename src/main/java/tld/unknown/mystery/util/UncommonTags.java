@@ -48,7 +48,6 @@ public final class UncommonTags {
     public static final TagKey<Item> INGOTS_TUNGSTENSTEEL = ItemTags.create(new ResourceLocation("forge", "ingots/tungstensteel"));
     // ORES
 //    public static final TagKey<Block> ORES_GLOWSTONE = BlockTags.create(new ResourceLocation("forge", "ores/glowstone"));
-    public static final TagKey<Item> ORES_GLOWSTONE = ItemTags.create(new ResourceLocation("forge", "ores/glowstone"));
     public static final TagKey<Item> ORES_TIN = ItemTags.create(new ResourceLocation("forge", "ores/tin"));
     public static final TagKey<Item> ORES_SILVER = ItemTags.create(new ResourceLocation("forge", "ores/silver"));
     public static final TagKey<Item> ORES_LEAD = ItemTags.create(new ResourceLocation("forge", "ores/lead"));
@@ -71,5 +70,4 @@ public final class UncommonTags {
     public static final TagKey<Item> ITEM_RUBBER = ItemTags.create(new ResourceLocation("forge", "misc_items/rubber"));
     public static final TagKey<Item> ITEM_SILICON = ItemTags.create(new ResourceLocation("forge", "misc_items/silicon"));
     public static final TagKey<Item> ITEM_SULFUR = ItemTags.create(new ResourceLocation("forge", "misc_items/sulfur"));
-    public static final TagKey<Item> ITEM_COAL = ItemTags.create(new ResourceLocation("forge", "misc_items/coal"));
 }
