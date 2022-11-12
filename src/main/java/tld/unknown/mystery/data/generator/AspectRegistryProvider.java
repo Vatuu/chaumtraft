@@ -11,7 +11,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
-import tld.unknown.mystery.api.Aspect;
 import tld.unknown.mystery.data.aspects.AspectList;
 import tld.unknown.mystery.util.UncommonTags;
 import tld.unknown.mystery.util.codec.data.CodecDataProvider;
@@ -59,9 +58,12 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         bothTag(UncommonTags.ORES_BRONZE, new AspectList().add(Aspects.METAL, 10).add(Aspects.TOOL, 5));
         bothTag(UncommonTags.ORES_URANIUM, new AspectList().add(Aspects.METAL, 10).add(Aspects.DEATH, 5).add(Aspects.POWER, 10));
         //ORGANICS
-        bothTag(Tags.Items.SEEDS, new AspectList().add(Aspects.PLANT, 5).add(Aspects.LIFE, 1));//SAND - LIKE
-        bothTag(BlockTags.SAPLINGS, new AspectList().add(Aspects.LIFE, 5).add(Aspects.PLANT, 15));//SAND - LIKE
-        bothTag(BlockTags.LOGS, new AspectList().add(Aspects.PLANT, 20));//SAND - LIKE
+        bothTag(Tags.Items.MUSHROOMS, new AspectList().add(Aspects.PLANT, 5).add(Aspects.DARKNESS, 2).add(Aspects.EARTH, 2));//SAND - LIKE
+        bothTag(Tags.Items.SEEDS, new AspectList().add(Aspects.PLANT, 5).add(Aspects.LIFE, 1));
+        bothTag(BlockTags.SAPLINGS, new AspectList().add(Aspects.LIFE, 5).add(Aspects.PLANT, 15));
+        bothTag(BlockTags.LOGS, new AspectList().add(Aspects.PLANT, 20));
+        bothTag(BlockTags.CROPS, new AspectList().add(Aspects.PLANT, 5).add(Aspects.LIFE, 5));
+//        bothTag(BlockTags.STRIPPED_LOGS, new AspectList().add(Aspects.PLANT, 20));
         bothTag(Tags.Items.SAND, new AspectList().add(Aspects.EARTH, 5).add(Aspects.DESTRUCTION, 5));
         bothTag(Tags.Items.GRAVEL, new AspectList().add(Aspects.EARTH, 5).add(Aspects.DESTRUCTION, 2));
         bothTag(Tags.Items.SANDSTONE, new AspectList().add(Aspects.ORDER, 2));
@@ -72,15 +74,26 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         bothTag(Tags.Items.COBBLESTONE_MOSSY, new AspectList().add(Aspects.EARTH, 2).add(Aspects.PLANT, 2).add(Aspects.DESTRUCTION, 2));
         //NETHER - LIKE
         bothTag(Tags.Items.NETHERRACK, new AspectList().add(Aspects.EARTH, 2).add(Aspects.FIRE, 2));
+        bothTag(Tags.Items.CROPS_NETHER_WART, new AspectList().add(Aspects.PLANT, 1).add(Aspects.FLUX, 2).add(Aspects.ALCHEMY, 3));
         bothTag(Tags.Items.OBSIDIAN, new AspectList().add(Aspects.EARTH, 5).add(Aspects.FIRE, 5).add(Aspects.DARKNESS, 5));
-
-
-
+        //WOOLS
+        bothTag(BlockTags.DAMPENS_VIBRATIONS, new AspectList().add(Aspects.CREATURE, 15).add(Aspects.CRAFT, 5));
+        //ICES
+        bothTag(BlockTags.ICE, new AspectList().add(Aspects.ICE, 20).add(Aspects.ORDER, 5));
+        //DOORS
+        bothTag(BlockTags.DOORS, new AspectList().add(Aspects.TRAP, 5).add(Aspects.MOVEMENT, 10));
+        //FENCES
+        bothTag(BlockTags.FENCE_GATES, new AspectList().add(Aspects.TRAP, 5).add(Aspects.MOVEMENT, 5));
+        //SHULKER BOXES
+        bothTag(BlockTags.SHULKER_BOXES, new AspectList().add(Aspects.EMPTY, 15).add(Aspects.CREATURE, 15).add(Aspects.CHANGE, 5)); // THIS NEEDS PROTECT AND ELDRITCH TO MATCH THAUMCRAFT
 
         //------------------------------------------------------[NON-TAGGED]------------------------------------------------------------------------
         //NETHER
         both(new AspectList().add(Aspects.EARTH, 3).add(Aspects.TRAP, 2).add(Aspects.SPIRIT, 4), Blocks.SOUL_SAND);
         both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.DEATH, 2).add(Aspects.UNDEAD, 2).add(Aspects.DESTRUCTION, 3), Blocks.WITHER_ROSE);
+
+        //SHULKER BOXES
+        item(new AspectList().add(Aspects.EMPTY, 15).add(Aspects.CREATURE, 15).add(Aspects.CHANGE, 5), Items.SHULKER_SHELL);
 
         //PLANTS
         both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.DANDELION);
@@ -99,15 +112,20 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.LILAC);
         both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.ROSE_BUSH);
         both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.PEONY);
-        both(new AspectList().add(Aspects.PLANT, 4), Blocks.LARGE_FERN);
         both(new AspectList().add(Aspects.PLANT, 2), Blocks.TALL_GRASS);
         both(new AspectList().add(Aspects.PLANT, 4), Blocks.LARGE_FERN);
         both(new AspectList().add(Aspects.PLANT, 5), Blocks.FERN);
+        both(new AspectList().add(Aspects.PLANT, 5), Blocks.VINE);
+        both(new AspectList().add(Aspects.PLANT, 5), Blocks.CAVE_VINES);
+        both(new AspectList().add(Aspects.PLANT, 5), Blocks.CAVE_VINES_PLANT);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.WATER, 5).add(Aspects.AVERSION, 1), Blocks.CACTUS);
         both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.DESTRUCTION, 1), Blocks.DEAD_BUSH);
         both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.WATER, 3).add(Aspects.AIR, 2), Blocks.SUGAR_CANE);
         both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.WATER, 1), Blocks.LILY_PAD);
         both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.AVERSION, 2), Blocks.SWEET_BERRY_BUSH);
-
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.DARKNESS, 2).add(Aspects.EARTH, 2), Blocks.MUSHROOM_STEM);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.DARKNESS, 2).add(Aspects.EARTH, 2), Blocks.BROWN_MUSHROOM_BLOCK);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.DARKNESS, 2).add(Aspects.EARTH, 2), Blocks.RED_MUSHROOM_BLOCK);
 
 
         //STONES
@@ -117,7 +135,6 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         both(new AspectList().add(Aspects.EARTH, 5).add(Aspects.PLANT, 2), Blocks.MOSSY_STONE_BRICKS);
         both(new AspectList().add(Aspects.EARTH, 5), Blocks.CHISELED_STONE_BRICKS);
         both(new AspectList().add(Aspects.EARTH, 5), Blocks.STONE);
-        both(new AspectList().add(Aspects.EARTH, 5), Blocks.STONE_BRICKS);
         both(new AspectList().add(Aspects.EARTH, 5), Blocks.GRANITE);
         both(new AspectList().add(Aspects.EARTH, 5), Blocks.ANDESITE);
         both(new AspectList().add(Aspects.EARTH, 5).add(Aspects.DESTRUCTION, 2), Blocks.COBBLESTONE);
