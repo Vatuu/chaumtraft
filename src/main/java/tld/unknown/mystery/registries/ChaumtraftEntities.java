@@ -29,7 +29,7 @@ public final class ChaumtraftEntities {
 
     public static LivingEntityObject<TrunkEntity> LIVING_TRUNK = registerLiving(ChaumtraftIDs.Entities.TRAVELING_TRUNK, TrunkEntity::new, MobCategory.MISC, .875F, .875F,
             s -> { },
-            livingAttributes(a -> a.add(Attributes.MAX_HEALTH, 50)));
+            mobAttributes(a -> a.add(Attributes.MAX_HEALTH, 50)));
 
     /* -------------------------------------------------------------------------------------------------------------- */
 
@@ -55,7 +55,15 @@ public final class ChaumtraftEntities {
 
     private static Supplier<AttributeSupplier> livingAttributes(Consumer<AttributeSupplier.Builder> additionalAttributes) {
         return () -> {
-            AttributeSupplier.Builder supplier = Mob.createLivingAttributes();
+            AttributeSupplier.Builder supplier = LivingEntity.createLivingAttributes();
+            additionalAttributes.accept(supplier);
+            return supplier.build();
+        };
+    }
+
+    private static Supplier<AttributeSupplier> mobAttributes(Consumer<AttributeSupplier.Builder> additionalAttributes) {
+        return () -> {
+            AttributeSupplier.Builder supplier = Mob.createMobAttributes();
             additionalAttributes.accept(supplier);
             return supplier.build();
         };
