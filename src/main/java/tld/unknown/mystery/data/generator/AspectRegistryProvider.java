@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
+import tld.unknown.mystery.api.Aspect;
 import tld.unknown.mystery.data.aspects.AspectList;
 import tld.unknown.mystery.util.UncommonTags;
 import tld.unknown.mystery.util.codec.data.CodecDataProvider;
@@ -74,6 +75,33 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         //------------------------------------------------------[NON-TAGGED]------------------------------------------------------------------------
         //NETHER
         both(new AspectList().add(Aspects.EARTH, 3).add(Aspects.TRAP, 2).add(Aspects.SPIRIT, 4), Blocks.SOUL_SAND);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.DEATH, 2).add(Aspects.UNDEAD, 2).add(Aspects.DESTRUCTION, 3), Blocks.WITHER_ROSE);
+
+        //PLANTS
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.DANDELION);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.POPPY);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.BLUE_ORCHID);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.ALLIUM);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.AZURE_BLUET);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.RED_TULIP);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.ORANGE_TULIP);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.WHITE_TULIP);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.PINK_TULIP);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.OXEYE_DAISY);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.CORNFLOWER);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.LILY_OF_THE_VALLEY);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.SUNFLOWER);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.LILAC);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.ROSE_BUSH);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.SENSE, 2), Blocks.PEONY);
+        both(new AspectList().add(Aspects.PLANT, 4), Blocks.LARGE_FERN);
+        both(new AspectList().add(Aspects.PLANT, 2), Blocks.TALL_GRASS);
+        both(new AspectList().add(Aspects.PLANT, 4), Blocks.LARGE_FERN);
+        both(new AspectList().add(Aspects.PLANT, 5), Blocks.FERN);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.DESTRUCTION, 1), Blocks.DEAD_BUSH);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.WATER, 3).add(Aspects.AIR, 2), Blocks.SUGAR_CANE);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.WATER, 1), Blocks.LILY_PAD);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.AVERSION, 2), Blocks.SWEET_BERRY_BUSH);
 
 
 
@@ -201,9 +229,6 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         item(new AspectList().add(Aspects.PLANT, 15).add(Aspects.CHANGE, 5), Items.STRIPPED_ACACIA_LOG);
         item(new AspectList().add(Aspects.PLANT, 15).add(Aspects.CHANGE, 5), Items.STRIPPED_DARK_OAK_LOG);
         item(new AspectList().add(Aspects.PLANT, 15).add(Aspects.CHANGE, 5), Items.STRIPPED_MANGROVE_LOG);
-
-
-
 
 
         //------------------------------------------------------[ITEMS]------------------------------------------------------------------------
