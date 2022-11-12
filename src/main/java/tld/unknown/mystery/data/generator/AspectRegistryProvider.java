@@ -78,6 +78,7 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         bothTag(Tags.Items.OBSIDIAN, new AspectList().add(Aspects.EARTH, 5).add(Aspects.FIRE, 5).add(Aspects.DARKNESS, 5));
         //WOOLS
         bothTag(BlockTags.DAMPENS_VIBRATIONS, new AspectList().add(Aspects.CREATURE, 15).add(Aspects.CRAFT, 5));
+        bothTag(BlockTags.WOOL_CARPETS, new AspectList().remove(Aspects.CREATURE, 4).add(Aspects.CRAFT, 1));
         //ICES
         bothTag(BlockTags.ICE, new AspectList().add(Aspects.ICE, 20).add(Aspects.ORDER, 5));
         //DOORS
@@ -184,7 +185,6 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         both(new AspectList().add(Aspects.EARTH, 5), Blocks.DIRT_PATH);
         both(new AspectList().add(Aspects.EARTH, 5), Blocks.COARSE_DIRT);
         both(new AspectList().add(Aspects.EARTH, 5).add(Aspects.PLANT, 2), Blocks.ROOTED_DIRT);
-        both(new AspectList().add(Aspects.EARTH, 5).add(Aspects.PLANT, 1), Blocks.GRASS);
         both(new AspectList().add(Aspects.EARTH, 5).add(Aspects.PLANT, 1), Blocks.FARMLAND);
         //COOKABLE-CLAY-LIKE
         both(new AspectList().add(Aspects.FIRE, 5).add(Aspects.SENSE, 1), Blocks.BLACK_GLAZED_TERRACOTTA);
@@ -275,6 +275,8 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         //MUSIC_DISCS
         itemTag(ItemTags.MUSIC_DISCS, new AspectList().add(Aspects.MIND, 25).add(Aspects.DESIRE, 25).add(Aspects.SENSE, 5));
         //PLANKS
+        itemTag(ItemTags.PLANKS, new AspectList().add(Aspects.PLANT, 5).add(Aspects.CRAFT, 1));
+
 
 
 
@@ -323,6 +325,12 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         itemTag(UncommonTags.INGOTS_URANIUM, new AspectList().add(Aspects.METAL, 10).add(Aspects.DEATH, 5).add(Aspects.POWER, 5));
         itemTag(UncommonTags.INGOTS_STEEL, new AspectList().add(Aspects.METAL, 11).add(Aspects.ORDER, 5));
         //MISC ITEMS
+        both(new AspectList().add(Aspects.EARTH, 5), Blocks.CALCITE);
+        both(new AspectList().add(Aspects.EARTH, 5), Blocks.DRIPSTONE_BLOCK);
+        both(new AspectList().add(Aspects.EARTH, 5).add(Aspects.PLANT, 2), Blocks.GRASS);
+        both(new AspectList().add(Aspects.FLUX, 5).add(Aspects.EARTH, 2), Blocks.PODZOL);
+
+
         itemTag(Tags.Items.SLIMEBALLS, new AspectList().add(Aspects.WATER, 5).add(Aspects.LIFE, 5).add(Aspects.ALCHEMY, 1));
         itemTag(UncommonTags.ITEM_RUBBER, new AspectList().add(Aspects.WATER, 5).add(Aspects.MOVEMENT, 5).add(Aspects.TOOL, 5));
     }
