@@ -3,7 +3,7 @@
 
 /Assets/
 
-/src/datagen/resources/.cache/
+/src/datagen/
 
 *.iml
 *.ipr
