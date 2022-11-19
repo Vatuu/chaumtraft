@@ -5,17 +5,18 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AbstractCauldronBlock;
-import net.minecraft.world.level.block.CauldronBlock;
-import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
@@ -26,7 +27,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
 import tld.unknown.mystery.Chaumtraft;
 import tld.unknown.mystery.blocks.entities.CrucibleBlockEntity;
@@ -71,26 +71,54 @@ public class CrucibleBlock extends SimpleEntityBlock<CrucibleBlockEntity> {
         return pBlockEntityType == ChaumtraftBlocks.CRUCIBLE.entityType() ? CrucibleBlockEntity::tick : null;
     }
 
+    public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
+        if(!pLevel.isClientSide()) {
+            CrucibleBlockEntity be = getEntity(pLevel, pPos);
+            if(!FluidHelper.isTankEmpty(be) && be.isCooking()) {
+                if(pEntity instanceof ItemEntity e) {
+                    ItemStack stack = e.getItem().copy();
+                    if(be.processInput(e.getItem(), e.getOwner() != null ? pLevel.getPlayerByUUID(e.getOwner()) : null)) {
+                        if(stack.isEmpty()) {
+                            e.kill();
+                        } else {
+                            e.setItem(stack);
+                        }
+                    }
+                } else if(pEntity instanceof LivingEntity e) {
+                    e.hurt(DamageSource.IN_FIRE, 1.0F);
+                    pLevel.playSound(null, pPos, SoundEvents.LAVA_EXTINGUISH, SoundSource.BLOCKS, 0.4F, 2.0F + pLevel.getRandom().nextFloat() * 0.4F);
+                }
+            }
+        }
+        super.entityInside(pState, pLevel, pPos, pEntity);
+    }
+
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if(!pLevel.isClientSide) {
+            CrucibleBlockEntity be = getEntity(pLevel, pPos);
             Optional<FluidStack> stack = FluidUtil.getFluidContained(pPlayer.getItemInHand(pHand));
             if(stack.isPresent() && stack.get().containsFluid(new FluidStack(Fluids.WATER, 1000))) {
-                CrucibleBlockEntity be = getEntity(pLevel, pPos);
                 if(!FluidHelper.isTankFull(be) && FluidUtil.interactWithFluidHandler(pPlayer, pHand, be)) {
                     float randomPitch = 1.0F + (pLevel.getRandom().nextFloat() - pLevel.getRandom().nextFloat()) * .3F;
-                    pLevel.playSound(null, pPos.getX() + .5D, pPos.getY() + .5D, pPos.getZ() + .5D, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, .33F, randomPitch);
+                    pLevel.playSound(null, pPos, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, .33F, randomPitch);
                     be.sync();
+                }
+                return InteractionResult.SUCCESS;
+            } else if(!FluidHelper.isTankEmpty(be) && be.isCooking() && !pPlayer.isCrouching() && !pPlayer.getMainHandItem().isEmpty()) {
+                if(be.processInput(new ItemStack(pPlayer.getMainHandItem().getItem()), pPlayer)) {
+                    pPlayer.getMainHandItem().shrink(1);
                 }
                 return InteractionResult.SUCCESS;
             } else if(pPlayer.getMainHandItem().isEmpty() && pPlayer.isCrouching()) {
                 getEntity(pLevel, pPos).emptyCrucible();
                 return InteractionResult.SUCCESS;
+            } else {
+                Chaumtraft.debug("Aspect List: " + be.getAspects());
             }
         } else {
             return InteractionResult.SUCCESS;
         }
-
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }
 }

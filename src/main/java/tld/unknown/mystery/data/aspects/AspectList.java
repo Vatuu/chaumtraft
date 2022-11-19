@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.util.TriConsumer;
 
 import java.util.Map;
+import java.util.Set;
 
 public class AspectList {
 
@@ -20,15 +21,13 @@ public class AspectList {
         this.aspects = aspects;
     }
 
-    public void merge(AspectList list) {
-        list.forEachAspect((aspect, amount, i) -> {
-            aspects.computeIfPresent(aspect, (rl, a) -> (short)(a + amount));
-            aspects.putIfAbsent(aspect, amount);
-        });
-    }
-
     public AspectList add(ResourceLocation aspect, int amount) {
         aspects.compute(aspect, (rl, a) -> a == null ? (short)amount : (short)(amount + a));
+        return this;
+    }
+
+    public AspectList remove(AspectList list) {
+        list.indexedForEach((rl, s, i) -> remove(rl, s));
         return this;
     }
 
@@ -42,15 +41,40 @@ public class AspectList {
         return this;
     }
 
-    public int aspectTypeCount() {
-        return aspects.size();
+    public boolean contains(AspectList list) {
+        for(Map.Entry<ResourceLocation, Short> entry : list.entrySet()) {
+            if(!contains(entry.getKey(), entry.getValue())) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    public void forEachAspect(TriConsumer<ResourceLocation, Short, Integer> consumer) {
-        int i = 0;
-        for(Map.Entry<ResourceLocation, Short> entry : aspects.entrySet()) {
-            consumer.accept(entry.getKey(), entry.getValue(), i++);
+    public boolean contains(ResourceLocation type) {
+        return aspects.containsKey(type);
+    }
+
+    public boolean contains(ResourceLocation location, short amount) {
+        return aspects.containsKey(location) && aspects.get(location) >= amount;
+    }
+
+    public void merge(AspectList list) {
+        list.indexedForEach((aspect, amount, i) -> {
+            aspects.computeIfPresent(aspect, (rl, a) -> (short)(a + amount));
+            aspects.putIfAbsent(aspect, amount);
+        });
+    }
+
+    public int size() {
+        int amount = 0;
+        for(short s : aspects.values()) {
+            amount += s;
         }
+        return amount;
+    }
+
+    public int aspectCount() {
+        return aspects.size();
     }
 
     public boolean isEmpty() {
@@ -61,13 +85,37 @@ public class AspectList {
         aspects.clear();
     }
 
+    public Set<Map.Entry<ResourceLocation, Short>> entrySet() {
+        return aspects.entrySet();
+    }
+
+    public void indexedForEach(TriConsumer<ResourceLocation, Short, Integer> consumer) {
+        int i = 0;
+        for(Map.Entry<ResourceLocation, Short> entry : aspects.entrySet()) {
+            consumer.accept(entry.getKey(), entry.getValue(), i++);
+        }
+    }
+
     public AspectList clone() {
         return new AspectList(aspects);
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder("AspectList[");
+        indexedForEach((rl, a, i) -> {
+            builder.append(rl).append(" ").append(a);
+            if(i != aspects.size() - 1) {
+                builder.append(" | ");
+            }
+        });
+        builder.append("]");
+        return builder.toString();
+    }
+
     public CompoundTag toNBT() {
         CompoundTag tag = new CompoundTag();
-        forEachAspect((rl, s, i) -> tag.putShort(rl.toString(), s));
+        indexedForEach((rl, s, i) -> tag.putShort(rl.toString(), s));
         return tag;
     }
 

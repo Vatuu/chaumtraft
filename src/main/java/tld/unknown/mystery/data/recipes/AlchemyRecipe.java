@@ -7,6 +7,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import tld.unknown.mystery.api.IResearchCapability;
 import tld.unknown.mystery.data.aspects.AspectList;
 import tld.unknown.mystery.registries.ChaumtraftRecipes;
 import tld.unknown.mystery.util.codec.Codecs;
@@ -22,6 +23,10 @@ public class AlchemyRecipe extends CodecRecipe<AlchemyRecipe> {
         super(ChaumtraftRecipes.ALCHEMY, result);
         this.catalyst = catalyst;
         this.aspects = aspects;
+    }
+
+    public boolean isValid(AspectList list, ItemStack item, IResearchCapability cap) {
+        return list.contains(aspects) && this.catalyst.test(item);
     }
 
     @Override

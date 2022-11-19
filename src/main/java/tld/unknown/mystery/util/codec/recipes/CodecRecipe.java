@@ -35,11 +35,11 @@ public abstract class CodecRecipe<T extends CodecRecipe<T>> implements Recipe<Co
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return registryEntry.serializer().get();
+        return registryEntry.serializer();
     }
 
     @Override
     public RecipeType<?> getType() {
-        return registryEntry.type().get();
+        return registryEntry.type();
     }
 }

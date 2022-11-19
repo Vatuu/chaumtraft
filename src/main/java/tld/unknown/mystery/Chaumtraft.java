@@ -14,14 +14,12 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
 import org.slf4j.Logger;
 import tld.unknown.mystery.client.ChaumtraftKeybinds;
-import tld.unknown.mystery.registries.ChaumtraftBlocks;
-import tld.unknown.mystery.registries.ChaumtraftEntities;
-import tld.unknown.mystery.registries.ChaumtraftItems;
+import tld.unknown.mystery.registries.*;
 import tld.unknown.mystery.networking.ChaumtraftNetworking;
-import tld.unknown.mystery.registries.ChaumtraftRecipes;
 
 @Mod(Chaumtraft.MOD_ID)
-public class Chaumtraft {
+@Mod.EventBusSubscriber(modid = Chaumtraft.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+public final class Chaumtraft {
 
     public static final String MOD_ID = "chaumtraft";
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -39,10 +37,8 @@ public class Chaumtraft {
 
     public Chaumtraft() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
-        modEventBus.addListener(this::commonSetup);
-
         MinecraftForge.EVENT_BUS.register(this);
+        modEventBus.addListener(this::commonSetup);
 
         ChaumtraftItems.init(modEventBus);
         ChaumtraftBlocks.init(modEventBus);
@@ -54,12 +50,24 @@ public class Chaumtraft {
 
     private void commonSetup(final FMLCommonSetupEvent event) { }
 
+    @SubscribeEvent
+    public static void onClientSetup(FMLClientSetupEvent event) {
+        MinecraftForge.EVENT_BUS.addListener(ChaumtraftKeybinds::clientTick);
+
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        ChaumtraftMenus.init(modEventBus);
+    }
+
     public static boolean isDev() {
-        return FMLLoader.isProduction();
+        return !FMLLoader.isProduction();
     }
 
     public static void info(String format, Object... args) {
         LOGGER.info(String.format(format, args));
+    }
+
+    public static void debug(String format, Object... args) {
+        LOGGER.debug(String.format(format, args));
     }
 
     public static void error(String format, Object... args) {
@@ -69,14 +77,5 @@ public class Chaumtraft {
     public static void error(Throwable exception, String format, Object... args) {
         error(format, args);
         error("\t%s%s", exception.getClass().getSimpleName(), exception.getMessage() != null ? ": " + exception.getMessage() : "");
-    }
-
-    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class ClientModEvents {
-
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
-            MinecraftForge.EVENT_BUS.addListener(ChaumtraftKeybinds::clientTick);
-        }
     }
 }

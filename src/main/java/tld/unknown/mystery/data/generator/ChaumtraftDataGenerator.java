@@ -5,10 +5,11 @@ import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import tld.unknown.mystery.Chaumtraft;
+import tld.unknown.mystery.data.generator.models.BlockDataProvider;
 import tld.unknown.mystery.data.generator.recipes.AlchemyRecipeProvider;
 
 @Mod.EventBusSubscriber(modid = Chaumtraft.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public final class ChaumcraftDataGenerator {
+public final class ChaumtraftDataGenerator {
 
     @SubscribeEvent
     public static void gatherData(GatherDataEvent e) {

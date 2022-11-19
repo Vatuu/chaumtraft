@@ -24,12 +24,12 @@ public class AspectTooltip implements ClientTooltipComponent {
 
     @Override
     public int getWidth(Font pFont) {
-        return SIZE * aspects.aspectTypeCount() + SPACING * Math.max(aspects.aspectTypeCount() - 1, 0);
+        return SIZE * aspects.aspectCount() + SPACING * Math.max(aspects.aspectCount() - 1, 0);
     }
 
     @Override
     public void renderImage(Font pFont, int pMouseX, int pMouseY, PoseStack pPoseStack, ItemRenderer pItemRenderer, int pBlitOffset) {
-        aspects.forEachAspect((aspect, amount, index) -> {
+        aspects.indexedForEach((aspect, amount, index) -> {
             int offset = index * (SIZE + SPACING);
             AspectRenderer.renderAspectOverlaySDF(pPoseStack, aspect, pMouseX + offset, pMouseY + 1, SIZE, amount);
         });

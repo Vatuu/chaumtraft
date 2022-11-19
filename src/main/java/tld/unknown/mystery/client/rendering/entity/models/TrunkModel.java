@@ -2,6 +2,7 @@ package tld.unknown.mystery.client.rendering.entity.models;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -31,7 +32,11 @@ public class TrunkModel extends EntityModel<TrunkEntity> {
 	}
 
 	@Override
-	public void setupAnim(TrunkEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) { }
+	public void setupAnim(TrunkEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		float f1 = 1.0F - entity.getLidProgress(Minecraft.getInstance().getDeltaFrameTime());
+		f1 = 1.0F - f1 * f1 * f1;
+		this.lid.xRot = -(f1 * ((float)Math.PI / 2F));
+	}
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {

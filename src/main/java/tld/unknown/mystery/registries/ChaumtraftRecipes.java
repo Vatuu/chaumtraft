@@ -1,5 +1,6 @@
 package tld.unknown.mystery.registries;
 
+import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -37,5 +38,18 @@ public final class ChaumtraftRecipes {
         return new RecipeObject<>(type, serial);
     }
 
-    public record RecipeObject<T extends Recipe<?>>(RegistryObject<RecipeType<T>> type, RegistryObject<RecipeSerializer<T>> serializer) { }
+    @RequiredArgsConstructor
+    public static class RecipeObject<T extends Recipe<?>> {
+
+        private final RegistryObject<RecipeType<T>> typeObject;
+        private final RegistryObject<RecipeSerializer<T>> serializerObject;
+
+        public RecipeType<T> type() {
+            return typeObject.get();
+        }
+
+        public RecipeSerializer<T> serializer() {
+            return serializerObject.get();
+        }
+    }
 }
