@@ -1,6 +1,7 @@
 package tld.unknown.mystery.blocks;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -77,20 +78,26 @@ public class CrucibleBlock extends SimpleEntityBlock<CrucibleBlockEntity> {
             if(!FluidHelper.isTankEmpty(be) && be.isCooking()) {
                 if(pEntity instanceof ItemEntity e) {
                     ItemStack stack = e.getItem().copy();
-                    if(be.processInput(e.getItem(), e.getOwner() != null ? pLevel.getPlayerByUUID(e.getOwner()) : null)) {
+                    if(be.processInput(stack, e.getOwner() != null ? pLevel.getPlayerByUUID(e.getOwner()) : null)) {
                         if(stack.isEmpty()) {
                             e.kill();
                         } else {
                             e.setItem(stack);
                         }
                     }
-                } else if(pEntity instanceof LivingEntity e) {
+                } else if(pEntity instanceof LivingEntity e && !e.isInvulnerable() && (e instanceof Player p && !p.isCreative()) ) {
                     e.hurt(DamageSource.IN_FIRE, 1.0F);
                     pLevel.playSound(null, pPos, SoundEvents.LAVA_EXTINGUISH, SoundSource.BLOCKS, 0.4F, 2.0F + pLevel.getRandom().nextFloat() * 0.4F);
                 }
             }
         }
         super.entityInside(pState, pLevel, pPos, pEntity);
+    }
+
+    @Override
+    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
+        getEntity(pLevel, pPos).emptyCrucible();
+        super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
     }
 
     @Override
@@ -105,7 +112,7 @@ public class CrucibleBlock extends SimpleEntityBlock<CrucibleBlockEntity> {
                     be.sync();
                 }
                 return InteractionResult.SUCCESS;
-            } else if(!FluidHelper.isTankEmpty(be) && be.isCooking() && !pPlayer.isCrouching() && !pPlayer.getMainHandItem().isEmpty()) {
+            } else if(!FluidHelper.isTankEmpty(be) && be.isCooking() && !pPlayer.isCrouching() && !pPlayer.getMainHandItem().isEmpty() && pHit.getDirection() == Direction.UP) {
                 if(be.processInput(new ItemStack(pPlayer.getMainHandItem().getItem()), pPlayer)) {
                     pPlayer.getMainHandItem().shrink(1);
                 }

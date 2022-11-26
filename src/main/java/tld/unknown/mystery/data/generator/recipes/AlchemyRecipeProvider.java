@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import tld.unknown.mystery.Chaumtraft;
 import tld.unknown.mystery.api.ChaumtraftIDs;
 import tld.unknown.mystery.data.aspects.AspectList;
 import tld.unknown.mystery.data.recipes.AlchemyRecipe;
@@ -21,10 +22,15 @@ public class AlchemyRecipeProvider extends CodecDataProvider<AlchemyRecipe> {
 
     @Override
     protected void createEntries() {
-        recipe(Recipes.ALCHEMY_DOUBLE_SLIME, Ingredient.of(
-                new ItemStack(Items.SLIME_BALL)),
+        recipe(Recipes.ALCHEMY_DOUBLE_SLIME,
+                Ingredient.of(new ItemStack(Items.SLIME_BALL)),
                 new AspectList().add(ChaumtraftIDs.Aspects.WATER, 5).add(ChaumtraftIDs.Aspects.LIFE, 5).add(ChaumtraftIDs.Aspects.ALCHEMY, 1),
                 new ItemStack(Items.SLIME_BALL, 2));
+
+        recipe(Chaumtraft.id("debug"),
+                Ingredient.of(new ItemStack(Items.STICK)),
+                new AspectList().add(ChaumtraftIDs.Aspects.WATER, 5).add(ChaumtraftIDs.Aspects.EARTH, 5),
+                new ItemStack(Items.DIAMOND));
     }
 
     @Override

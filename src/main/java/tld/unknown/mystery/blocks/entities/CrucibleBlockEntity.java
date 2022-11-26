@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -30,6 +31,7 @@ import tld.unknown.mystery.util.simple.SimpleBlockEntity;
 
 import java.util.Optional;
 
+//TODO: Visuals and Sound
 public class CrucibleBlockEntity extends SimpleBlockEntity implements IFluidHandler {
 
     private static final int MAX_ESSENTIA = 500;
@@ -76,14 +78,14 @@ public class CrucibleBlockEntity extends SimpleBlockEntity implements IFluidHand
 
     @Override
     protected void readNbt(CompoundTag nbt) {
-        this.aspects.fromNBT(nbt.getCompound("Aspects"));
+        this.aspects.deserializeNBT(nbt.getCompound("Aspects"));
         this.waterTank.readFromNBT(nbt.getCompound("Water"));
         this.heat = nbt.getShort("Heat");
     }
 
     @Override
     protected void writeNbt(CompoundTag nbt) {
-        nbt.put("Aspects", aspects.toNBT());
+        nbt.put("Aspects", aspects.serializeNBT());
         nbt.put("Water", waterTank.writeToNBT(new CompoundTag()));
         nbt.putShort("Heat", (short)heat);
     }
@@ -99,7 +101,7 @@ public class CrucibleBlockEntity extends SimpleBlockEntity implements IFluidHand
         }
     }
 
-    // TODO: Crafting Event | Spill excess
+    // TODO: Crafting Event
     public boolean processInput(ItemStack stack, Player player) {
         boolean crafted = false, consumed = false;
         for(int i = 0; i < stack.getCount(); i++) {
@@ -109,13 +111,20 @@ public class CrucibleBlockEntity extends SimpleBlockEntity implements IFluidHand
                 ItemStack result = recipe.get().getResultItem().copy();
                 this.aspects.remove(recipe.get().getAspects());
                 drain(50, FluidAction.EXECUTE);
-                player.addItem(result); // TODO: Proper Spit-Out
+                spitItem(result);
                 stack.shrink(1);
                 crafted = true;
             } else {
                 AspectList list = ChaumtraftData.ASPECT_REGISTRY.getAspects(stack);
-                if(!list.isEmpty() && list.size() + aspects.size() <= MAX_ESSENTIA) {
-                    aspects.merge(list);
+                if(!list.isEmpty()) {
+                    if(aspects.size() + list.size() > MAX_ESSENTIA) {
+                        aspects.merge(list.drain(MAX_ESSENTIA - aspects.size()));
+                        //TODO Vent list as flux.
+                        Chaumtraft.debug("Spilled %d as flux.", list.size());
+                    } else {
+                        aspects.merge(list);
+                    }
+
                     if(player == null || !player.isCreative()) {
                         stack.shrink(1);
                     }
@@ -147,6 +156,24 @@ public class CrucibleBlockEntity extends SimpleBlockEntity implements IFluidHand
 
     public boolean isCooking() {
         return heat >= HEAT_THRESHOLD;
+    }
+
+    private void spitItem(ItemStack items) {
+        boolean repeatDrop = false;
+        while(!items.isEmpty()) {
+            ItemStack copy = items.copy();
+            if(copy.getCount() > copy.getMaxStackSize())
+                copy.setCount(copy.getMaxStackSize());
+            items.shrink(copy.getCount());
+            double hVel = repeatDrop ? (getLevel().getRandom().nextFloat() - getLevel().getRandom().nextFloat()) * .01F : 0F;
+            getLevel().addFreshEntity(new ItemEntity(getLevel(),
+                    getBlockPos().getX() + .5F,
+                    getBlockPos().getY() + .5F,
+                    getBlockPos().getZ() + .5F,
+                    copy,
+                    hVel, .075D, hVel));
+            repeatDrop = true;
+        }
     }
 
     /* -------------------------------------------------------------------------------------------------------------- */

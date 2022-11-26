@@ -4,12 +4,15 @@ import com.google.common.collect.Maps;
 import com.mojang.serialization.Codec;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.common.util.INBTSerializable;
+import org.apache.commons.compress.utils.Lists;
 import org.apache.logging.log4j.util.TriConsumer;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class AspectList {
+public class AspectList implements INBTSerializable<CompoundTag> {
 
     private final Map<ResourceLocation, Short> aspects;
 
@@ -39,6 +42,43 @@ public class AspectList {
     public AspectList remove(ResourceLocation aspect, int amount) {
         aspects.computeIfPresent(aspect, (rl, a) -> a <= amount ? null : (short)(a - amount));
         return this;
+    }
+
+    public AspectList drain(int amount) {
+        if(size() <= amount) {
+            AspectList copy = this.clone();
+            clear();
+            return copy;
+        } else if(amount <= 0) {
+            return new AspectList();
+        } else {
+            int total = 0;
+            List<ResourceLocation> aspects = Lists.newArrayList();
+            ResourceLocation leftOver = null;
+            int leftOverAmount = 0;
+            for(Map.Entry<ResourceLocation, Short> e : entrySet()) {
+                if(total + e.getValue() <= amount) {
+                    aspects.add(e.getKey());
+                    total += e.getValue();
+                } else {
+                    leftOverAmount = amount - total;
+                    leftOver = e.getKey();
+                    break;
+                }
+            }
+            AspectList returnVal = new AspectList();
+            aspects.forEach(a -> {
+                returnVal.add(a, amount(a));
+                remove(a);
+            });
+
+            if(leftOver != null && leftOverAmount != 0) {
+                returnVal.add(leftOver, leftOverAmount);
+                remove(leftOver, leftOverAmount);
+            }
+
+            return returnVal;
+        }
     }
 
     public boolean contains(AspectList list) {
@@ -71,6 +111,10 @@ public class AspectList {
             amount += s;
         }
         return amount;
+    }
+
+    public int amount(ResourceLocation loc) {
+        return aspects.getOrDefault(loc, (short)0);
     }
 
     public int aspectCount() {
@@ -113,16 +157,15 @@ public class AspectList {
         return builder.toString();
     }
 
-    public CompoundTag toNBT() {
+    public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();
         indexedForEach((rl, s, i) -> tag.putShort(rl.toString(), s));
         return tag;
     }
 
-    public AspectList fromNBT(CompoundTag tag) {
+    public void deserializeNBT(CompoundTag tag) {
         clear();
         tag.getAllKeys().forEach(s -> add(ResourceLocation.tryParse(s), tag.getShort(s)));
-        return this;
     }
 
     public static final Codec<AspectList> CODEC = Codec.unboundedMap(ResourceLocation.CODEC, Codec.SHORT).xmap(AspectList::new, al -> al.aspects);
