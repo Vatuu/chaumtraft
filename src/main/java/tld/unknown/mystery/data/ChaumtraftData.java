@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.Mod;
 import tld.unknown.mystery.Chaumtraft;
 import tld.unknown.mystery.api.Aspect;
 import tld.unknown.mystery.data.aspects.AspectRegistryManager;
-import tld.unknown.mystery.data.aspects.PrimalAspect;
+import tld.unknown.mystery.data.aspects.PrimalAspects;
 import tld.unknown.mystery.networking.ChaumtraftNetworking;
 import tld.unknown.mystery.data.research.ResearchCategory;
 import tld.unknown.mystery.data.research.ResearchEntry;
@@ -19,7 +19,7 @@ public final class ChaumtraftData {
 
     public static final AspectRegistryManager ASPECT_REGISTRY = new AspectRegistryManager();
     public static final CodecDataManager<Aspect> ASPECTS = new CodecDataManager<>(Aspect.CODEC,
-            "Aspects", "aspects", true, PrimalAspect.ALL, id -> !id.getPath().contains("/"));
+            "Aspects", "aspects", true, PrimalAspects.DEFAULTS, id -> !id.getPath().contains("/"));
     public static final CodecDataManager<ResearchCategory> RESEARCH_CATEGORY = new CodecDataManager<>(ResearchCategory.CODEC,
             "ResearchCategory", "research", true, null, id -> !id.getPath().contains("/"));
     public static final CodecDataManager<ResearchEntry> RESEARCH_ENTRIES = new CodecDataManager<>(ResearchEntry.CODEC,

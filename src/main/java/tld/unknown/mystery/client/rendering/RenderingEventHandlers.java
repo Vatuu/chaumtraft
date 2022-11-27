@@ -5,16 +5,20 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import tld.unknown.mystery.Chaumtraft;
+import tld.unknown.mystery.api.Aspect;
 import tld.unknown.mystery.client.rendering.ber.CrucibleBER;
 import tld.unknown.mystery.client.rendering.entity.TrunkEntityRenderer;
 import tld.unknown.mystery.client.rendering.ui.AspectTooltip;
 import tld.unknown.mystery.data.ChaumtraftData;
+import tld.unknown.mystery.items.AbstractAspectItem;
 import tld.unknown.mystery.registries.ChaumtraftBlocks;
 import tld.unknown.mystery.registries.ChaumtraftEntities;
+import tld.unknown.mystery.registries.ChaumtraftItems;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Chaumtraft.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class RenderingEventHandlers {
@@ -41,6 +45,11 @@ public final class RenderingEventHandlers {
             e.registerBlockEntityRenderer(ChaumtraftBlocks.CRUCIBLE.entityType(), CrucibleBER::new);
 
             e.registerEntityRenderer(ChaumtraftEntities.LIVING_TRUNK.entityType(), TrunkEntityRenderer::new);
+        }
+
+        @SubscribeEvent
+        public static void onColorTinting(RegisterColorHandlersEvent.Item e) {
+            e.register((stack, tintIndex) -> tintIndex == 1 ? ChaumtraftData.ASPECTS.getOptional(AbstractAspectItem.getEssentiaAspect(stack)).orElse(Aspect.UNKNOWN).getColor().getValue() : -1, ChaumtraftItems.FILLED_PHIAL.get());
         }
     }
 }

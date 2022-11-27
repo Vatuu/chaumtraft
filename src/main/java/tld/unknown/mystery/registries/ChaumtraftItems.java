@@ -7,7 +7,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import tld.unknown.mystery.Chaumtraft;
-import tld.unknown.mystery.api.ChaumtraftIDs;
+import tld.unknown.mystery.items.FilledPhialItem;
 import tld.unknown.mystery.items.UpgradeItem;
 
 import java.util.function.Supplier;
@@ -20,10 +20,13 @@ public final class ChaumtraftItems {
 
     /* -------------------------------------------------------------------------------------------------------------- */
 
-    public static RegistryObject<UpgradeItem> UPGRADE_SPEED = register(Items.UPGRADE_SPEED, () -> new UpgradeItem((byte)0b00000001));
-    public static RegistryObject<UpgradeItem> UPGRADE_CAPACITY = register(Items.UPGRADE_CAPACITY, () -> new UpgradeItem((byte)0b00000010));
-    public static RegistryObject<UpgradeItem> UPGRADE_RAGE = register(Items.UPGRADE_RAGE, () -> new UpgradeItem((byte)0b00000100));
-    public static RegistryObject<UpgradeItem> UPGRADE_EFFICIENCY = register(Items.UPGRADE_EFFICIENCY, () -> new UpgradeItem((byte)0b00001000));
+    public static final RegistryObject<UpgradeItem> UPGRADE_SPEED = register(Items.UPGRADE_SPEED, () -> new UpgradeItem((byte)0b00000001));
+    public static final RegistryObject<UpgradeItem> UPGRADE_CAPACITY = register(Items.UPGRADE_CAPACITY, () -> new UpgradeItem((byte)0b00000010));
+    public static final RegistryObject<UpgradeItem> UPGRADE_RAGE = register(Items.UPGRADE_RAGE, () -> new UpgradeItem((byte)0b00000100));
+    public static final RegistryObject<UpgradeItem> UPGRADE_EFFICIENCY = register(Items.UPGRADE_EFFICIENCY, () -> new UpgradeItem((byte)0b00001000));
+
+    public static final RegistryObject<Item> PHIAL = register(Items.PHIAL, () -> new Item(new Item.Properties().stacksTo(64).tab(Chaumtraft.CREATIVE_TAB)));
+    public static final RegistryObject<FilledPhialItem> FILLED_PHIAL = register(Items.FILLED_PHIAL, FilledPhialItem::new);
 
     /* -------------------------------------------------------------------------------------------------------------- */
 

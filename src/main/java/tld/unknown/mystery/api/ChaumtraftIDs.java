@@ -49,6 +49,9 @@ public final class ChaumtraftIDs {
 
         public static final ResourceLocation THAUMONOMICON = Chaumtraft.id("thaumonomicon");
 
+        public static final ResourceLocation PHIAL = Chaumtraft.id("phial");
+        public static final ResourceLocation FILLED_PHIAL = Chaumtraft.id("filled_phial");
+
         public static final ResourceLocation UPGRADE_SPEED = Chaumtraft.id("upgrade_speed");
         public static final ResourceLocation UPGRADE_CAPACITY = Chaumtraft.id("upgrade_capacity");
         public static final ResourceLocation UPGRADE_RAGE = Chaumtraft.id("upgrade_rage");
@@ -82,6 +85,8 @@ public final class ChaumtraftIDs {
      * Identifiers for the "vanilla" aspects of Chaumtraft.
      */
     public static final class Aspects {
+
+        public static final ResourceLocation UNKNOWN = Chaumtraft.id("unknown");
 
         public static final ResourceLocation ORDER = Chaumtraft.id("ordo");
         public static final ResourceLocation DESTRUCTION = Chaumtraft.id("perditio");

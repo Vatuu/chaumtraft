@@ -4,6 +4,8 @@
   "block.chaumtraft.crucible": "Crucible",
 
   "item.chaumtraft.thaumonomicon": "Thaumaninamunanumayeahicon",
+  "item.chaumtraft.phial": "Glass Phial",
+  "item.chaumtraft.filled_phial": "Phial of %s Essentia",
 
   "entity.chaumtraft.traveling_trunk": "Traveling Trunk",
 
@@ -12,5 +14,12 @@
 
   "research.chaumtraft.category.debug.name": "Debug Quests",
   "research.chaumtraft.category.fundamentals.name": "Fundamentals",
-  "research.chaumtraft.category.artifice.name": "Artifice"
+  "research.chaumtraft.category.artifice.name": "Artifice",
+
+  "aspect.chaumtraft.ordo": "Ordo",
+  "aspect.chaumtraft.perditio": "Perditio",
+  "aspect.chaumtraft.terra": "Terra",
+  "aspect.chaumtraft.aqua": "Aqua",
+  "aspect.chaumtraft.aer": "Aer",
+  "aspect.chaumtraft.ignis": "Ignis"
 }

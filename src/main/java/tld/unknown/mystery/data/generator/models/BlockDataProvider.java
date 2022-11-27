@@ -7,6 +7,7 @@ import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import tld.unknown.mystery.Chaumtraft;
+import tld.unknown.mystery.api.ChaumtraftIDs;
 import tld.unknown.mystery.registries.ChaumtraftBlocks;
 
 public class BlockDataProvider extends BlockStateProvider {
@@ -33,5 +34,12 @@ public class BlockDataProvider extends BlockStateProvider {
                 .transform(ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND).translation(0F, 2.5F, 0F).rotation(75F, 45F, 0F).scale(.3F).end();
         simpleBlock(ChaumtraftBlocks.CRUCIBLE.block(), builder);
         simpleBlockItem(ChaumtraftBlocks.CRUCIBLE.block(), builder);
+
+        itemModels().basicItem(ChaumtraftIDs.Items.PHIAL);
+
+        itemModels().withExistingParent(ChaumtraftIDs.Items.FILLED_PHIAL.getPath(), "item/generated")
+                .texture("layer0", "item/phial")
+                .texture("layer1", "item/phial_overlay");
+
     }
 }
