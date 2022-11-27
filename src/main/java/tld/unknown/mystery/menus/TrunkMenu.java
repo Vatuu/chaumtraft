@@ -7,7 +7,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.MenuType;
 import tld.unknown.mystery.entities.TrunkEntity;
-import tld.unknown.mystery.registries.ChaumtraftMenus;
+import tld.unknown.mystery.registries.client.ChaumtraftMenus;
 
 public class TrunkMenu extends ChestMenu {
 

@@ -32,7 +32,7 @@ public class AspectProvider extends CodecDataProvider<Aspect> {
         registerAspect(Aspects.MAGIC, "#CF00FF", Aspects.POWER, Aspects.AIR);
         registerAspect(Aspects.AURA, "#FFC0FF", Aspects.MAGIC, Aspects.AIR);
         registerAspect(Aspects.ALCHEMY, "#23AC9D", Aspects.MAGIC, Aspects.WATER);
-        registerAspect(Aspects.FLUX, "#800080", Aspects.DESTRUCTION, Aspects.MAGIC);
+        registerAspect(Aspects.TAINT, "#800080", Aspects.DESTRUCTION, Aspects.MAGIC);
 
         registerAspect(Aspects.DARKNESS, "#222222", Aspects.EMPTY, Aspects.LIGHT);
         registerAspect(Aspects.ALIEN, "#805080", Aspects.EMPTY, Aspects.DARKNESS);

@@ -49,7 +49,7 @@ public final class RenderingEventHandlers {
 
         @SubscribeEvent
         public static void onColorTinting(RegisterColorHandlersEvent.Item e) {
-            e.register((stack, tintIndex) -> tintIndex == 1 ? ChaumtraftData.ASPECTS.getOptional(AbstractAspectItem.getEssentiaAspect(stack)).orElse(Aspect.UNKNOWN).getColor().getValue() : -1, ChaumtraftItems.FILLED_PHIAL.get());
+            e.register((stack, tintIndex) -> tintIndex == 1 ? ChaumtraftData.ASPECTS.getOptional(AbstractAspectItem.getEssentiaAspect(stack)).orElse(Aspect.UNKNOWN).getColor().getValue() : -1, ChaumtraftItems.PHIAL.get());
         }
     }
 }

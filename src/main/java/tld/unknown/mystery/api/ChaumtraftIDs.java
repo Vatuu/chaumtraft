@@ -50,12 +50,16 @@ public final class ChaumtraftIDs {
         public static final ResourceLocation THAUMONOMICON = Chaumtraft.id("thaumonomicon");
 
         public static final ResourceLocation PHIAL = Chaumtraft.id("phial");
-        public static final ResourceLocation FILLED_PHIAL = Chaumtraft.id("filled_phial");
 
         public static final ResourceLocation UPGRADE_SPEED = Chaumtraft.id("upgrade_speed");
         public static final ResourceLocation UPGRADE_CAPACITY = Chaumtraft.id("upgrade_capacity");
         public static final ResourceLocation UPGRADE_RAGE = Chaumtraft.id("upgrade_rage");
         public static final ResourceLocation UPGRADE_EFFICIENCY = Chaumtraft.id("upgrade_efficiency");
+    }
+
+    public static final class ItemProperties {
+
+        public static final ResourceLocation ASPECT_HOLDER_PRESENT = Chaumtraft.id("aspect_holder_present");
     }
 
     public static final class Tags {
@@ -66,6 +70,7 @@ public final class ChaumtraftIDs {
     public static final class Blocks {
 
         public static final ResourceLocation CRUCIBLE = Chaumtraft.id("crucible");
+        public static final ResourceLocation CRYSTAL = Chaumtraft.id("crystal");
     }
 
     public static final class Entities {
@@ -108,7 +113,7 @@ public final class ChaumtraftIDs {
         public static final ResourceLocation MAGIC = Chaumtraft.id("praecantatio");
         public static final ResourceLocation AURA = Chaumtraft.id("auram");
         public static final ResourceLocation ALCHEMY = Chaumtraft.id("alkimia");
-        public static final ResourceLocation FLUX = Chaumtraft.id("vitium");
+        public static final ResourceLocation TAINT = Chaumtraft.id("vitium");
         public static final ResourceLocation DARKNESS = Chaumtraft.id("tenebrae");
         public static final ResourceLocation ALIEN = Chaumtraft.id("alienis");
         public static final ResourceLocation FLIGHT = Chaumtraft.id("volatus");

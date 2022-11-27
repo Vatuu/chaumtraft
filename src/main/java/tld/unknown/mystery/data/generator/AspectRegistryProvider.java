@@ -74,7 +74,7 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         bothTag(Tags.Items.COBBLESTONE_MOSSY, new AspectList().add(Aspects.EARTH, 2).add(Aspects.PLANT, 2).add(Aspects.DESTRUCTION, 2));
         //NETHER - LIKE
         bothTag(Tags.Items.NETHERRACK, new AspectList().add(Aspects.EARTH, 2).add(Aspects.FIRE, 2));
-        bothTag(Tags.Items.CROPS_NETHER_WART, new AspectList().add(Aspects.PLANT, 1).add(Aspects.FLUX, 2).add(Aspects.ALCHEMY, 3));
+        bothTag(Tags.Items.CROPS_NETHER_WART, new AspectList().add(Aspects.PLANT, 1).add(Aspects.TAINT, 2).add(Aspects.ALCHEMY, 3));
         bothTag(Tags.Items.OBSIDIAN, new AspectList().add(Aspects.EARTH, 5).add(Aspects.FIRE, 5).add(Aspects.DARKNESS, 5));
         //WOOLS
         bothTag(BlockTags.DAMPENS_VIBRATIONS, new AspectList().add(Aspects.CREATURE, 15).add(Aspects.CRAFT, 5));
@@ -124,7 +124,7 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         //LEAVES
         bothTag(BlockTags.LEAVES, new AspectList().add(Aspects.PLANT, 5));
         //NYLIUM
-        bothTag(BlockTags.NYLIUM, new AspectList().add(Aspects.MAGIC, 5).add(Aspects.FLUX, 5));
+        bothTag(BlockTags.NYLIUM, new AspectList().add(Aspects.MAGIC, 5).add(Aspects.TAINT, 5));
         //RAILS
         bothTag(BlockTags.RAILS, new AspectList().add(Aspects.MOVEMENT, 5).add(Aspects.MACHINE, 5).add(Aspects.METAL, 5));
         //SIGNS
@@ -144,9 +144,9 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         //WALL_CORALS
         bothTag(BlockTags.WALL_CORALS, new AspectList().add(Aspects.PLANT, 5).add(Aspects.WATER, 5));
         //WARPED_STEMS
-        bothTag(BlockTags.WARPED_STEMS, new AspectList().add(Aspects.MAGIC, 5).add(Aspects.FLUX, 5));
+        bothTag(BlockTags.WARPED_STEMS, new AspectList().add(Aspects.MAGIC, 5).add(Aspects.TAINT, 5));
         //WART_BLOCKS
-        bothTag(BlockTags.WART_BLOCKS, new AspectList().add(Aspects.PLANT, 5).add(Aspects.MAGIC, 5).add(Aspects.ALCHEMY, 25).add(Aspects.FLUX, 5));
+        bothTag(BlockTags.WART_BLOCKS, new AspectList().add(Aspects.PLANT, 5).add(Aspects.MAGIC, 5).add(Aspects.ALCHEMY, 25).add(Aspects.TAINT, 5));
 
         //------------------------------------------------------[NON-TAGGED]------------------------------------------------------------------------
         //NETHER
@@ -236,7 +236,7 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         both(new AspectList().add(Aspects.ORDER, 5).add(Aspects.WATER, 1), Blocks.WHITE_CONCRETE_POWDER);
         both(new AspectList().add(Aspects.ORDER, 5).add(Aspects.WATER, 1), Blocks.YELLOW_CONCRETE_POWDER);
         //ORGANIC?
-        both(new AspectList().add(Aspects.EARTH, 5).add(Aspects.PLANT, 1).add(Aspects.FLUX, 3), Blocks.MYCELIUM);
+        both(new AspectList().add(Aspects.EARTH, 5).add(Aspects.PLANT, 1).add(Aspects.TAINT, 3), Blocks.MYCELIUM);
         both(new AspectList().add(Aspects.POWER, 10).add(Aspects.FIRE, 10), Blocks.CLAY);
         both(new AspectList().add(Aspects.LIFE, 5).add(Aspects.PLANT, 15), Blocks.ACACIA_SAPLING);
         both(new AspectList().add(Aspects.LIFE, 5).add(Aspects.PLANT, 15), Blocks.BIRCH_SAPLING);
@@ -328,7 +328,7 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         both(new AspectList().add(Aspects.EARTH, 5), Blocks.CALCITE);
         both(new AspectList().add(Aspects.EARTH, 5), Blocks.DRIPSTONE_BLOCK);
         both(new AspectList().add(Aspects.EARTH, 5).add(Aspects.PLANT, 2), Blocks.GRASS);
-        both(new AspectList().add(Aspects.FLUX, 5).add(Aspects.EARTH, 2), Blocks.PODZOL);
+        both(new AspectList().add(Aspects.TAINT, 5).add(Aspects.EARTH, 2), Blocks.PODZOL);
 
 
         itemTag(Tags.Items.SLIMEBALLS, new AspectList().add(Aspects.WATER, 5).add(Aspects.LIFE, 5).add(Aspects.ALCHEMY, 1));

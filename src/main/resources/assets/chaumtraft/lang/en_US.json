@@ -5,7 +5,7 @@
 
   "item.chaumtraft.thaumonomicon": "Thaumaninamunanumayeahicon",
   "item.chaumtraft.phial": "Glass Phial",
-  "item.chaumtraft.filled_phial": "Phial of %s Essentia",
+  "item.chaumtraft.phial.filled": "Phial of %s Essentia",
 
   "entity.chaumtraft.traveling_trunk": "Traveling Trunk",
 

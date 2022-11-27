@@ -16,6 +16,8 @@ import org.slf4j.Logger;
 import tld.unknown.mystery.client.ChaumtraftKeybinds;
 import tld.unknown.mystery.registries.*;
 import tld.unknown.mystery.networking.ChaumtraftNetworking;
+import tld.unknown.mystery.registries.client.ChaumtraftItemProperties;
+import tld.unknown.mystery.registries.client.ChaumtraftMenus;
 
 @Mod(Chaumtraft.MOD_ID)
 @Mod.EventBusSubscriber(modid = Chaumtraft.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -53,9 +55,10 @@ public final class Chaumtraft {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         MinecraftForge.EVENT_BUS.addListener(ChaumtraftKeybinds::clientTick);
-
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
         ChaumtraftMenus.init(modEventBus);
+        ChaumtraftItemProperties.init(event);
     }
 
     public static boolean isDev() {

@@ -9,7 +9,7 @@ displayName = "Chaumtraft"
 
 #updateJSONURL="http://myurl.me/"
 #displayURL="http://example.com/"
-#logoFile="mystery.png"
+logoFile="logo.png"
 #credits="Thanks for this example mod goes to Java"
 #authors="Love, Cheese and small house plants"
 displayTest="MATCH_VERSION"

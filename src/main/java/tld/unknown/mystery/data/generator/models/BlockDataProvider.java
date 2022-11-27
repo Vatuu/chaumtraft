@@ -7,8 +7,11 @@ import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import tld.unknown.mystery.Chaumtraft;
-import tld.unknown.mystery.api.ChaumtraftIDs;
 import tld.unknown.mystery.registries.ChaumtraftBlocks;
+
+import static tld.unknown.mystery.api.ChaumtraftIDs.Blocks;
+import static tld.unknown.mystery.api.ChaumtraftIDs.Items;
+import static tld.unknown.mystery.api.ChaumtraftIDs.ItemProperties;
 
 public class BlockDataProvider extends BlockStateProvider {
 
@@ -18,7 +21,7 @@ public class BlockDataProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        ModelBuilder<?> builder = models().withExistingParent("crucible", new ResourceLocation("minecraft", "block/cauldron"))
+        ModelBuilder<?> builder = models().withExistingParent(Blocks.CRUCIBLE.getPath(), new ResourceLocation("minecraft", "block/cauldron"))
                 .texture("particle", Chaumtraft.id("block/crucible_inner"))
                 .texture("top", Chaumtraft.id("block/crucible_top"))
                 .texture("bottom", Chaumtraft.id("block/crucible_bottom"))
@@ -35,11 +38,14 @@ public class BlockDataProvider extends BlockStateProvider {
         simpleBlock(ChaumtraftBlocks.CRUCIBLE.block(), builder);
         simpleBlockItem(ChaumtraftBlocks.CRUCIBLE.block(), builder);
 
-        itemModels().basicItem(ChaumtraftIDs.Items.PHIAL);
-
-        itemModels().withExistingParent(ChaumtraftIDs.Items.FILLED_PHIAL.getPath(), "item/generated")
+        ModelBuilder<?> filledPhial = itemModels().withExistingParent(Items.PHIAL.getPath() + "_filled", "item/generated")
                 .texture("layer0", "item/phial")
                 .texture("layer1", "item/phial_overlay");
 
+        itemModels().basicItem(Items.PHIAL)
+                .override()
+                .predicate(ItemProperties.ASPECT_HOLDER_PRESENT, 1F)
+                .model(filledPhial)
+                .end();
     }
 }
