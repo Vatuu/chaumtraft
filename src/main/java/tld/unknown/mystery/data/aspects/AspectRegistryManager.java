@@ -10,6 +10,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
 import tld.unknown.mystery.Chaumtraft;
+import tld.unknown.mystery.api.AspectContainerItem;
+import tld.unknown.mystery.items.AbstractAspectItem;
 import tld.unknown.mystery.util.codec.data.CodecDataManager;
 
 import java.util.List;
@@ -64,7 +66,9 @@ public class AspectRegistryManager extends CodecDataManager<AspectList> {
 
     public AspectList getAspects(ItemStack stack) {
         ResourceLocation itemId = ForgeRegistries.ITEMS.getKey(stack.getItem());
-        if(ITEM_CACHE.containsKey(itemId)) {
+        if(stack.getItem() instanceof AspectContainerItem a) {
+            return a.getAspects(stack);
+        }else if(ITEM_CACHE.containsKey(itemId)) {
             return ITEM_CACHE.get(itemId).clone();
         } else {
             AspectList list = determineAspects(itemId, stack.getItem());
@@ -87,7 +91,7 @@ public class AspectRegistryManager extends CodecDataManager<AspectList> {
         });
 
         if(list.isEmpty()) {
-            //TODO Recipe Walking
+            //TODO: Recipe Walking
         }
 
         return list;

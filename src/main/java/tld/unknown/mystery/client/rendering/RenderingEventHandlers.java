@@ -11,11 +11,13 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import tld.unknown.mystery.Chaumtraft;
 import tld.unknown.mystery.api.Aspect;
+import tld.unknown.mystery.blocks.CrystalBlock;
 import tld.unknown.mystery.client.rendering.ber.CrucibleBER;
 import tld.unknown.mystery.client.rendering.entity.TrunkEntityRenderer;
 import tld.unknown.mystery.client.rendering.ui.AspectTooltip;
 import tld.unknown.mystery.data.ChaumtraftData;
 import tld.unknown.mystery.items.AbstractAspectItem;
+import tld.unknown.mystery.items.blocks.CrystalBlockItem;
 import tld.unknown.mystery.registries.ChaumtraftBlocks;
 import tld.unknown.mystery.registries.ChaumtraftEntities;
 import tld.unknown.mystery.registries.ChaumtraftItems;
@@ -43,13 +45,26 @@ public final class RenderingEventHandlers {
         @SubscribeEvent
         public static void onBlockEntityRendererRegister(EntityRenderersEvent.RegisterRenderers e) {
             e.registerBlockEntityRenderer(ChaumtraftBlocks.CRUCIBLE.entityType(), CrucibleBER::new);
-
             e.registerEntityRenderer(ChaumtraftEntities.LIVING_TRUNK.entityType(), TrunkEntityRenderer::new);
         }
 
         @SubscribeEvent
-        public static void onColorTinting(RegisterColorHandlersEvent.Item e) {
-            e.register((stack, tintIndex) -> tintIndex == 1 ? ChaumtraftData.ASPECTS.getOptional(AbstractAspectItem.getEssentiaAspect(stack)).orElse(Aspect.UNKNOWN).getColor().getValue() : -1, ChaumtraftItems.PHIAL.get());
+        public static void onBlockColorTinting(RegisterColorHandlersEvent.Block e) {
+            e.register((bs, level, pos, tintIndex) -> ChaumtraftData.ASPECTS.getOptional(bs.getValue(CrystalBlock.ASPECT).getId()).orElse(Aspect.UNKNOWN).getColor().getValue(), ChaumtraftBlocks.CRYSTAL_COLONY.block());
+        }
+
+        @SubscribeEvent
+        public static void onItemColorTinting(RegisterColorHandlersEvent.Item e) {
+            e.register((stack, tintIndex) -> tintIndex == 1 ? ChaumtraftData.ASPECTS.getOptional(((AbstractAspectItem)stack.getItem()).getContent(stack)).orElse(Aspect.UNKNOWN).getColor().getValue() : -1, ChaumtraftItems.PHIAL.get());
+            e.register((stack, tintIndex) -> ChaumtraftData.ASPECTS.getOptional(((AbstractAspectItem)stack.getItem()).getContent(stack)).orElse(Aspect.UNKNOWN).getColor().getValue(), ChaumtraftItems.VIS_CRYSTAL.get());
+
+            e.register((stack, tintIndex) -> {
+                CrystalBlock.CrystalAspect aspect = ((CrystalBlockItem)stack.getItem()).getContent(stack);
+                if(aspect == null) {
+                    return 0xFFFFFFFF;
+                }
+                return ChaumtraftData.ASPECTS.getOptional(aspect.getId()).orElse(Aspect.UNKNOWN).getColor().getValue();
+            }, ChaumtraftBlocks.CRYSTAL_COLONY.item());
         }
     }
 }

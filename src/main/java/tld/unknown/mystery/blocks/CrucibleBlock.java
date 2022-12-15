@@ -41,9 +41,9 @@ import java.util.Optional;
 public class CrucibleBlock extends SimpleEntityBlock<CrucibleBlockEntity> {
 
     private static final int SIDE_THICKNESS = 2;
-    private static final int LEG_WIDTH = 4;
-    private static final int LEG_HEIGHT = 3;
-    private static final int LEG_DEPTH = 2;
+    private static final int LEG_WIDTH = 5;
+    private static final int LEG_HEIGHT = 2;
+    private static final int LEG_DEPTH = 3;
     private static final int FLOOR_LEVEL = 4;
     private static final VoxelShape INSIDE = box(SIDE_THICKNESS, FLOOR_LEVEL, SIDE_THICKNESS, SIDE_THICKNESS + 12, FLOOR_LEVEL + 12, SIDE_THICKNESS + 12);
     private static final VoxelShape SHAPE = Shapes.join(Shapes.block(), Shapes.or(

@@ -31,7 +31,7 @@ public class AspectTooltip implements ClientTooltipComponent {
     public void renderImage(Font pFont, int pMouseX, int pMouseY, PoseStack pPoseStack, ItemRenderer pItemRenderer, int pBlitOffset) {
         aspects.indexedForEach((aspect, amount, index) -> {
             int offset = index * (SIZE + SPACING);
-            AspectRenderer.renderAspectOverlaySDF(pPoseStack, aspect, pMouseX + offset, pMouseY + 1, SIZE, amount);
+            AspectRenderer.renderAspectOverlay(pPoseStack, aspect, pMouseX + offset, pMouseY + 1, SIZE, amount, false);
         });
     }
 

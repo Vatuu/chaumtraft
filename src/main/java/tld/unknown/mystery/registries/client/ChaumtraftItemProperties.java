@@ -10,16 +10,16 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.RegistryObject;
 import tld.unknown.mystery.api.ChaumtraftIDs;
-import tld.unknown.mystery.items.AbstractAspectItem;
 import tld.unknown.mystery.registries.ChaumtraftItems;
 import tld.unknown.mystery.util.ReflectionUtils;
+import tld.unknown.mystery.util.simple.SimpleMetaItem;
 
 @OnlyIn(Dist.CLIENT)
 public final class ChaumtraftItemProperties {
 
     /* -------------------------------------------------------------------------------------------------------------- */
 
-    public static final PropertyObject ASPECT_HOLDER_PRESENT = register(ChaumtraftIDs.ItemProperties.ASPECT_HOLDER_PRESENT, ChaumtraftItems.PHIAL, AbstractAspectItem.HAS_ASPECT_GETTER);
+    public static final PropertyObject ASPECT_HOLDER_PRESENT = register(ChaumtraftIDs.ItemProperties.ASPECT_HOLDER_PRESENT, ChaumtraftItems.PHIAL, SimpleMetaItem.HAS_META_GETTER);
 
     /* -------------------------------------------------------------------------------------------------------------- */
 

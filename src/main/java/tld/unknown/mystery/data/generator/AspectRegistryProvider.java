@@ -31,6 +31,7 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
     }
 
     private void vanilla() {
+        bothTag(Tags.Blocks.STORAGE_BLOCKS_REDSTONE, new AspectList().add(Aspects.ORDER, 1).add(Aspects.DESTRUCTION, 1).add(Aspects.AIR, 1).add(Aspects.WATER, 1).add(Aspects.FIRE, 1).add(Aspects.EARTH, 1));
         //------------------------------------------------------[BLOCKS]------------------------------------------------------------------------
         //STONES
         bothTag(Tags.Blocks.STONE, new AspectList().add(Aspects.CRYSTAL, 6));

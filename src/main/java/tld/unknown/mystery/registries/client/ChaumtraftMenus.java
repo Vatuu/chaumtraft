@@ -10,6 +10,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import tld.unknown.mystery.Chaumtraft;
+import tld.unknown.mystery.menus.ArcaneWorkbenchMenu;
 import tld.unknown.mystery.menus.TrunkMenu;
 
 public final class ChaumtraftMenus {
@@ -20,6 +21,7 @@ public final class ChaumtraftMenus {
 
     public static final RegistryObject<MenuType<TrunkMenu>> TRUNK_MENU_SMALL = register(Chaumtraft.id("trunk_menu"), (id, inv) -> TrunkMenu.create(id, inv, false));
     public static final RegistryObject<MenuType<TrunkMenu>> TRUNK_MENU_BIG = register(Chaumtraft.id("trunk_menu_big"), (id, inv) -> TrunkMenu.create(id, inv, true));
+    public static final RegistryObject<MenuType<ArcaneWorkbenchMenu>> ARCANE_WORKBENCH = register(Chaumtraft.id("arcane_workbench"), (id, inv) -> new ArcaneWorkbenchMenu(id));
 
     /* -------------------------------------------------------------------------------------------------------------- */
 

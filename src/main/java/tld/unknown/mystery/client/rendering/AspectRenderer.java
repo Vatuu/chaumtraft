@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Matrix4f;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import tld.unknown.mystery.api.Aspect;
@@ -12,17 +13,23 @@ import tld.unknown.mystery.util.RenderUtils;
 
 public final class AspectRenderer {
 
-    public static void renderAspectOverlaySDF(PoseStack stack, ResourceLocation aspectId, int x, int y, int size, int amount) {
+    public static void renderAspectOverlay(PoseStack stack, ResourceLocation aspectId, int x, int y, int size, int amount, boolean sdf) {
         stack.pushPose();
         Matrix4f pMatrix = stack.last().pose();
         Aspect aspect = ChaumtraftData.ASPECTS.getOptional(aspectId).orElse(Aspect.UNKNOWN);
-        RenderSystem.setShader(() -> RenderTypes.bindSdf(Aspect.getTexture(aspectId, true)));
+        if(sdf) {
+            RenderSystem.setShader(() -> RenderTypes.bindSdf(Aspect.getTexture(aspectId, true)));
+        } else {
+            RenderSystem.setShaderTexture(0, Aspect.getTexture(aspectId, false));
+            RenderSystem.setShader(GameRenderer::getPositionColorTexShader);
+        }
         BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
         bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
-        bufferbuilder.vertex(pMatrix, (float) x, (float) y + size, (float) 0).color(aspect.getColor().getValue()).uv(0, 1).endVertex();
-        bufferbuilder.vertex(pMatrix, (float) x + size, (float) y + size, (float) 0).color(aspect.getColor().getValue()).uv(1, 1).endVertex();
-        bufferbuilder.vertex(pMatrix, (float) x + size, (float) y, (float) 0).color(aspect.getColor().getValue()).uv(1, 0).endVertex();
-        bufferbuilder.vertex(pMatrix, (float) x, (float) y, (float) 0).color(aspect.getColor().getValue()).uv(0, 0).endVertex();
+        int color = (255 << 24) | (aspect.getColor().getValue() & 0x00FFFFFF);
+        bufferbuilder.vertex(pMatrix, (float) x, (float) y + size, (float) 0).color(color).uv(0, 1).endVertex();
+        bufferbuilder.vertex(pMatrix, (float) x + size, (float) y + size, (float) 0).color(color).uv(1, 1).endVertex();
+        bufferbuilder.vertex(pMatrix, (float) x + size, (float) y, (float) 0).color(color).uv(1, 0).endVertex();
+        bufferbuilder.vertex(pMatrix, (float) x, (float) y, (float) 0).color(color).uv(0, 0).endVertex();
         BufferUploader.drawWithShader(bufferbuilder.end());
         stack.popPose();
 

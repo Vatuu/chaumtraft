@@ -4,14 +4,19 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Matrix4f;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import tld.unknown.mystery.Chaumtraft;
+import tld.unknown.mystery.api.Aspect;
+import tld.unknown.mystery.api.ChaumtraftIDs;
 import tld.unknown.mystery.client.rendering.RenderTypes;
 import tld.unknown.mystery.client.screens.widgets.DataIndexWidget;
 import tld.unknown.mystery.data.ChaumtraftData;
 import tld.unknown.mystery.data.research.ResearchCategory;
 import tld.unknown.mystery.data.research.ResearchEntry;
+
+import java.awt.*;
 
 public class ResearchDebugScreen extends Screen {
 
@@ -50,24 +55,6 @@ public class ResearchDebugScreen extends Screen {
         renderBackground(pPoseStack);
         categories.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
         entries.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
-        shaderBlit(pPoseStack, width / 2 + 32, height / 2 - 64, 128, 128);
-        shaderBlit(pPoseStack, width / 2 - 32, height / 2 - 32, 64, 64);
-        shaderBlit(pPoseStack, width / 2 - 64, height / 2 - 16, 32, 32);
-        shaderBlit(pPoseStack, width / 2 - 80, height / 2 - 8, 16, 16);
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
-    }
-
-    private void shaderBlit(PoseStack stack, int x, int y, int width, int height) {
-        stack.pushPose();
-        Matrix4f pMatrix = stack.last().pose();
-        RenderSystem.setShader(() -> RenderTypes.bindSdf(Chaumtraft.id("textures/aspects/terra_sdf.png")));
-        BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
-        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
-        bufferbuilder.vertex(pMatrix, (float)x, (float)y + height, (float)0).color(0xFFFFFFFF).uv(0, 1).endVertex();
-        bufferbuilder.vertex(pMatrix, (float)x + width, (float)y + height, (float)0).color(0xFFFFFFFF).uv(1, 1).endVertex();
-        bufferbuilder.vertex(pMatrix, (float)x + width, (float)y, (float)0).color(0xFFFFFFFF).uv(1, 0).endVertex();
-        bufferbuilder.vertex(pMatrix, (float)x, (float)y, (float)0).color(0xFFFFFFFF).uv(0, 0).endVertex();
-        BufferUploader.drawWithShader(bufferbuilder.end());
-        stack.popPose();
     }
 }

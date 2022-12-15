@@ -2,10 +2,14 @@
   "itemGroup.chaumtraft": "Chaumtraft",
 
   "block.chaumtraft.crucible": "Crucible",
+  "block.chaumtraft.crystal_colony": "Crystal Colony",
+  "block.chaumtraft.crystal_colony.filled": "%s Crystal Colony",
 
   "item.chaumtraft.thaumonomicon": "Thaumaninamunanumayeahicon",
   "item.chaumtraft.phial": "Glass Phial",
   "item.chaumtraft.phial.filled": "Phial of %s Essentia",
+  "item.chaumtraft.vis_crystal": "Vis Crystal",
+  "item.chaumtraft.vis_crystal.filled": "%s Vis Crystal",
 
   "entity.chaumtraft.traveling_trunk": "Traveling Trunk",
 
@@ -21,5 +25,7 @@
   "aspect.chaumtraft.terra": "Terra",
   "aspect.chaumtraft.aqua": "Aqua",
   "aspect.chaumtraft.aer": "Aer",
-  "aspect.chaumtraft.ignis": "Ignis"
+  "aspect.chaumtraft.ignis": "Ignis",
+
+  "aspect.chaumtraft.vitium": "Vitium"
 }

@@ -50,6 +50,7 @@ public final class ChaumtraftIDs {
         public static final ResourceLocation THAUMONOMICON = Chaumtraft.id("thaumonomicon");
 
         public static final ResourceLocation PHIAL = Chaumtraft.id("phial");
+        public static final ResourceLocation VIS_CRYSTAL = Chaumtraft.id("vis_crystal");
 
         public static final ResourceLocation UPGRADE_SPEED = Chaumtraft.id("upgrade_speed");
         public static final ResourceLocation UPGRADE_CAPACITY = Chaumtraft.id("upgrade_capacity");
@@ -69,8 +70,11 @@ public final class ChaumtraftIDs {
 
     public static final class Blocks {
 
+        public static final ResourceLocation ARCANE_WORKBENCH = Chaumtraft.id("arcane_workbench");
         public static final ResourceLocation CRUCIBLE = Chaumtraft.id("crucible");
-        public static final ResourceLocation CRYSTAL = Chaumtraft.id("crystal");
+        public static final ResourceLocation CRYSTAL_COLONY = Chaumtraft.id("crystal_colony");
+        public static final ResourceLocation SILVERWOOD = Chaumtraft.id("silverwood");
+        public static final ResourceLocation GREATWOOD = Chaumtraft.id("greatwood");
     }
 
     public static final class Entities {
