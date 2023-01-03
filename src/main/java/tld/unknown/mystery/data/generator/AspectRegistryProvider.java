@@ -31,7 +31,7 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
     }
 
     private void vanilla() {
-        bothTag(Tags.Blocks.STORAGE_BLOCKS_REDSTONE, new AspectList().add(Aspects.ORDER, 1).add(Aspects.DESTRUCTION, 1).add(Aspects.AIR, 1).add(Aspects.WATER, 1).add(Aspects.FIRE, 1).add(Aspects.EARTH, 1));
+        bothTag(Tags.Blocks.STORAGE_BLOCKS_REDSTONE, new AspectList().add(Aspects.ORDER, 1).add(Aspects.CHAOS, 1).add(Aspects.AIR, 1).add(Aspects.WATER, 1).add(Aspects.FIRE, 1).add(Aspects.EARTH, 1));
         //------------------------------------------------------[BLOCKS]------------------------------------------------------------------------
         //STONES
         bothTag(Tags.Blocks.STONE, new AspectList().add(Aspects.CRYSTAL, 6));
@@ -65,14 +65,14 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         bothTag(BlockTags.LOGS, new AspectList().add(Aspects.PLANT, 20));
         bothTag(BlockTags.CROPS, new AspectList().add(Aspects.PLANT, 5).add(Aspects.LIFE, 5));
 //        bothTag(BlockTags.STRIPPED_LOGS, new AspectList().add(Aspects.PLANT, 20));
-        bothTag(Tags.Items.SAND, new AspectList().add(Aspects.EARTH, 5).add(Aspects.DESTRUCTION, 5));
-        bothTag(Tags.Items.GRAVEL, new AspectList().add(Aspects.EARTH, 5).add(Aspects.DESTRUCTION, 2));
+        bothTag(Tags.Items.SAND, new AspectList().add(Aspects.EARTH, 5).add(Aspects.CHAOS, 5));
+        bothTag(Tags.Items.GRAVEL, new AspectList().add(Aspects.EARTH, 5).add(Aspects.CHAOS, 2));
         bothTag(Tags.Items.SANDSTONE, new AspectList().add(Aspects.ORDER, 2));
         //COBBLESTONE - LIKE
-        bothTag(Tags.Items.COBBLESTONE, new AspectList().add(Aspects.ORDER, 2).add(Aspects.DESTRUCTION, 2));
+        bothTag(Tags.Items.COBBLESTONE, new AspectList().add(Aspects.ORDER, 2).add(Aspects.CHAOS, 2));
         bothTag(Tags.Items.COBBLESTONE_DEEPSLATE, new AspectList().add(Aspects.ORDER, 2).add(Aspects.DARKNESS, 2));
         bothTag(Tags.Items.COBBLESTONE_INFESTED, new AspectList().add(Aspects.ORDER, 2).add(Aspects.CREATURE, 2));
-        bothTag(Tags.Items.COBBLESTONE_MOSSY, new AspectList().add(Aspects.EARTH, 2).add(Aspects.PLANT, 2).add(Aspects.DESTRUCTION, 2));
+        bothTag(Tags.Items.COBBLESTONE_MOSSY, new AspectList().add(Aspects.EARTH, 2).add(Aspects.PLANT, 2).add(Aspects.CHAOS, 2));
         //NETHER - LIKE
         bothTag(Tags.Items.NETHERRACK, new AspectList().add(Aspects.EARTH, 2).add(Aspects.FIRE, 2));
         bothTag(Tags.Items.CROPS_NETHER_WART, new AspectList().add(Aspects.PLANT, 1).add(Aspects.TAINT, 2).add(Aspects.ALCHEMY, 3));
@@ -152,7 +152,7 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         //------------------------------------------------------[NON-TAGGED]------------------------------------------------------------------------
         //NETHER
         both(new AspectList().add(Aspects.EARTH, 3).add(Aspects.TRAP, 2).add(Aspects.SPIRIT, 4), Blocks.SOUL_SAND);
-        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.DEATH, 2).add(Aspects.UNDEAD, 2).add(Aspects.DESTRUCTION, 3), Blocks.WITHER_ROSE);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.DEATH, 2).add(Aspects.UNDEAD, 2).add(Aspects.CHAOS, 3), Blocks.WITHER_ROSE);
 
         //SHULKER BOXES
         item(new AspectList().add(Aspects.EMPTY, 15).add(Aspects.CREATURE, 15).add(Aspects.CHANGE, 5), Items.SHULKER_SHELL);
@@ -165,7 +165,7 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         both(new AspectList().add(Aspects.PLANT, 5), Blocks.CAVE_VINES);
         both(new AspectList().add(Aspects.PLANT, 5), Blocks.CAVE_VINES_PLANT);
         both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.WATER, 5).add(Aspects.AVERSION, 1), Blocks.CACTUS);
-        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.DESTRUCTION, 1), Blocks.DEAD_BUSH);
+        both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.CHAOS, 1), Blocks.DEAD_BUSH);
         both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.WATER, 3).add(Aspects.AIR, 2), Blocks.SUGAR_CANE);
         both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.WATER, 1), Blocks.LILY_PAD);
         both(new AspectList().add(Aspects.PLANT, 5).add(Aspects.AVERSION, 2), Blocks.SWEET_BERRY_BUSH);
@@ -179,8 +179,8 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         both(new AspectList().add(Aspects.EARTH, 5), Blocks.STONE);
         both(new AspectList().add(Aspects.EARTH, 5), Blocks.GRANITE);
         both(new AspectList().add(Aspects.EARTH, 5), Blocks.ANDESITE);
-        both(new AspectList().add(Aspects.EARTH, 5).add(Aspects.DESTRUCTION, 2), Blocks.COBBLESTONE);
-        both(new AspectList().add(Aspects.DARKNESS, 25).add(Aspects.DESTRUCTION, 25).add(Aspects.EMPTY, 25).add(Aspects.EARTH, 5), Blocks.BEDROCK);
+        both(new AspectList().add(Aspects.EARTH, 5).add(Aspects.CHAOS, 2), Blocks.COBBLESTONE);
+        both(new AspectList().add(Aspects.DARKNESS, 25).add(Aspects.CHAOS, 25).add(Aspects.EMPTY, 25).add(Aspects.EARTH, 5), Blocks.BEDROCK);
         //DIRTS
         both(new AspectList().add(Aspects.EARTH, 5), Blocks.DIRT);
         both(new AspectList().add(Aspects.EARTH, 5), Blocks.DIRT_PATH);
@@ -297,14 +297,14 @@ public class AspectRegistryProvider extends CodecDataProvider<AspectList> {
         //DUSTS
         itemTag(Tags.Items.DUSTS_REDSTONE, new AspectList().add(Aspects.POWER, 10));
         itemTag(Tags.Items.DUSTS_GLOWSTONE, new AspectList().add(Aspects.SENSE, 5).add(Aspects.LIGHT, 10));
-        itemTag(UncommonTags.DUSTS_IRON, new AspectList().add(Aspects.METAL, 15).add(Aspects.DESTRUCTION, 1));
-        itemTag(UncommonTags.DUSTS_GOLD, new AspectList().add(Aspects.METAL, 10).add(Aspects.DESIRE, 10).add(Aspects.DESTRUCTION, 1));
-        itemTag(UncommonTags.DUSTS_COPPER, new AspectList().add(Aspects.METAL, 10).add(Aspects.CHANGE, 5).add(Aspects.DESTRUCTION, 1));
-        itemTag(UncommonTags.DUSTS_TIN, new AspectList().add(Aspects.METAL, 10).add(Aspects.CRYSTAL, 5).add(Aspects.DESTRUCTION, 1));
-        itemTag(UncommonTags.DUSTS_SILVER, new AspectList().add(Aspects.METAL, 10).add(Aspects.DESIRE, 5).add(Aspects.DESTRUCTION, 1));
-        itemTag(UncommonTags.DUSTS_LEAD, new AspectList().add(Aspects.METAL, 10).add(Aspects.ORDER, 5).add(Aspects.DESTRUCTION, 1));
-        itemTag(UncommonTags.DUSTS_BRONZE, new AspectList().add(Aspects.METAL, 10).add(Aspects.TOOL, 5).add(Aspects.DESTRUCTION, 1));
-        itemTag(UncommonTags.DUSTS_BRASS, new AspectList().add(Aspects.METAL, 10).add(Aspects.TOOL, 5).add(Aspects.DESTRUCTION, 1));
+        itemTag(UncommonTags.DUSTS_IRON, new AspectList().add(Aspects.METAL, 15).add(Aspects.CHAOS, 1));
+        itemTag(UncommonTags.DUSTS_GOLD, new AspectList().add(Aspects.METAL, 10).add(Aspects.DESIRE, 10).add(Aspects.CHAOS, 1));
+        itemTag(UncommonTags.DUSTS_COPPER, new AspectList().add(Aspects.METAL, 10).add(Aspects.CHANGE, 5).add(Aspects.CHAOS, 1));
+        itemTag(UncommonTags.DUSTS_TIN, new AspectList().add(Aspects.METAL, 10).add(Aspects.CRYSTAL, 5).add(Aspects.CHAOS, 1));
+        itemTag(UncommonTags.DUSTS_SILVER, new AspectList().add(Aspects.METAL, 10).add(Aspects.DESIRE, 5).add(Aspects.CHAOS, 1));
+        itemTag(UncommonTags.DUSTS_LEAD, new AspectList().add(Aspects.METAL, 10).add(Aspects.ORDER, 5).add(Aspects.CHAOS, 1));
+        itemTag(UncommonTags.DUSTS_BRONZE, new AspectList().add(Aspects.METAL, 10).add(Aspects.TOOL, 5).add(Aspects.CHAOS, 1));
+        itemTag(UncommonTags.DUSTS_BRASS, new AspectList().add(Aspects.METAL, 10).add(Aspects.TOOL, 5).add(Aspects.CHAOS, 1));
         //CLUSTERS
         itemTag(UncommonTags.CLUSTERS_IRON, new AspectList().add(Aspects.METAL, 15).add(Aspects.CHANGE, 5));
         itemTag(UncommonTags.CLUSTERS_GOLD, new AspectList().add(Aspects.METAL, 10).add(Aspects.DESIRE, 10).add(Aspects.CHANGE, 5));

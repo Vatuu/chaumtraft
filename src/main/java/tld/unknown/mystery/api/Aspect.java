@@ -1,18 +1,25 @@
 package tld.unknown.mystery.api;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DynamicOps;
+import com.mojang.serialization.Keyable;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.StringRepresentable;
 import org.apache.commons.compress.utils.Lists;
 import tld.unknown.mystery.data.ChaumtraftData;
 import tld.unknown.mystery.data.aspects.PrimalAspects;
+import tld.unknown.mystery.util.codec.EnumCodec;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Data
 public class Aspect {
@@ -42,4 +49,21 @@ public class Aspect {
             TextColor.CODEC.fieldOf("color").forGetter(Aspect::getColor),
             ResourceLocation.CODEC.listOf().optionalFieldOf("origin", Lists.newArrayList()).forGetter(Aspect::getOrigin)
     ).apply(i, Aspect::new));
+
+    @AllArgsConstructor
+    public enum Primal implements EnumCodec.Values {
+        CHAOS(ChaumtraftIDs.Aspects.CHAOS.getPath()),
+        ORDER(ChaumtraftIDs.Aspects.ORDER.getPath()),
+        WATER(ChaumtraftIDs.Aspects.WATER.getPath()),
+        AIR(ChaumtraftIDs.Aspects.AIR.getPath()),
+        FIRE(ChaumtraftIDs.Aspects.FIRE.getPath()),
+        EARTH(ChaumtraftIDs.Aspects.EARTH.getPath());
+
+        private final String id;
+
+        @Override
+        public String getSerializedName() {
+            return id;
+        }
+    }
 }

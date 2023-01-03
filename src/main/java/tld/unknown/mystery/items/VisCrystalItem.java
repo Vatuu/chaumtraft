@@ -1,5 +1,6 @@
 package tld.unknown.mystery.items;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import tld.unknown.mystery.Chaumtraft;
 import tld.unknown.mystery.data.aspects.AspectList;

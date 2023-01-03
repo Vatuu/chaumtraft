@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
@@ -28,6 +27,7 @@ import tld.unknown.mystery.blocks.CrystalBlock;
 import tld.unknown.mystery.blocks.entities.ArcaneWorkbenchBlockEntity;
 import tld.unknown.mystery.blocks.entities.CrucibleBlockEntity;
 import tld.unknown.mystery.items.blocks.CrystalBlockItem;
+import tld.unknown.mystery.util.better.BetterSign;
 
 import java.util.Map;
 import java.util.Set;
@@ -95,23 +95,24 @@ public final class ChaumtraftBlocks {
         BlockObject<StairBlock> stairs = registerBlock(Chaumtraft.id(id.getPath() + "_stairs"), () -> new StairBlock(() -> planks.block().defaultBlockState(), props));
         BlockObject<SlabBlock> slab = registerBlock(Chaumtraft.id(id.getPath() + "_slab"), () -> new SlabBlock(props));
 
-        BlockBehaviour.Properties doorProps = BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F).sound(SoundType.WOOD).noOcclusion();
-        BlockObject<DoorBlock> door = registerBlock(Chaumtraft.id(id.getPath() + "_door"), () -> new DoorBlock(doorProps));
-        BlockObject<TrapDoorBlock> trapdoor = registerBlock(Chaumtraft.id(id.getPath() + "_trapdoor"), () -> new TrapDoorBlock(doorProps));
-
-        BlockBehaviour.Properties signProps = BlockBehaviour.Properties.of(Material.WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD);
-        WoodType type = WoodType.create(id.getPath());
-        RegistryObject<StandingSignBlock> standingSign = REGISTRY_BLOCKS.register(id.getPath() + "_sign", () -> new StandingSignBlock(signProps, type));
-        RegistryObject<WallSignBlock> wallSign = REGISTRY_BLOCKS.register(id.getPath() + "_wall_sign", () -> new WallSignBlock(signProps, type));
-        RegistryObject<SignItem> signItem = REGISTRY_ITEM.register(id.getPath() + "_sign", () -> new SignItem(new Item.Properties().stacksTo(16).tab(Chaumtraft.CREATIVE_TAB), standingSign.get(), wallSign.get()));
-
         BlockObject<FenceBlock> fence = registerBlock(Chaumtraft.id(id.getPath() + "_fence"), () -> new FenceBlock(props));
         BlockObject<FenceGateBlock> fenceGate = registerBlock(Chaumtraft.id(id.getPath() + "_fence_gate"), () -> new FenceGateBlock(props));
 
         BlockObject<PressurePlateBlock> pressurePlate = registerBlock(Chaumtraft.id(id.getPath() + "_pressure_plate"), () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, props));
         BlockObject<WoodButtonBlock> button = registerBlock(Chaumtraft.id(id.getPath() + "_button"), () -> new WoodButtonBlock(props));
 
-        return new WoodBlockSet(planks, log, wood, logStripped, woodStripped, leaves, sapling, stairs, slab, door,trapdoor, standingSign, wallSign, signItem, fence, fenceGate, pressurePlate, button);
+        return new WoodBlockSet(planks, log, wood, logStripped, woodStripped, leaves, sapling, stairs, slab,fence, fenceGate, pressurePlate, button);
+    }
+
+    private static BetterSign.SignObject registerSign(ResourceLocation id) {
+        BlockBehaviour.Properties signProps = BlockBehaviour.Properties.of(Material.WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD);
+        WoodType type = WoodType.create(id.getPath());
+        RegistryObject<StandingSignBlock> standingSign = REGISTRY_BLOCKS.register(id.getPath() + "_sign", () -> new BetterSign.BetterStandingSignBlock(signProps, type));
+        RegistryObject<WallSignBlock> wallSign = REGISTRY_BLOCKS.register(id.getPath() + "_wall_sign", () -> new BetterSign.BetterWallSignBlock(signProps, type));
+        RegistryObject<SignItem> signItem = REGISTRY_ITEM.register(id.getPath() + "_sign", () -> new SignItem(new Item.Properties().stacksTo(16).tab(Chaumtraft.CREATIVE_TAB), standingSign.get(), wallSign.get()));
+        BetterSign.SignObject obj = new BetterSign.SignObject(type, standingSign, wallSign, signItem);
+        BetterSign.addSign(obj);
+        return obj;
     }
 
     private static <B extends Block, K, I extends Item> MultiItemBlockObject<B, K, I> registerMultiItemBlock(ResourceLocation id, Supplier<B> block, Set<K> itemKeys, Function<K, I> factory) {
@@ -171,34 +172,12 @@ public final class ChaumtraftBlocks {
         private final BlockObject<StairBlock> stairs;
         private final BlockObject<SlabBlock> slab;
 
-        private final BlockObject<DoorBlock> door;
-        private final BlockObject<TrapDoorBlock> trapdoor;
-
-        private final RegistryObject<StandingSignBlock> standingSign;
-        private final RegistryObject<WallSignBlock> wallSign;
-        private final RegistryObject<SignItem> signItem;
-
         private final BlockObject<FenceBlock> fence;
         private final BlockObject<FenceGateBlock> fenceGate;
 
         private final BlockObject<PressurePlateBlock> pressurePlate;
         private final BlockObject<WoodButtonBlock> button;
 
-        public StandingSignBlock getStandingSign() {
-            return standingSign.get();
-        }
-
-        public RegistryObject<StandingSignBlock> getStandingSignObject() {
-            return standingSign;
-        }
-
-        public WallSignBlock getWallSign() {
-            return wallSign.get();
-        }
-
-        public RegistryObject<WallSignBlock> getWallSignObject() {
-            return wallSign;
-        }
     }
 
     @RequiredArgsConstructor

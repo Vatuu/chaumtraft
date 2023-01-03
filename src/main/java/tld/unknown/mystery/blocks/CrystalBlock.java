@@ -9,7 +9,6 @@ import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DirectionalBlock;
-import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -18,8 +17,6 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.CubeVoxelShape;
-import net.minecraft.world.phys.shapes.DiscreteVoxelShape;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import tld.unknown.mystery.api.ChaumtraftIDs;
 
@@ -60,7 +57,7 @@ public class CrystalBlock extends DirectionalBlock {
     @AllArgsConstructor
     public enum CrystalAspect implements StringRepresentable {
         ORDER(ChaumtraftIDs.Aspects.ORDER, MaterialColor.COLOR_LIGHT_GRAY),
-        DESTRUCTION(ChaumtraftIDs.Aspects.DESTRUCTION, MaterialColor.COLOR_GRAY),
+        DESTRUCTION(ChaumtraftIDs.Aspects.CHAOS, MaterialColor.COLOR_GRAY),
         EARTH(ChaumtraftIDs.Aspects.EARTH, MaterialColor.COLOR_GREEN),
         WATER(ChaumtraftIDs.Aspects.WATER, MaterialColor.COLOR_CYAN),
         AIR(ChaumtraftIDs.Aspects.AIR, MaterialColor.COLOR_YELLOW),

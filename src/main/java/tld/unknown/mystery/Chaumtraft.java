@@ -1,6 +1,7 @@
 package tld.unknown.mystery;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -14,10 +15,12 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
 import org.slf4j.Logger;
 import tld.unknown.mystery.client.ChaumtraftKeybinds;
+import tld.unknown.mystery.client.screens.ArcaneWorkbenchScreen;
 import tld.unknown.mystery.registries.*;
 import tld.unknown.mystery.networking.ChaumtraftNetworking;
 import tld.unknown.mystery.registries.client.ChaumtraftItemProperties;
 import tld.unknown.mystery.registries.client.ChaumtraftMenus;
+import tld.unknown.mystery.util.better.BetterSign;
 
 @Mod(Chaumtraft.MOD_ID)
 @Mod.EventBusSubscriber(modid = Chaumtraft.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -42,10 +45,13 @@ public final class Chaumtraft {
         MinecraftForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::commonSetup);
 
+        BetterSign.init(MOD_ID, modEventBus);
+
         ChaumtraftItems.init(modEventBus);
         ChaumtraftBlocks.init(modEventBus);
         ChaumtraftRecipes.init(modEventBus);
         ChaumtraftEntities.init(modEventBus);
+        ChaumtraftMenus.init(modEventBus);
 
         ChaumtraftNetworking.init();
     }
@@ -59,6 +65,10 @@ public final class Chaumtraft {
 
         ChaumtraftMenus.init(modEventBus);
         ChaumtraftItemProperties.init(event);
+
+        event.enqueueWork(() -> {
+            MenuScreens.register(ChaumtraftMenus.ARCANE_WORKBENCH.get(), ArcaneWorkbenchScreen::new);
+        });
     }
 
     public static boolean isDev() {

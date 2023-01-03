@@ -12,6 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 import tld.unknown.mystery.Chaumtraft;
 import tld.unknown.mystery.api.ChaumtraftIDs;
 import tld.unknown.mystery.data.recipes.AlchemyRecipe;
+import tld.unknown.mystery.data.recipes.ArcaneCraftingRecipe;
 import tld.unknown.mystery.util.codec.recipes.CodecRecipeSerializer;
 
 import java.util.function.Supplier;
@@ -24,6 +25,7 @@ public final class ChaumtraftRecipes {
     /* -------------------------------------------------------------------------------------------------------------- */
 
     public static final RecipeObject<AlchemyRecipe> ALCHEMY = register(ChaumtraftIDs.Recipes.TYPE_ALCHEMY, () -> new CodecRecipeSerializer<>(AlchemyRecipe.CODEC));
+    public static final RecipeObject<ArcaneCraftingRecipe> ARCANE_CRAFTING = register(ChaumtraftIDs.Recipes.TYPE_ARCANE_CRAFTING, () -> new CodecRecipeSerializer<>(ArcaneCraftingRecipe.CODEC));
 
     /* -------------------------------------------------------------------------------------------------------------- */
 

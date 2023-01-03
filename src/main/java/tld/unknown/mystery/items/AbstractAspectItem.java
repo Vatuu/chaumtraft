@@ -40,4 +40,8 @@ public abstract class AbstractAspectItem extends SimpleMetaItem<ResourceLocation
     protected Component getContentNameFiller(ResourceLocation content) {
         return Aspect.getName(content, false, true);
     }
+
+    public static boolean hasAspect(ItemStack stack, ResourceLocation aspect) {
+        return stack.getItem() instanceof AbstractAspectItem i && i.getContent(stack).equals(aspect);
+    }
 }

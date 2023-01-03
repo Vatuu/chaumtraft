@@ -1,5 +1,6 @@
 package tld.unknown.mystery.blocks.entities;
 
+import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -11,13 +12,7 @@ import tld.unknown.mystery.util.simple.SimpleBlockEntity;
 
 public class ArcaneWorkbenchBlockEntity extends SimpleBlockEntity {
 
-    private static final int SLOT_ORDER = 0;
-    private static final int SLOT_WATER = 1;
-    private static final int SLOT_AIR = 2;
-    private static final int SLOT_DESTRUCTION = 3;
-    private static final int SLOT_EARTH = 4;
-    private static final int SLOT_FIRE = 5;
-
+    @Getter
     private final SimpleContainer container;
 
     public ArcaneWorkbenchBlockEntity(BlockPos pPos, BlockState pBlockState) {

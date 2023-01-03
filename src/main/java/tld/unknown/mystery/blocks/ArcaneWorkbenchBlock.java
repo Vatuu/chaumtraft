@@ -24,6 +24,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import tld.unknown.mystery.blocks.entities.ArcaneWorkbenchBlockEntity;
+import tld.unknown.mystery.menus.ArcaneWorkbenchMenu;
 import tld.unknown.mystery.util.simple.SimpleEntityBlock;
 
 
@@ -50,7 +51,7 @@ public class ArcaneWorkbenchBlock extends SimpleEntityBlock<ArcaneWorkbenchBlock
     }
 
     public MenuProvider getMenuProvider(BlockState pState, Level pLevel, BlockPos pPos) {
-        return new SimpleMenuProvider((p_52229_, p_52230_, p_52231_) -> new CraftingMenu(p_52229_, p_52230_, ContainerLevelAccess.create(pLevel, pPos)), CONTAINER_TITLE);
+        return new SimpleMenuProvider((id, inv, player) -> new ArcaneWorkbenchMenu(id, inv, getEntity(pLevel, pPos).getContainer(), player), CONTAINER_TITLE);
     }
 
     @Override

@@ -20,6 +20,7 @@ public final class ChaumtraftIDs {
     public static final class Recipes {
 
         public static final ResourceLocation TYPE_ALCHEMY = Chaumtraft.id("alchemy");
+        public static final ResourceLocation TYPE_ARCANE_CRAFTING = Chaumtraft.id("arcane_crafting");
 
         public static final ResourceLocation ALCHEMY_DOUBLE_SLIME = Chaumtraft.id("double_slime");
     }
@@ -69,9 +70,10 @@ public final class ChaumtraftIDs {
     }
 
     public static final class Blocks {
-
+        public static final ResourceLocation BETTER_SIGN = Chaumtraft.id("extended_sign");
         public static final ResourceLocation ARCANE_WORKBENCH = Chaumtraft.id("arcane_workbench");
         public static final ResourceLocation CRUCIBLE = Chaumtraft.id("crucible");
+
         public static final ResourceLocation CRYSTAL_COLONY = Chaumtraft.id("crystal_colony");
         public static final ResourceLocation SILVERWOOD = Chaumtraft.id("silverwood");
         public static final ResourceLocation GREATWOOD = Chaumtraft.id("greatwood");
@@ -98,7 +100,7 @@ public final class ChaumtraftIDs {
         public static final ResourceLocation UNKNOWN = Chaumtraft.id("unknown");
 
         public static final ResourceLocation ORDER = Chaumtraft.id("ordo");
-        public static final ResourceLocation DESTRUCTION = Chaumtraft.id("perditio");
+        public static final ResourceLocation CHAOS = Chaumtraft.id("perditio");
         public static final ResourceLocation EARTH = Chaumtraft.id("terra");
         public static final ResourceLocation AIR = Chaumtraft.id("aer");
         public static final ResourceLocation WATER = Chaumtraft.id("aqua");
@@ -127,7 +129,7 @@ public final class ChaumtraftIDs {
         public static final ResourceLocation MACHINE = Chaumtraft.id("machina");
         public static final ResourceLocation TRAP = Chaumtraft.id("vinculum");
         public static final ResourceLocation SPIRIT = Chaumtraft.id("spiritus");
-        public static final ResourceLocation MIND = Chaumtraft.id("cognito");
+        public static final ResourceLocation MIND = Chaumtraft.id("cognitio");
         public static final ResourceLocation SENSE = Chaumtraft.id("sensus");
         public static final ResourceLocation AVERSION = Chaumtraft.id("aversio");
         public static final ResourceLocation ARMOR = Chaumtraft.id("praemunio");

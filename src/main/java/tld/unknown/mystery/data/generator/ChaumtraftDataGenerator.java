@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.Mod;
 import tld.unknown.mystery.Chaumtraft;
 import tld.unknown.mystery.data.generator.models.BlockDataProvider;
 import tld.unknown.mystery.data.generator.recipes.AlchemyRecipeProvider;
+import tld.unknown.mystery.data.generator.recipes.ArcaneCraftingRecipeProvider;
 
 @Mod.EventBusSubscriber(modid = Chaumtraft.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class ChaumtraftDataGenerator {
@@ -20,6 +21,7 @@ public final class ChaumtraftDataGenerator {
         dataGen.addProvider(true, new AspectRegistryProvider(dataGen));
 
         dataGen.addProvider(true, new AlchemyRecipeProvider(dataGen));
+        dataGen.addProvider(true, new ArcaneCraftingRecipeProvider(dataGen));
 
         dataGen.addProvider(true, new BlockDataProvider(dataGen, e.getExistingFileHelper()));
         dataGen.addProvider(true, new TagsProvider(dataGen, e.getExistingFileHelper()));

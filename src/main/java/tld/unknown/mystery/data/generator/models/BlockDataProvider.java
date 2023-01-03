@@ -1,14 +1,9 @@
 package tld.unknown.mystery.data.generator.models;
 
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.SignBlockEntity;
-import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
@@ -16,6 +11,7 @@ import tld.unknown.mystery.Chaumtraft;
 import tld.unknown.mystery.api.ChaumtraftIDs;
 import tld.unknown.mystery.blocks.CrystalBlock;
 import tld.unknown.mystery.registries.ChaumtraftBlocks;
+import tld.unknown.mystery.util.better.BetterSign;
 
 import static tld.unknown.mystery.api.ChaumtraftIDs.*;
 
@@ -33,7 +29,7 @@ public class BlockDataProvider extends BlockStateProvider {
         simpleBlockItem(ChaumtraftBlocks.ARCANE_WORKBENCH.block(), models().getExistingFile(Chaumtraft.id("block/arcane_workbench")));
 
         ModelBuilder<?> filledPhial = itemModels().withExistingParent(Items.PHIAL.getPath() + "_filled", "item/generated")
-                .texture("layer0", "item/phial_filled")
+                .texture("layer0", "item/phial")
                 .texture("layer1", "item/phial_overlay");
 
         ModelFile CRYSTAL_0 = models().getExistingFile(Chaumtraft.id("block/vis_crystals_ground_stage0"));
@@ -57,8 +53,8 @@ public class BlockDataProvider extends BlockStateProvider {
                 .model(filledPhial)
                 .end();
 
-        registerWoodType(ChaumtraftBlocks.SILVERWOOD, WoodType.create(ChaumtraftIDs.Blocks.SILVERWOOD.getPath()));
-        registerWoodType(ChaumtraftBlocks.GREATWOOD, WoodType.create(ChaumtraftIDs.Blocks.GREATWOOD.getPath()));
+        registerWoodType(ChaumtraftBlocks.SILVERWOOD);
+        registerWoodType(ChaumtraftBlocks.GREATWOOD);
     }
 
     private ConfiguredModel[] getCrystalModels(Direction dir, ModelFile model) {
@@ -121,15 +117,21 @@ public class BlockDataProvider extends BlockStateProvider {
 
     private void registerPlant(RegistryObject<? extends Block> block) {
         models().cross(block.getId().getPath(), new ResourceLocation(block.getId().getNamespace(), "block/" + block.getId().getPath()));
-        simpleBlockItem(block.get(), itemModels().basicItem(block.getId()));
+        simpleBlockItem(block.get(), basicBlockItem(block.getId()));
     }
 
-    private void registerSign(RegistryObject<? extends StandingSignBlock> standing, RegistryObject<? extends WallSignBlock> wall, RegistryObject<? extends SignItem> item,  WoodType type) {
-        signBlock(standing.get(), wall.get(), Chaumtraft.id("entity/signs/" + type.name()));
-        itemModels().basicItem(item.get());
+    private void registerSign(BetterSign.SignObject sign) {
+        signBlock(sign.getStandingSign(), sign.getWallSign(), Chaumtraft.id("entity/signs/" + sign.getWoodType().name()));
+        itemModels().basicItem(sign.getItem().get());
     }
 
-    private void registerWoodType(ChaumtraftBlocks.WoodBlockSet type, WoodType wood) {
+    public ItemModelBuilder basicBlockItem(ResourceLocation item) {
+        return itemModels().getBuilder(item.toString())
+                .parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", new ResourceLocation(item.getNamespace(), "block/" + item.getPath()));
+    }
+
+    private void registerWoodType(ChaumtraftBlocks.WoodBlockSet type) {
         registerSimpleBlock(type.getPlanks().blockObject());
         registerSimpleBlock(type.getLeaves().blockObject());
 
@@ -139,10 +141,8 @@ public class BlockDataProvider extends BlockStateProvider {
         registerLog(type.getStrippedLog().blockObject(), type.getStrippedWood().blockObject());
 
         registerStairSlab(type.getStairs().blockObject(), type.getSlab().blockObject(), type.getPlanks().blockObject().getId());
-        registerDoors(type.getDoor().blockObject(), type.getTrapdoor().blockObject());
 
         registerFences(type.getFence().blockObject(), type.getFenceGate().blockObject(), type.getPlanks().blockObject().getId());
-        registerSign(type.getStandingSignObject(), type.getWallSignObject(), type.getSignItem(), wood);
         registerPressables(type.getPressurePlate().blockObject(), type.getButton().blockObject(), type.getPlanks().blockObject().getId());
     }
 }

@@ -106,7 +106,7 @@ public class CrucibleBlockEntity extends SimpleBlockEntity implements IFluidHand
         boolean crafted = false, consumed = false;
         for(int i = 0; i < stack.getCount(); i++) {
             IResearchCapability research = player != null ? player.getCapability(ChaumtraftCapabilities.RESEARCH).orElse(new ResearchCapability()) : new ResearchCapability();
-            Optional<AlchemyRecipe> recipe = CraftingUtils.findRecipe(getLevel(), aspects, stack, research);
+            Optional<AlchemyRecipe> recipe = CraftingUtils.findAlchemyRecipe(getLevel(), aspects, stack, research);
             if(recipe.isPresent()) {
                 ItemStack result = recipe.get().getResultItem().copy();
                 this.aspects.remove(recipe.get().getAspects());

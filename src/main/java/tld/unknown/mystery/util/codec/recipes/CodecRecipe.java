@@ -8,6 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import tld.unknown.mystery.registries.ChaumtraftRecipes;
 
 public abstract class CodecRecipe<T extends CodecRecipe<T>> implements Recipe<Container> {
@@ -41,5 +42,15 @@ public abstract class CodecRecipe<T extends CodecRecipe<T>> implements Recipe<Co
     @Override
     public RecipeType<?> getType() {
         return registryEntry.type();
+    }
+
+    @Override
+    public boolean matches(Container pContainer, Level pLevel) {
+        return false;
+    }
+
+    @Override
+    public ItemStack assemble(Container pContainer) {
+        return null;
     }
 }

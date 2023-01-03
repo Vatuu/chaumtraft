@@ -29,16 +29,6 @@ public class AlchemyRecipe extends CodecRecipe<AlchemyRecipe> {
         return list.contains(aspects) && this.catalyst.test(item);
     }
 
-    @Override
-    public boolean matches(Container pContainer, Level pLevel) {
-        return false;
-    }
-
-    @Override
-    public ItemStack assemble(Container pContainer) {
-        return null;
-    }
-
     public static final Codec<AlchemyRecipe> CODEC = RecordCodecBuilder.create(i -> i.group(
             Codecs.INGREDIENT.fieldOf("catalyst").forGetter(AlchemyRecipe::getCatalyst),
             AspectList.CODEC.fieldOf("aspects").forGetter(AlchemyRecipe::getAspects),

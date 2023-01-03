@@ -65,4 +65,27 @@ public final class Codecs {
             return JsonOps.INSTANCE.convertTo(ops, value.toJson());
         }
     };
+
+    public static final PrimitiveCodec<Character> CHAR = new PrimitiveCodec<>() {
+        @Override
+        public <T> DataResult<Character> read(final DynamicOps<T> ops, final T input) {
+            DataResult<String> val = ops.getStringValue(input);
+            if(val.error().isPresent()) {
+                return DataResult.error("Unable to parse initial string!");
+            } else if(val.result().isPresent() && val.result().get().length() > 1) {
+                return DataResult.error("Value is not a singular char!");
+            }
+            return DataResult.success(val.result().get().charAt(0));
+        }
+
+        @Override
+        public <T> T write(final DynamicOps<T> ops, final Character value) {
+            return ops.createString(String.valueOf(value));
+        }
+
+        @Override
+        public String toString() {
+            return "Char";
+        }
+    };
 }

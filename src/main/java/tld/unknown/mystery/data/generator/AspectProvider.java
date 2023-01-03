@@ -18,21 +18,21 @@ public class AspectProvider extends CodecDataProvider<Aspect> {
 
     @Override
     protected void createEntries() {
-        registerAspect(Aspects.EMPTY, "#888888", Aspects.AIR, Aspects.DESTRUCTION);
+        registerAspect(Aspects.EMPTY, "#888888", Aspects.AIR, Aspects.CHAOS);
         registerAspect(Aspects.LIGHT, "#FFFFC0", Aspects.AIR, Aspects.FIRE);
         registerAspect(Aspects.MOVEMENT, "#CDCCF4", Aspects.AIR, Aspects.ORDER);
-        registerAspect(Aspects.ICE, "#E1FFFF", Aspects.FIRE, Aspects.DESTRUCTION);
+        registerAspect(Aspects.ICE, "#E1FFFF", Aspects.FIRE, Aspects.CHAOS);
         registerAspect(Aspects.CRYSTAL, "#80FFFF", Aspects.EARTH, Aspects.AIR);
         registerAspect(Aspects.METAL, "#B5B5CD", Aspects.EARTH, Aspects.ORDER);
         registerAspect(Aspects.LIFE, "#DE0005", Aspects.EARTH, Aspects.WATER);
-        registerAspect(Aspects.DEATH, "#6A0005", Aspects.WATER, Aspects.DESTRUCTION);
+        registerAspect(Aspects.DEATH, "#6A0005", Aspects.WATER, Aspects.CHAOS);
         registerAspect(Aspects.POWER, "#C0FFFF", Aspects.ORDER, Aspects.FIRE);
-        registerAspect(Aspects.CHANGE, "#578357", Aspects.DESTRUCTION, Aspects.ORDER);
+        registerAspect(Aspects.CHANGE, "#578357", Aspects.CHAOS, Aspects.ORDER);
 
         registerAspect(Aspects.MAGIC, "#CF00FF", Aspects.POWER, Aspects.AIR);
         registerAspect(Aspects.AURA, "#FFC0FF", Aspects.MAGIC, Aspects.AIR);
         registerAspect(Aspects.ALCHEMY, "#23AC9D", Aspects.MAGIC, Aspects.WATER);
-        registerAspect(Aspects.TAINT, "#800080", Aspects.DESTRUCTION, Aspects.MAGIC);
+        registerAspect(Aspects.TAINT, "#800080", Aspects.CHAOS, Aspects.MAGIC);
 
         registerAspect(Aspects.DARKNESS, "#222222", Aspects.EMPTY, Aspects.LIGHT);
         registerAspect(Aspects.ALIEN, "#805080", Aspects.EMPTY, Aspects.DARKNESS);
@@ -42,12 +42,12 @@ public class AspectProvider extends CodecDataProvider<Aspect> {
         registerAspect(Aspects.TOOL, "#4040EE", Aspects.METAL, Aspects.POWER);
         registerAspect(Aspects.CRAFT, "#809D80", Aspects.CHANGE, Aspects.TOOL);
         registerAspect(Aspects.MACHINE, "#8080A0", Aspects.MOVEMENT, Aspects.TOOL);
-        registerAspect(Aspects.TRAP, "#9A8080", Aspects.MOVEMENT, Aspects.DESTRUCTION);
+        registerAspect(Aspects.TRAP, "#9A8080", Aspects.MOVEMENT, Aspects.CHAOS);
 
         registerAspect(Aspects.SPIRIT, "#EBEBFB", Aspects.LIFE, Aspects.DEATH);
         registerAspect(Aspects.MIND, "#F9967F", Aspects.FIRE, Aspects.SPIRIT);
         registerAspect(Aspects.SENSE, "#C0FFC0", Aspects.AIR, Aspects.SPIRIT);
-        registerAspect(Aspects.AVERSION, "#C05050", Aspects.SPIRIT, Aspects.DESTRUCTION);
+        registerAspect(Aspects.AVERSION, "#C05050", Aspects.SPIRIT, Aspects.CHAOS);
         registerAspect(Aspects.ARMOR, "#C0C0", Aspects.SPIRIT, Aspects.EARTH);
         registerAspect(Aspects.DESIRE, "#E6BE44", Aspects.SPIRIT, Aspects.EMPTY);
 
