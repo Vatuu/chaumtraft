@@ -1,8 +1,5 @@
 package tld.unknown.mystery.util.codec;
 
-import com.google.common.collect.Lists;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
@@ -22,10 +19,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import tld.unknown.mystery.util.IconTexture;
 import tld.unknown.mystery.util.ItemUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public final class Codecs {
 
@@ -36,7 +30,7 @@ public final class Codecs {
     public static final Codec<Item> ITEM = ResourceLocation.CODEC.comapFlatMap(id -> {
         if(ForgeRegistries.ITEMS.containsKey(id))
             return DataResult.success(ForgeRegistries.ITEMS.getValue(id));
-        return DataResult.error("Unknown Item Type \"" + id + "\"");
+        return DataResult.error(() -> "Unknown Item Type \"" + id + "\"");
     }, ForgeRegistries.ITEMS::getKey);
 
     public static final Codec<ItemStack> ITEM_STACK_FULL = RecordCodecBuilder.create(i -> i.group(
@@ -56,7 +50,7 @@ public final class Codecs {
             try {
                 return DataResult.success(Ingredient.fromJson(ops.convertTo(JsonOps.INSTANCE, input)));
             } catch(JsonParseException e) {
-                return DataResult.error("Failed to parse Ingredient: " + e.getMessage());
+                return DataResult.error(() -> "Failed to parse Ingredient: " + e.getMessage());
             }
         }
 
@@ -71,9 +65,9 @@ public final class Codecs {
         public <T> DataResult<Character> read(final DynamicOps<T> ops, final T input) {
             DataResult<String> val = ops.getStringValue(input);
             if(val.error().isPresent()) {
-                return DataResult.error("Unable to parse initial string!");
+                return DataResult.error(() -> "Unable to parse initial string!");
             } else if(val.result().isPresent() && val.result().get().length() > 1) {
-                return DataResult.error("Value is not a singular char!");
+                return DataResult.error(() -> "Value is not a singular char!");
             }
             return DataResult.success(val.result().get().charAt(0));
         }

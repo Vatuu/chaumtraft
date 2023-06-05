@@ -1,15 +1,19 @@
 {
-  "itemGroup.chaumtraft": "Chaumtraft",
+  "itemGroup.chaumtraft.main": "Chaumtraft",
 
   "block.chaumtraft.crucible": "Crucible",
+  "block.chaumtraft.arcane_workbench": "Arcane Workbench",
+  "block.chaumtraft.runic_matrix": "Runic Matrix",
   "block.chaumtraft.crystal_colony": "Crystal Colony",
   "block.chaumtraft.crystal_colony.filled": "%s Crystal Colony",
+  "block.chaumtraft.tube": "Essentia Tube",
 
   "item.chaumtraft.thaumonomicon": "Thaumaninamunanumayeahicon",
   "item.chaumtraft.phial": "Glass Phial",
   "item.chaumtraft.phial.filled": "Phial of %s Essentia",
   "item.chaumtraft.vis_crystal": "Vis Crystal",
   "item.chaumtraft.vis_crystal.filled": "%s Vis Crystal",
+  "item.chaumtraft.resonator": "Essentia Resonator",
 
   "entity.chaumtraft.traveling_trunk": "Traveling Trunk",
 
@@ -27,5 +31,11 @@
   "aspect.chaumtraft.aer": "Aer",
   "aspect.chaumtraft.ignis": "Ignis",
 
-  "aspect.chaumtraft.vitium": "Vitium"
+  "aspect.chaumtraft.vitium": "Vitium",
+  "aspect.chaumtraft.untyped": "Untyped",
+
+  "msg.chaumtraft.resonator.suction": "Suction",
+  "msg.chaumtraft.resonator.suction.value": "%d %s",
+  "msg.chaumtraft.resonator.content": "Contains",
+  "msg.chaumtraft.resonator.content.value": "%d %s Essentia"
 }

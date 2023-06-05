@@ -3,13 +3,14 @@ package tld.unknown.mystery.data.recipes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
+import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import tld.unknown.mystery.Chaumtraft;
-import tld.unknown.mystery.api.Aspect;
-import tld.unknown.mystery.api.IResearchCapability;
+import tld.unknown.mystery.api.aspects.Aspect;
+import tld.unknown.mystery.api.capabilities.IResearchCapability;
 import tld.unknown.mystery.registries.ChaumtraftRecipes;
 import tld.unknown.mystery.util.codec.Codecs;
 import tld.unknown.mystery.util.codec.EnumCodec;
@@ -39,8 +40,13 @@ public class ArcaneCraftingRecipe extends CodecRecipe<ArcaneCraftingRecipe> {
         this.result = result;
     }
 
-    public boolean isValidPattern(CraftingContainer craft, SimpleContainer cryst) {
-        return grid.verify(craft) && crystals.keySet().stream().allMatch(p -> !cryst.getItem(p.ordinal()).isEmpty() && cryst.getItem(p.ordinal()).getCount() >= crystals.get(p));
+    @Override
+    public NonNullList<ItemStack> getRemainingItems(Container pContainer) {
+        return super.getRemainingItems(pContainer);
+    }
+
+    public boolean isValidPattern(SimpleContainer craftingSlot) {
+        return grid.verify(craftingSlot, 6) && crystals.keySet().stream().allMatch(p -> !craftingSlot.getItem(p.ordinal()).isEmpty() && craftingSlot.getItem(p.ordinal()).getCount() >= crystals.get(p));
     }
 
     public boolean playerKnowsResearch(IResearchCapability cap) {

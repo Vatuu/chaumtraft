@@ -1,22 +1,13 @@
 package tld.unknown.mystery.client.screens;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.Matrix4f;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import tld.unknown.mystery.Chaumtraft;
-import tld.unknown.mystery.api.Aspect;
-import tld.unknown.mystery.api.ChaumtraftIDs;
-import tld.unknown.mystery.client.rendering.RenderTypes;
 import tld.unknown.mystery.client.screens.widgets.DataIndexWidget;
 import tld.unknown.mystery.data.ChaumtraftData;
 import tld.unknown.mystery.data.research.ResearchCategory;
 import tld.unknown.mystery.data.research.ResearchEntry;
-
-import java.awt.*;
 
 public class ResearchDebugScreen extends Screen {
 

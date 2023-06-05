@@ -6,7 +6,7 @@ import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import tld.unknown.mystery.Chaumtraft;
-import tld.unknown.mystery.api.Aspect;
+import tld.unknown.mystery.api.aspects.Aspect;
 import tld.unknown.mystery.data.aspects.AspectRegistryManager;
 import tld.unknown.mystery.data.aspects.PrimalAspects;
 import tld.unknown.mystery.networking.ChaumtraftNetworking;

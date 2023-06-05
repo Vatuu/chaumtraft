@@ -14,14 +14,13 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import org.jetbrains.annotations.Nullable;
 import tld.unknown.mystery.util.codec.Codecs;
 
-import java.lang.reflect.RecordComponent;
 import java.util.List;
 import java.util.Map;
 
@@ -64,10 +63,10 @@ public class CodecRecipeSerializer<T extends CodecRecipe<?>> implements RecipeSe
 
     public record CraftingGrid(int width, int height, List<String> pattern, Map<Character, Ingredient> keys) {
 
-        public boolean verify(CraftingContainer container) {
+        public boolean verify(SimpleContainer container, int offset) {
             for(int y = 0; y < height; y++) {
                 for(int x = 0; x < width; x++) {
-                    ItemStack stack = container.getItem(x + y * width);
+                    ItemStack stack = container.getItem(x + y * width + offset);
                     Ingredient i = keys.getOrDefault(pattern.get(y).charAt(x), Ingredient.EMPTY);
                     if((i.isEmpty() && !stack.isEmpty()) || !i.test(stack)) {
                         return false;

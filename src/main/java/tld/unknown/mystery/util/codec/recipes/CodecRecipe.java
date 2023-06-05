@@ -2,6 +2,7 @@ package tld.unknown.mystery.util.codec.recipes;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -15,7 +16,6 @@ public abstract class CodecRecipe<T extends CodecRecipe<T>> implements Recipe<Co
 
     @Getter @Setter
     private ResourceLocation id;
-
     private final ItemStack result;
     private final ChaumtraftRecipes.RecipeObject<T> registryEntry;
 
@@ -30,7 +30,7 @@ public abstract class CodecRecipe<T extends CodecRecipe<T>> implements Recipe<Co
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess access) {
         return result;
     }
 
@@ -50,7 +50,7 @@ public abstract class CodecRecipe<T extends CodecRecipe<T>> implements Recipe<Co
     }
 
     @Override
-    public ItemStack assemble(Container pContainer) {
+    public ItemStack assemble(Container pContainer, RegistryAccess access) {
         return null;
     }
 }

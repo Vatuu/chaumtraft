@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.network.NetworkEvent;
-import tld.unknown.mystery.api.IResearchCapability;
+import tld.unknown.mystery.api.capabilities.IResearchCapability;
 import tld.unknown.mystery.capabilities.ChaumtraftCapabilities;
 import tld.unknown.mystery.networking.Packet;
 

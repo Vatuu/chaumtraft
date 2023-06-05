@@ -3,16 +3,22 @@ package tld.unknown.mystery.client.rendering;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.debug.DebugRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.phys.AABB;
+import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
 
 import java.awt.*;
 
@@ -48,5 +54,16 @@ public final class RenderHelper {
             consumer.uv2(packedLight);
         }
         consumer.normal(0, 0, 1).endVertex();
+    }
+
+    public static void drawOutlineFont(PoseStack stack, int x, int y, String text, TextColor color, TextColor outlineColor) {
+        Font font = Minecraft.getInstance().font;
+        stack.pushPose();
+        font.draw(stack, text, x + 1, y, outlineColor.getValue());
+        font.draw(stack, text, x - 1, y, outlineColor.getValue());
+        font.draw(stack, text, x, y + 1, outlineColor.getValue());
+        font.draw(stack, text, x, y - 1, outlineColor.getValue());
+        font.draw(stack, text, x, y, color.getValue());
+        stack.popPose();
     }
 }

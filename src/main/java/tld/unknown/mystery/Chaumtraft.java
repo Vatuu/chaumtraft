@@ -22,19 +22,16 @@ import tld.unknown.mystery.registries.client.ChaumtraftItemProperties;
 import tld.unknown.mystery.registries.client.ChaumtraftMenus;
 import tld.unknown.mystery.util.better.BetterSign;
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.RuntimeMXBean;
+import java.util.List;
+
 @Mod(Chaumtraft.MOD_ID)
 @Mod.EventBusSubscriber(modid = Chaumtraft.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class Chaumtraft {
 
     public static final String MOD_ID = "chaumtraft";
     private static final Logger LOGGER = LogUtils.getLogger();
-
-    public static CreativeModeTab CREATIVE_TAB = new CreativeModeTab(MOD_ID) {
-        @Override
-        public ItemStack makeIcon() {
-            return new ItemStack(ChaumtraftBlocks.CRUCIBLE.item());
-        }
-    };
 
     public static ResourceLocation id(String value) {
         return new ResourceLocation(MOD_ID, value);
@@ -49,8 +46,12 @@ public final class Chaumtraft {
 
         ChaumtraftItems.init(modEventBus);
         ChaumtraftBlocks.init(modEventBus);
-        ChaumtraftRecipes.init(modEventBus);
+
         ChaumtraftEntities.init(modEventBus);
+        ChaumtraftBlockEntities.init(modEventBus);
+
+        ChaumtraftTabs.init(modEventBus);
+        ChaumtraftRecipes.init(modEventBus);
         ChaumtraftMenus.init(modEventBus);
 
         ChaumtraftNetworking.init();

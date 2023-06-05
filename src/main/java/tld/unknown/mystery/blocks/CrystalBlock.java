@@ -27,7 +27,7 @@ import java.util.Optional;
 public class CrystalBlock extends DirectionalBlock {
 
     public static final EnumProperty<CrystalAspect> ASPECT = EnumProperty.create("aspect", CrystalAspect.class);
-    public static final IntegerProperty SIZE = IntegerProperty.create("size", 0, 3);
+    public static final IntegerProperty SIZE = IntegerProperty.create("size", 0, 2);
 
     private static final VoxelShape COLLISION = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 12.0D, 14.0D);
 

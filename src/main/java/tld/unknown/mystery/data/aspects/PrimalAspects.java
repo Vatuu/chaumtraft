@@ -6,7 +6,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.commons.compress.utils.Lists;
-import tld.unknown.mystery.api.Aspect;
+import tld.unknown.mystery.api.aspects.Aspect;
 import tld.unknown.mystery.api.ChaumtraftIDs;
 
 @Getter

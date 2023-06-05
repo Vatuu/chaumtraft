@@ -2,7 +2,7 @@ package tld.unknown.mystery.data.aspects;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -10,8 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
 import tld.unknown.mystery.Chaumtraft;
-import tld.unknown.mystery.api.AspectContainerItem;
-import tld.unknown.mystery.items.AbstractAspectItem;
+import tld.unknown.mystery.api.aspects.AspectContainerItem;
 import tld.unknown.mystery.util.codec.data.CodecDataManager;
 
 import java.util.List;
@@ -47,7 +46,7 @@ public class AspectRegistryManager extends CodecDataManager<AspectList> {
             if(rl.getPath().startsWith("items/")) {
                 if(rl.getPath().startsWith("items/tags/")) {
                     ResourceLocation tag = new ResourceLocation(rl.getNamespace(), rl.getPath().replace("items/tags/", ""));
-                    itemTags.put(TagKey.create(Registry.ITEM_REGISTRY, tag), values.get(rl));
+                    itemTags.put(TagKey.create(Registries.ITEM, tag), values.get(rl));
                 } else {
                     ResourceLocation tag = new ResourceLocation(rl.getNamespace(), rl.getPath().replace("items/", ""));
                     items.put(tag, values.get(rl));
@@ -55,7 +54,7 @@ public class AspectRegistryManager extends CodecDataManager<AspectList> {
             } else if(rl.getPath().startsWith("blocks/")) {
                 if(rl.getPath().startsWith("blocks/tags/")) {
                     ResourceLocation tag = new ResourceLocation(rl.getNamespace(), rl.getPath().replace("blocks/tags/", ""));
-                    blockTags.put(TagKey.create(Registry.BLOCK_REGISTRY, tag), values.get(rl));
+                    blockTags.put(TagKey.create(Registries.BLOCK, tag), values.get(rl));
                 } else {
                     ResourceLocation tag = new ResourceLocation(rl.getNamespace(), rl.getPath().replace("blocks/", ""));
                     blocks.put(tag, values.get(rl));

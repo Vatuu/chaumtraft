@@ -1,5 +1,6 @@
 package tld.unknown.mystery.client.rendering;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
@@ -26,20 +27,21 @@ public final class RenderTypes {
     }
 
     public static ShaderInstance bindSdf(ResourceLocation texture) {
-        RenderSystem.enableTexture();
         TextureManager texturemanager = Minecraft.getInstance().getTextureManager();
         texturemanager.getTexture(texture).setFilter(true, false);
         RenderSystem.setShaderTexture(0, texture);
         return SdfRenderType.instance;
     }
 
+    public static RenderType halo() { return HaloRenderType.RENDER_TYPE; }
+
     @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Chaumtraft.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
     private static final class SdfRenderType extends RenderType {
 
-        public static final Function<ResourceLocation, RenderType> RENDER_TYPE = Util.memoize(SdfRenderType::create);
-
         private static ShaderInstance instance;
         private static final ShaderStateShard SDF_SHADER_STATE = new ShaderStateShard(() -> instance);
+
+        public static final Function<ResourceLocation, RenderType> RENDER_TYPE = Util.memoize(SdfRenderType::create);
 
         public SdfRenderType(String a, VertexFormat b, VertexFormat.Mode c, int d, boolean e, boolean f, Runnable g, Runnable h) {
             super(a, b, c, d, e, f, g, h);
@@ -59,7 +61,36 @@ public final class RenderTypes {
 
         @SubscribeEvent
         public static void shaderRegistry(RegisterShadersEvent e) throws IOException {
-            e.registerShader(new ShaderInstance(e.getResourceManager(), Chaumtraft.id("rendertype_sdf"), DefaultVertexFormat.POSITION_COLOR_TEX), shaderInstance -> SdfRenderType.instance = shaderInstance);
+            e.registerShader(new ShaderInstance(e.getResourceProvider(), Chaumtraft.id("rendertype_sdf"), DefaultVertexFormat.POSITION_COLOR_TEX), shaderInstance -> SdfRenderType.instance = shaderInstance);
+        }
+    }
+
+    @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Chaumtraft.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    private static final class HaloRenderType extends RenderType {
+
+        private static ShaderInstance instance;
+        private static final ShaderStateShard HALO_SHADER_STATE = new ShaderStateShard(() -> instance);
+
+        public static final RenderType RENDER_TYPE = create();
+
+        public HaloRenderType(String a, VertexFormat b, VertexFormat.Mode c, int d, boolean e, boolean f, Runnable g, Runnable h) {
+            super(a, b, c, d, e, f, g, h);
+            throw new IllegalStateException("Render Types should not be constructed.");
+        }
+
+        private static RenderType create() {
+            CompositeState state = RenderType.CompositeState.builder()
+                    .setShaderState(HALO_SHADER_STATE)
+                    .setTransparencyState(RenderStateShard.LIGHTNING_TRANSPARENCY)
+                    .setCullState(RenderStateShard.CULL)
+                    .setDepthTestState(RenderStateShard.NO_DEPTH_TEST)
+                    .createCompositeState(false);
+            return create("mystery_halo", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.TRIANGLE_FAN, 256, true, false, state);
+        }
+
+        @SubscribeEvent
+        public static void shaderRegistry(RegisterShadersEvent e) throws IOException {
+            e.registerShader(new ShaderInstance(e.getResourceProvider(), Chaumtraft.id("rendertype_halo"), DefaultVertexFormat.POSITION_COLOR), shaderInstance -> HaloRenderType.instance = shaderInstance);
         }
     }
 }

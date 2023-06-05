@@ -48,7 +48,7 @@ public class IconTexture {
             if(stack == null)
                 stack = new ItemStack(ForgeRegistries.ITEMS.getValue(location));
             Minecraft mc = Minecraft.getInstance();
-            mc.getItemRenderer().renderGuiItem(stack, x, y);
+            mc.getItemRenderer().renderGuiItem(poseStack, stack, x, y);
         } else {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderTexture(0, location);

@@ -2,14 +2,13 @@ package tld.unknown.mystery.client.rendering;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.Matrix4f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
-import tld.unknown.mystery.api.Aspect;
+import org.joml.Matrix4f;
+import tld.unknown.mystery.api.aspects.Aspect;
 import tld.unknown.mystery.data.ChaumtraftData;
-import tld.unknown.mystery.util.RenderUtils;
 
 public final class AspectRenderer {
 
@@ -40,7 +39,7 @@ public final class AspectRenderer {
             String text = String.valueOf(amount);
             int xOffset = size - Minecraft.getInstance().font.width(text) / 2;
             int yOffset = size - Minecraft.getInstance().font.lineHeight / 2;
-            RenderUtils.drawOutlineFont(stack, (x + xOffset) * 2, (y + yOffset) * 2, text, TextColor.fromRgb(0xFFFFFF), TextColor.fromRgb(0x000000));
+            RenderHelper.drawOutlineFont(stack, (x + xOffset) * 2, (y + yOffset) * 2, text, TextColor.fromRgb(0xFFFFFF), TextColor.fromRgb(0x000000));
             stack.popPose();
         }
     }

@@ -6,7 +6,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -14,9 +13,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.Material;
@@ -28,17 +24,16 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
-import org.jetbrains.annotations.Nullable;
 import tld.unknown.mystery.Chaumtraft;
 import tld.unknown.mystery.blocks.entities.CrucibleBlockEntity;
-import tld.unknown.mystery.registries.ChaumtraftBlocks;
+import tld.unknown.mystery.registries.ChaumtraftBlockEntities;
 import tld.unknown.mystery.util.FluidHelper;
-import tld.unknown.mystery.util.simple.SimpleEntityBlock;
+import tld.unknown.mystery.util.simple.TickableEntityBlock;
 
 import java.util.Optional;
 
 @SuppressWarnings("deprecation")
-public class CrucibleBlock extends SimpleEntityBlock<CrucibleBlockEntity> {
+public class CrucibleBlock extends TickableEntityBlock<CrucibleBlockEntity> {
 
     private static final int SIDE_THICKNESS = 2;
     private static final int LEG_WIDTH = 5;
@@ -53,7 +48,7 @@ public class CrucibleBlock extends SimpleEntityBlock<CrucibleBlockEntity> {
                     INSIDE), BooleanOp.ONLY_FIRST);
 
     public CrucibleBlock() {
-        super(Properties.of(Material.METAL, MaterialColor.STONE), CrucibleBlockEntity::new);
+        super(Properties.of(Material.METAL, MaterialColor.STONE), ChaumtraftBlockEntities.CRUCIBLE.entityTypeObject());
     }
 
     @Override
@@ -66,19 +61,14 @@ public class CrucibleBlock extends SimpleEntityBlock<CrucibleBlockEntity> {
         return INSIDE;
     }
 
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return pBlockEntityType == ChaumtraftBlocks.CRUCIBLE.entityType() ? CrucibleBlockEntity::tick : null;
-    }
-
     public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
         if(!pLevel.isClientSide()) {
             CrucibleBlockEntity be = getEntity(pLevel, pPos);
             if(!FluidHelper.isTankEmpty(be) && be.isCooking()) {
                 if(pEntity instanceof ItemEntity e) {
                     ItemStack stack = e.getItem().copy();
-                    if(be.processInput(stack, e.getOwner() != null ? pLevel.getPlayerByUUID(e.getOwner()) : null)) {
+
+                    if(be.processInput(stack, e.getOwner() instanceof Player p ? p : null, pLevel.registryAccess())) {
                         if(stack.isEmpty()) {
                             e.kill();
                         } else {
@@ -86,7 +76,7 @@ public class CrucibleBlock extends SimpleEntityBlock<CrucibleBlockEntity> {
                         }
                     }
                 } else if(pEntity instanceof LivingEntity e && !e.isInvulnerable() && (e instanceof Player p && !p.isCreative()) ) {
-                    e.hurt(DamageSource.IN_FIRE, 1.0F);
+                    e.hurt(e.damageSources().inFire(), 1.0F);
                     pLevel.playSound(null, pPos, SoundEvents.LAVA_EXTINGUISH, SoundSource.BLOCKS, 0.4F, 2.0F + pLevel.getRandom().nextFloat() * 0.4F);
                 }
             }
@@ -113,7 +103,7 @@ public class CrucibleBlock extends SimpleEntityBlock<CrucibleBlockEntity> {
                 }
                 return InteractionResult.SUCCESS;
             } else if(!FluidHelper.isTankEmpty(be) && be.isCooking() && !pPlayer.isCrouching() && !pPlayer.getMainHandItem().isEmpty() && pHit.getDirection() == Direction.UP) {
-                if(be.processInput(new ItemStack(pPlayer.getMainHandItem().getItem()), pPlayer)) {
+                if(be.processInput(new ItemStack(pPlayer.getMainHandItem().getItem()), pPlayer, pLevel.registryAccess())) {
                     pPlayer.getMainHandItem().shrink(1);
                 }
                 return InteractionResult.SUCCESS;

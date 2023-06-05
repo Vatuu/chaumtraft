@@ -28,10 +28,10 @@ public class AspectTooltip implements ClientTooltipComponent {
     }
 
     @Override
-    public void renderImage(Font pFont, int pMouseX, int pMouseY, PoseStack pPoseStack, ItemRenderer pItemRenderer, int pBlitOffset) {
+    public void renderImage(Font font, int mouseX, int mouseY, PoseStack poseStack, ItemRenderer renderer) {
         aspects.indexedForEach((aspect, amount, index) -> {
             int offset = index * (SIZE + SPACING);
-            AspectRenderer.renderAspectOverlay(pPoseStack, aspect, pMouseX + offset, pMouseY + 1, SIZE, amount, false);
+            AspectRenderer.renderAspectOverlay(poseStack, aspect, mouseX + offset, mouseY + 1, SIZE, amount, false);
         });
     }
 

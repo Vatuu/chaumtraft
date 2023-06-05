@@ -1,16 +1,14 @@
 package tld.unknown.mystery.data.generator.recipes;
 
 import com.google.gson.JsonElement;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import tld.unknown.mystery.Chaumtraft;
-import tld.unknown.mystery.api.Aspect;
+import tld.unknown.mystery.api.aspects.Aspect;
 import tld.unknown.mystery.api.ChaumtraftIDs;
-import tld.unknown.mystery.data.aspects.AspectList;
-import tld.unknown.mystery.data.recipes.AlchemyRecipe;
 import tld.unknown.mystery.data.recipes.ArcaneCraftingRecipe;
 import tld.unknown.mystery.util.codec.data.CodecDataProvider;
 import tld.unknown.mystery.util.codec.recipes.CodecRecipeSerializer;
@@ -20,7 +18,7 @@ import java.util.Map;
 
 public class ArcaneCraftingRecipeProvider extends CodecDataProvider<ArcaneCraftingRecipe> {
 
-    public ArcaneCraftingRecipeProvider(DataGenerator generator) {
+    public ArcaneCraftingRecipeProvider(PackOutput generator) {
         super(generator, "ArcaneCraftingRecipes", "recipes/arcane_crafting", ArcaneCraftingRecipe.CODEC);
     }
 

@@ -1,7 +1,6 @@
 package tld.unknown.mystery.util.simple;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Matrix4f;
 import lombok.AllArgsConstructor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -9,6 +8,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import org.joml.Matrix4f;
 
 @AllArgsConstructor
 public abstract class SimpleBER<T extends BlockEntity> implements BlockEntityRenderer<T> {
@@ -26,8 +26,8 @@ public abstract class SimpleBER<T extends BlockEntity> implements BlockEntityRen
         Matrix4f matrix4f = stack.last().pose();
         Font font = context.getFont();
         float centerOffset = (float)(-font.width(text) / 2);
-        font.drawInBatch(text, centerOffset, 0, 553648127, false, matrix4f, source, true, bgColor, light);
-        font.drawInBatch(text, centerOffset, 0, -1, false, matrix4f, source, false, 0, light);
+        font.drawInBatch(text, centerOffset, 0, 553648127, false, matrix4f, source, Font.DisplayMode.SEE_THROUGH, bgColor, light);
+        font.drawInBatch(text, centerOffset, 0, -1, false, matrix4f, source, Font.DisplayMode.NORMAL, 0, light);
 
         stack.popPose();
     }

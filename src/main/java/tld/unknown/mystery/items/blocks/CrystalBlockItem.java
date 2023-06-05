@@ -7,9 +7,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.DirectionalPlaceContext;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-import tld.unknown.mystery.Chaumtraft;
-import tld.unknown.mystery.api.Aspect;
-import tld.unknown.mystery.api.AspectContainerItem;
+import tld.unknown.mystery.api.aspects.Aspect;
+import tld.unknown.mystery.api.aspects.AspectContainerItem;
 import tld.unknown.mystery.api.ChaumtraftIDs;
 import tld.unknown.mystery.blocks.CrystalBlock;
 import tld.unknown.mystery.data.aspects.AspectList;
@@ -21,7 +20,7 @@ import java.util.Set;
 public class CrystalBlockItem extends SimpleMetaBlockItem<CrystalBlock.CrystalAspect> implements AspectContainerItem {
 
     public CrystalBlockItem() {
-        super(ChaumtraftBlocks.CRYSTAL_COLONY.block(), new Properties().stacksTo(64).tab(Chaumtraft.CREATIVE_TAB), false);
+        super(ChaumtraftBlocks.CRYSTAL_COLONY.block(), new Properties().stacksTo(64), false);
     }
 
     @Override

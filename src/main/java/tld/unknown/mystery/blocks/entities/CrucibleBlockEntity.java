@@ -2,14 +2,13 @@ package tld.unknown.mystery.blocks.entities;
 
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
@@ -18,21 +17,22 @@ import net.minecraftforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.NotNull;
 import tld.unknown.mystery.Chaumtraft;
 import tld.unknown.mystery.api.ChaumtraftIDs;
-import tld.unknown.mystery.api.IResearchCapability;
+import tld.unknown.mystery.api.capabilities.IResearchCapability;
 import tld.unknown.mystery.capabilities.ChaumtraftCapabilities;
 import tld.unknown.mystery.capabilities.ResearchCapability;
 import tld.unknown.mystery.data.ChaumtraftData;
 import tld.unknown.mystery.data.aspects.AspectList;
 import tld.unknown.mystery.data.recipes.AlchemyRecipe;
-import tld.unknown.mystery.registries.ChaumtraftBlocks;
+import tld.unknown.mystery.registries.ChaumtraftBlockEntities;
 import tld.unknown.mystery.util.CraftingUtils;
 import tld.unknown.mystery.util.FluidHelper;
 import tld.unknown.mystery.util.simple.SimpleBlockEntity;
+import tld.unknown.mystery.util.simple.TickableBlockEntity;
 
 import java.util.Optional;
 
 //TODO: Visuals and Sound
-public class CrucibleBlockEntity extends SimpleBlockEntity implements IFluidHandler {
+public class CrucibleBlockEntity extends SimpleBlockEntity implements IFluidHandler, TickableBlockEntity {
 
     private static final int MAX_ESSENTIA = 500;
     private static final int HEAT_THRESHOLD = 150;
@@ -46,48 +46,51 @@ public class CrucibleBlockEntity extends SimpleBlockEntity implements IFluidHand
     private int heat;
 
     public CrucibleBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(ChaumtraftBlocks.CRUCIBLE.entityType(), pPos, pBlockState);
+        super(ChaumtraftBlockEntities.CRUCIBLE.entityType(), pPos, pBlockState);
         this.waterTank = new FluidTank(FluidType.BUCKET_VOLUME);
         this.aspects = new AspectList();
     }
 
-    public static <T extends BlockEntity> void tick(Level level, BlockPos pos, BlockState state, T entity) {
-        CrucibleBlockEntity be = (CrucibleBlockEntity)entity;
-        int prevHeat = be.heat;
-        if(!level.isClientSide()) {
-            if(!FluidHelper.isTankEmpty(be) ) {
-                if(level.getBlockState(pos.below()).getTags().anyMatch(tag -> tag == ChaumtraftIDs.Tags.CRUCIBLE_HEATER)) {
-                    be.heat += be.heat < HEAT_MAX ? 1 : 0;
-                    if(prevHeat < HEAT_THRESHOLD && be.heat >= HEAT_THRESHOLD) {
-                        be.sync();
-                    }
-                } else if(be.heat > 0) {
-                    be.heat--;
-                    if(be.heat < HEAT_THRESHOLD) {
-                        be.sync();
-                    }
+    @Override
+    public TickSetting getTickSetting() {
+        return TickSetting.SERVER;
+    }
+
+    @Override
+    public void onServerTick() {
+        int prevHeat = this.heat;
+        if(!FluidHelper.isTankEmpty(this) ) {
+            if(level.getBlockState(this.getBlockPos().below()).getTags().anyMatch(tag -> tag == ChaumtraftIDs.Tags.CRUCIBLE_HEATER)) {
+                this.heat += this.heat < HEAT_MAX ? 1 : 0;
+                if(prevHeat < HEAT_THRESHOLD && this.heat >= HEAT_THRESHOLD) {
+                    this.sync();
                 }
-            } else if(be.heat > 0) {
-                be.heat--;
-                if(be.heat < HEAT_THRESHOLD) {
-                    be.sync();
+            } else if(this.heat > 0) {
+                this.heat--;
+                if(this.heat < HEAT_THRESHOLD) {
+                    this.sync();
                 }
+            }
+        } else if(this.heat > 0) {
+            this.heat--;
+            if(this.heat < HEAT_THRESHOLD) {
+                this.sync();
             }
         }
     }
 
     @Override
     protected void readNbt(CompoundTag nbt) {
-        this.aspects.deserializeNBT(nbt.getCompound("Aspects"));
-        this.waterTank.readFromNBT(nbt.getCompound("Water"));
-        this.heat = nbt.getShort("Heat");
+        this.aspects.deserializeNBT(nbt.getCompound("aspects"));
+        this.waterTank.readFromNBT(nbt.getCompound("water"));
+        this.heat = nbt.getShort("heat");
     }
 
     @Override
     protected void writeNbt(CompoundTag nbt) {
-        nbt.put("Aspects", aspects.serializeNBT());
-        nbt.put("Water", waterTank.writeToNBT(new CompoundTag()));
-        nbt.putShort("Heat", (short)heat);
+        nbt.put("aspects", aspects.serializeNBT());
+        nbt.put("water", waterTank.writeToNBT(new CompoundTag()));
+        nbt.putShort("heat", (short)heat);
     }
 
     // TODO: Flux Pollution
@@ -102,13 +105,13 @@ public class CrucibleBlockEntity extends SimpleBlockEntity implements IFluidHand
     }
 
     // TODO: Crafting Event
-    public boolean processInput(ItemStack stack, Player player) {
+    public boolean processInput(ItemStack stack, Player player, RegistryAccess access) {
         boolean crafted = false, consumed = false;
         for(int i = 0; i < stack.getCount(); i++) {
             IResearchCapability research = player != null ? player.getCapability(ChaumtraftCapabilities.RESEARCH).orElse(new ResearchCapability()) : new ResearchCapability();
             Optional<AlchemyRecipe> recipe = CraftingUtils.findAlchemyRecipe(getLevel(), aspects, stack, research);
             if(recipe.isPresent()) {
-                ItemStack result = recipe.get().getResultItem().copy();
+                ItemStack result = recipe.get().getResultItem(access).copy();
                 this.aspects.remove(recipe.get().getAspects());
                 drain(50, FluidAction.EXECUTE);
                 spitItem(result);

@@ -11,7 +11,8 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import tld.unknown.mystery.Chaumtraft;
-import tld.unknown.mystery.api.IResearchCapability;
+import tld.unknown.mystery.api.capabilities.IEssentiaCapability;
+import tld.unknown.mystery.api.capabilities.IResearchCapability;
 import tld.unknown.mystery.api.ChaumtraftIDs;
 import tld.unknown.mystery.networking.ChaumtraftNetworking;
 import tld.unknown.mystery.networking.clientbound.SyncCapabilityPacket;
@@ -19,6 +20,7 @@ import tld.unknown.mystery.networking.clientbound.SyncCapabilityPacket;
 public class ChaumtraftCapabilities {
 
     public static final Capability<IResearchCapability> RESEARCH = CapabilityManager.get(new CapabilityToken<>() {});
+    public static final Capability<IEssentiaCapability> ESSENTIA = CapabilityManager.get(new CapabilityToken<>() {});
 
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent e) {
@@ -32,15 +34,15 @@ public class ChaumtraftCapabilities {
     }
 
     @SubscribeEvent
-    public static void onPlayerClone(PlayerEvent.Clone e) {
-        copyCapability(RESEARCH, e.getOriginal(), e.getEntity());
-    }
-
-    @SubscribeEvent
     public static void onCapabilityAttach(AttachCapabilitiesEvent<Entity> e) {
         if(e.getObject() instanceof Player) {
             e.addCapability(ChaumtraftIDs.Capabilities.RESEARCH, new ResearchCapability());
         }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerClone(PlayerEvent.Clone e) {
+        copyCapability(RESEARCH, e.getOriginal(), e.getEntity());
     }
 
     private static <T extends Tag, C extends INBTSerializable<T>> void copyCapability(Capability<C> capability, Player original, Player p) {

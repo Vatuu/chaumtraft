@@ -8,9 +8,10 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.List;
 import java.util.Set;
 
-public abstract class SimpleMetaItem<T> extends Item {
+public abstract class SimpleMetaItem<T> extends Item implements SimpleCreativeTab.MultipleRegistrar {
 
     public static ClampedItemPropertyFunction HAS_META_GETTER = (stack, world, entity, seed) -> hasContent(stack) ? 1F : 0F;
 
@@ -50,19 +51,15 @@ public abstract class SimpleMetaItem<T> extends Item {
     }
 
     @Override
-    public void fillItemCategory(CreativeModeTab pCategory, NonNullList<ItemStack> pItems) {
-        if(category != pCategory) {
-            return;
-        }
-
+    public void getCreativeTabEntries(NonNullList<ItemStack> items) {
         if(registerEmpty) {
-            pItems.add(new ItemStack(this));
+            items.add(new ItemStack(this));
         }
 
         getValidValues().forEach(s -> {
             ItemStack stack = new ItemStack(this);
             stack.getOrCreateTag().putString(CONTENT_KEY, write(s));
-            pItems.add(stack);
+            items.add(stack);
         });
     }
 }

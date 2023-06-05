@@ -1,15 +1,13 @@
 package tld.unknown.mystery.util;
 
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import tld.unknown.mystery.api.IResearchCapability;
+import tld.unknown.mystery.api.capabilities.IResearchCapability;
 import tld.unknown.mystery.data.aspects.AspectList;
 import tld.unknown.mystery.data.recipes.AlchemyRecipe;
 import tld.unknown.mystery.data.recipes.ArcaneCraftingRecipe;
 import tld.unknown.mystery.registries.ChaumtraftRecipes;
-import tld.unknown.mystery.util.codec.recipes.CodecRecipeSerializer;
 
 import java.util.Optional;
 
@@ -21,9 +19,9 @@ public final class CraftingUtils {
                 .findFirst();
     }
 
-    public static Optional<ArcaneCraftingRecipe> findArcaneCraftingRecipe(Level p, CraftingContainer craft, SimpleContainer crystals, IResearchCapability research) {
+    public static Optional<ArcaneCraftingRecipe> findArcaneCraftingRecipe(Level p, SimpleContainer craftingSlots, IResearchCapability research) {
         return p.getRecipeManager().getAllRecipesFor(ChaumtraftRecipes.ARCANE_CRAFTING.type()).stream()
-                .filter(r -> r.isValidPattern(craft, crystals))
+                .filter(r -> r.isValidPattern(craftingSlots))
                 .findFirst();
     }
 }

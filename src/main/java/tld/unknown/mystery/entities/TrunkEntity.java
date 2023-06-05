@@ -4,6 +4,7 @@ import lombok.Getter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -94,13 +95,13 @@ public class TrunkEntity extends Mob implements HasCustomInventoryScreen, Ownabl
     }
 
     @Override
-    public Entity getOwner() {
+    public LivingEntity getOwner() {
         UUID uuid = this.getOwnerUUID();
         return uuid == null ? null : this.level.getPlayerByUUID(uuid);
     }
 
     public boolean isSizeUpgraded() {
-        return ChaumtraftItems.UPGRADE_CAPACITY.get().isBitSet(getUpgradeByte());
+        return false; //ChaumtraftItems.UPGRADE_CAPACITY.get().isBitSet(getUpgradeByte());
     }
 
     public float getLidProgress(float pPartialTicks) {
@@ -188,7 +189,7 @@ public class TrunkEntity extends Mob implements HasCustomInventoryScreen, Ownabl
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return new ClientboundAddEntityPacket(this);
     }
 }

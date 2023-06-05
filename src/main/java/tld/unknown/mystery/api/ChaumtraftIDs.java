@@ -50,6 +50,8 @@ public final class ChaumtraftIDs {
 
         public static final ResourceLocation THAUMONOMICON = Chaumtraft.id("thaumonomicon");
 
+        public static final ResourceLocation ESSENTIA_RESONATOR = Chaumtraft.id("resonator");
+
         public static final ResourceLocation PHIAL = Chaumtraft.id("phial");
         public static final ResourceLocation VIS_CRYSTAL = Chaumtraft.id("vis_crystal");
 
@@ -70,13 +72,36 @@ public final class ChaumtraftIDs {
     }
 
     public static final class Blocks {
+
         public static final ResourceLocation BETTER_SIGN = Chaumtraft.id("extended_sign");
         public static final ResourceLocation ARCANE_WORKBENCH = Chaumtraft.id("arcane_workbench");
+        public static final ResourceLocation ARCANE_PEDESTAL = Chaumtraft.id("pedestal_arcane");
+        public static final ResourceLocation ANCIENT_PEDESTAL = Chaumtraft.id("pedestal_ancient");
+        public static final ResourceLocation ELDRITCH_PEDESTAL = Chaumtraft.id("pedestal_eldritch");
         public static final ResourceLocation CRUCIBLE = Chaumtraft.id("crucible");
+        public static final ResourceLocation RUNIC_MATRIX = Chaumtraft.id("runic_matrix");
+        public static final ResourceLocation WARDED_JAR = Chaumtraft.id("warded_jar");
+        public static final ResourceLocation VOID_JAR = Chaumtraft.id("void_jar");
 
         public static final ResourceLocation CRYSTAL_COLONY = Chaumtraft.id("crystal_colony");
         public static final ResourceLocation SILVERWOOD = Chaumtraft.id("silverwood");
         public static final ResourceLocation GREATWOOD = Chaumtraft.id("greatwood");
+
+        public static final ResourceLocation TUBE = Chaumtraft.id("tube");
+    }
+
+    public static final class CreativeTabs {
+        public static final ResourceLocation MAIN = Chaumtraft.id("main");
+    }
+
+    public static final class BlockEntities {
+
+        public static final ResourceLocation ARCANE_WORKBENCH = Blocks.ARCANE_WORKBENCH;
+        public static final ResourceLocation CRUCIBLE = Blocks.CRUCIBLE;
+        public static final ResourceLocation RUNIC_MATRIX = Blocks.RUNIC_MATRIX;
+        public static final ResourceLocation PEDESTAL = Chaumtraft.id("pedestal");
+        public static final ResourceLocation JAR = Chaumtraft.id("jar");
+        public static final ResourceLocation TUBE = Blocks.TUBE;
     }
 
     public static final class Entities {
@@ -90,6 +115,7 @@ public final class ChaumtraftIDs {
     public static final class Capabilities {
 
         public static final ResourceLocation RESEARCH = Chaumtraft.id("research");
+        public static final ResourceLocation ESSENTIA = Chaumtraft.id("essentia_transfer");
     }
 
     /**
@@ -98,6 +124,7 @@ public final class ChaumtraftIDs {
     public static final class Aspects {
 
         public static final ResourceLocation UNKNOWN = Chaumtraft.id("unknown");
+        public static final ResourceLocation ANY = Chaumtraft.id("any");
 
         public static final ResourceLocation ORDER = Chaumtraft.id("ordo");
         public static final ResourceLocation CHAOS = Chaumtraft.id("perditio");

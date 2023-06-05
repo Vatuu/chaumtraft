@@ -2,21 +2,22 @@ package tld.unknown.mystery.client.rendering;
 
 import com.mojang.datafixers.util.Either;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import tld.unknown.mystery.Chaumtraft;
-import tld.unknown.mystery.api.Aspect;
+import tld.unknown.mystery.api.aspects.Aspect;
 import tld.unknown.mystery.blocks.CrystalBlock;
 import tld.unknown.mystery.client.rendering.ber.CrucibleBER;
+import tld.unknown.mystery.client.rendering.ber.PedestalBER;
+import tld.unknown.mystery.client.rendering.ber.RunicMatrixBER;
 import tld.unknown.mystery.client.rendering.entity.TrunkEntityRenderer;
 import tld.unknown.mystery.client.rendering.ui.AspectTooltip;
 import tld.unknown.mystery.data.ChaumtraftData;
 import tld.unknown.mystery.items.AbstractAspectItem;
 import tld.unknown.mystery.items.blocks.CrystalBlockItem;
+import tld.unknown.mystery.registries.ChaumtraftBlockEntities;
 import tld.unknown.mystery.registries.ChaumtraftBlocks;
 import tld.unknown.mystery.registries.ChaumtraftEntities;
 import tld.unknown.mystery.registries.ChaumtraftItems;
@@ -43,7 +44,10 @@ public final class RenderingEventHandlers {
 
         @SubscribeEvent
         public static void onBlockEntityRendererRegister(EntityRenderersEvent.RegisterRenderers e) {
-            e.registerBlockEntityRenderer(ChaumtraftBlocks.CRUCIBLE.entityType(), CrucibleBER::new);
+            e.registerBlockEntityRenderer(ChaumtraftBlockEntities.CRUCIBLE.entityType(), CrucibleBER::new);
+            e.registerBlockEntityRenderer(ChaumtraftBlockEntities.RUNIC_MATRIX.entityType(), RunicMatrixBER::new);
+            e.registerBlockEntityRenderer(ChaumtraftBlockEntities.PEDESTAL.entityType(), PedestalBER::new);
+
             e.registerEntityRenderer(ChaumtraftEntities.LIVING_TRUNK.entityType(), TrunkEntityRenderer::new);
         }
 

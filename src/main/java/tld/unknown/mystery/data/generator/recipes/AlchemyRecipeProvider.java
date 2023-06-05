@@ -1,7 +1,8 @@
 package tld.unknown.mystery.data.generator.recipes;
 
 import com.google.gson.JsonElement;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -16,7 +17,7 @@ import static tld.unknown.mystery.api.ChaumtraftIDs.Recipes;
 
 public class AlchemyRecipeProvider extends CodecDataProvider<AlchemyRecipe> {
 
-    public AlchemyRecipeProvider(DataGenerator generator) {
+    public AlchemyRecipeProvider(PackOutput generator) {
         super(generator, "AlchemyRecipes", "recipes/alchemy", AlchemyRecipe.CODEC);
     }
 

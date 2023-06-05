@@ -8,7 +8,7 @@ import tld.unknown.mystery.data.aspects.AspectList;
 public class VisCrystalItem extends AbstractAspectItem {
 
     public VisCrystalItem() {
-        super(new Properties().tab(Chaumtraft.CREATIVE_TAB).stacksTo(64), false);
+        super(new Properties().stacksTo(64), false);
     }
 
     @Override

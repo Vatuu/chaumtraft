@@ -2,7 +2,6 @@ package tld.unknown.mystery.registries;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -10,9 +9,9 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
@@ -21,13 +20,10 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import tld.unknown.mystery.Chaumtraft;
-import tld.unknown.mystery.blocks.ArcaneWorkbenchBlock;
-import tld.unknown.mystery.blocks.CrucibleBlock;
-import tld.unknown.mystery.blocks.CrystalBlock;
-import tld.unknown.mystery.blocks.entities.ArcaneWorkbenchBlockEntity;
-import tld.unknown.mystery.blocks.entities.CrucibleBlockEntity;
+import tld.unknown.mystery.blocks.*;
 import tld.unknown.mystery.items.blocks.CrystalBlockItem;
 import tld.unknown.mystery.util.better.BetterSign;
+import tld.unknown.mystery.util.simple.SimpleCreativeTab;
 
 import java.util.Map;
 import java.util.Set;
@@ -45,13 +41,21 @@ public final class ChaumtraftBlocks {
 
     /* -------------------------------------------------------------------------------------------------------------- */
 
-    public static final BlockObject<CrystalBlock> CRYSTAL_COLONY = registerBlock(Blocks.CRYSTAL_COLONY, CrystalBlock::new, CrystalBlockItem::new);
+    public static final BlockObject<CrystalBlock> CRYSTAL_COLONY = registerBlock(Blocks.CRYSTAL_COLONY, CrystalBlock::new, CrystalBlockItem::new, ChaumtraftTabs.MAIN);
 
-    public static final WoodBlockSet GREATWOOD = registerWoodType(Blocks.GREATWOOD);
-    public static final WoodBlockSet SILVERWOOD = registerWoodType(Blocks.SILVERWOOD);
+    public static final WoodBlockSet GREATWOOD = registerWoodType(Blocks.GREATWOOD, ChaumtraftTabs.MAIN);
+    public static final WoodBlockSet SILVERWOOD = registerWoodType(Blocks.SILVERWOOD, ChaumtraftTabs.MAIN);
 
-    public static final BlockEntityObject<ArcaneWorkbenchBlock, ArcaneWorkbenchBlockEntity> ARCANE_WORKBENCH = registerBlockEntity(Blocks.ARCANE_WORKBENCH, ArcaneWorkbenchBlock::new);
-    public static final BlockEntityObject<CrucibleBlock, CrucibleBlockEntity> CRUCIBLE = registerBlockEntity(Blocks.CRUCIBLE, CrucibleBlock::new);
+    public static final BlockObject<ArcaneWorkbenchBlock> ARCANE_WORKBENCH = registerBlock(Blocks.ARCANE_WORKBENCH, ArcaneWorkbenchBlock::new, ChaumtraftTabs.MAIN);
+    public static final BlockObject<CrucibleBlock> CRUCIBLE = registerBlock(Blocks.CRUCIBLE, CrucibleBlock::new, ChaumtraftTabs.MAIN);
+    public static final BlockObject<RunicMatrixBlock> RUNIC_MATRIX = registerBlock(Blocks.RUNIC_MATRIX, RunicMatrixBlock::new, ChaumtraftTabs.MAIN);
+    public static final BlockObject<PedestalBlock> ARCANE_PEDESTAL = registerBlock(Blocks.ARCANE_PEDESTAL, () -> new PedestalBlock(PedestalBlock.Type.ARCANE), ChaumtraftTabs.MAIN);
+    public static final BlockObject<PedestalBlock> ANCIENT_PEDESTAL = registerBlock(Blocks.ANCIENT_PEDESTAL, () -> new PedestalBlock(PedestalBlock.Type.ANCIENT), ChaumtraftTabs.MAIN);
+    public static final BlockObject<PedestalBlock> ELDRITCH_PEDESTAL = registerBlock(Blocks.ELDRITCH_PEDESTAL, () -> new PedestalBlock(PedestalBlock.Type.ELDRITCH), ChaumtraftTabs.MAIN);
+    public static final BlockObject<JarBlock> WARDED_JAR = registerBlock(Blocks.WARDED_JAR, () -> new JarBlock(false), ChaumtraftTabs.MAIN);
+    public static final BlockObject<JarBlock> VOID_JAR = registerBlock(Blocks.VOID_JAR, () -> new JarBlock(true), ChaumtraftTabs.MAIN);
+
+    public static final BlockObject<TubeBlock> TUBE = registerBlock(Blocks.TUBE, TubeBlock::new, ChaumtraftTabs.MAIN);
 
     /* -------------------------------------------------------------------------------------------------------------- */
 
@@ -61,79 +65,78 @@ public final class ChaumtraftBlocks {
         REGISTRY_ITEM.register(bus);
     }
 
-    private static <B extends Block> BlockObject<B> registerBlock(ResourceLocation id, Supplier<B> block) {
+    private static <B extends Block> BlockObject<B> registerBlock(ResourceLocation id, Supplier<B> block, SimpleCreativeTab tab) {
         RegistryObject<B> blockObject = REGISTRY_BLOCKS.register(id.getPath(), block);
-        RegistryObject<Item> itemObject = REGISTRY_ITEM.register(id.getPath(), () -> new BlockItem(blockObject.get(), new Item.Properties().stacksTo(64).tab(Chaumtraft.CREATIVE_TAB)));
+        RegistryObject<Item> itemObject = REGISTRY_ITEM.register(id.getPath(), () -> new BlockItem(blockObject.get(), new Item.Properties().stacksTo(64)));
+        if(tab != null) {
+            tab.register(itemObject);
+        }
         return new BlockObject<>(blockObject, itemObject);
     }
 
-    private static <B extends Block> BlockObject<B> registerBlock(ResourceLocation id, Supplier<B> block, Supplier<Item>blockItem) {
+    private static <B extends Block> BlockObject<B> registerBlock(ResourceLocation id, Supplier<B> block, Supplier<Item> blockItem, SimpleCreativeTab tab) {
         RegistryObject<B> blockObject = REGISTRY_BLOCKS.register(id.getPath(), block);
         RegistryObject<Item> itemObject = REGISTRY_ITEM.register(id.getPath(), blockItem);
+        if(tab != null) {
+            tab.register(itemObject);
+        }
         return new BlockObject<>(blockObject, itemObject);
     }
 
-    //TODO Tree Grower
-    private static WoodBlockSet registerWoodType(ResourceLocation id) {
+    //TODO Tree Grower, BlockSetType, Button property
+    private static WoodBlockSet registerWoodType(ResourceLocation id, SimpleCreativeTab tab) {
         final BlockBehaviour.Properties props = BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F).sound(SoundType.WOOD);
-        BlockObject<Block> planks = registerBlock(Chaumtraft.id(id.getPath() + "_planks"), () -> new Block(props));
-        BlockObject<RotatedPillarBlock> log = registerBlock(Chaumtraft.id(id.getPath() + "_log"), () -> new RotatedPillarBlock(props));
-        BlockObject<RotatedPillarBlock> wood = registerBlock(Chaumtraft.id(id.getPath() + "_wood"), () -> new RotatedPillarBlock(props));
-        BlockObject<RotatedPillarBlock> logStripped = registerBlock(Chaumtraft.id("stripped_" + id.getPath() + "_log"), () -> new RotatedPillarBlock(props));
-        BlockObject<RotatedPillarBlock> woodStripped = registerBlock(Chaumtraft.id("stripped_" + id.getPath() + "_wood"), () -> new RotatedPillarBlock(props));
+        WoodType type = WoodType.register(new WoodType(id.getPath(), BlockSetType.DARK_OAK));
+        BlockObject<Block> planks = registerBlock(Chaumtraft.id(id.getPath() + "_planks"), () -> new Block(props), tab);
+        BlockObject<RotatedPillarBlock> log = registerBlock(Chaumtraft.id(id.getPath() + "_log"), () -> new RotatedPillarBlock(props), tab);
+        BlockObject<RotatedPillarBlock> wood = registerBlock(Chaumtraft.id(id.getPath() + "_wood"), () -> new RotatedPillarBlock(props), tab);
+        BlockObject<RotatedPillarBlock> logStripped = registerBlock(Chaumtraft.id("stripped_" + id.getPath() + "_log"), () -> new RotatedPillarBlock(props), tab);
+        BlockObject<RotatedPillarBlock> woodStripped = registerBlock(Chaumtraft.id("stripped_" + id.getPath() + "_wood"), () -> new RotatedPillarBlock(props), tab);
 
         BlockObject<LeavesBlock> leaves = registerBlock(Chaumtraft.id(id.getPath() + "_leaves"), () -> new LeavesBlock(
                 BlockBehaviour.Properties.of(Material.LEAVES)
                 .strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion()
-                .isValidSpawn((state, level, pos, type) -> type == EntityType.PARROT)
+                .isValidSpawn((state, level, pos, a) -> a == EntityType.PARROT)
                 .isSuffocating((state, level, pos) -> false)
-                .isViewBlocking((state, level, pos) -> false)));
+                .isViewBlocking((state, level, pos) -> false)), tab);
         BlockObject<SaplingBlock> sapling = registerBlock(Chaumtraft.id(id.getPath() + "_sapling"), () -> new SaplingBlock(
                 null,
-                BlockBehaviour.Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)));
+                BlockBehaviour.Properties.of(Material.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)), tab);
 
-        BlockObject<StairBlock> stairs = registerBlock(Chaumtraft.id(id.getPath() + "_stairs"), () -> new StairBlock(() -> planks.block().defaultBlockState(), props));
-        BlockObject<SlabBlock> slab = registerBlock(Chaumtraft.id(id.getPath() + "_slab"), () -> new SlabBlock(props));
+        BlockObject<StairBlock> stairs = registerBlock(Chaumtraft.id(id.getPath() + "_stairs"), () -> new StairBlock(() -> planks.block().defaultBlockState(), props), tab);
+        BlockObject<SlabBlock> slab = registerBlock(Chaumtraft.id(id.getPath() + "_slab"), () -> new SlabBlock(props), tab);
 
-        BlockObject<FenceBlock> fence = registerBlock(Chaumtraft.id(id.getPath() + "_fence"), () -> new FenceBlock(props));
-        BlockObject<FenceGateBlock> fenceGate = registerBlock(Chaumtraft.id(id.getPath() + "_fence_gate"), () -> new FenceGateBlock(props));
+        BlockObject<FenceBlock> fence = registerBlock(Chaumtraft.id(id.getPath() + "_fence"), () -> new FenceBlock(props), tab);
+        BlockObject<FenceGateBlock> fenceGate = registerBlock(Chaumtraft.id(id.getPath() + "_fence_gate"), () -> new FenceGateBlock(props, type), tab);
 
-        BlockObject<PressurePlateBlock> pressurePlate = registerBlock(Chaumtraft.id(id.getPath() + "_pressure_plate"), () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, props));
-        BlockObject<WoodButtonBlock> button = registerBlock(Chaumtraft.id(id.getPath() + "_button"), () -> new WoodButtonBlock(props));
+        BlockObject<PressurePlateBlock> pressurePlate = registerBlock(Chaumtraft.id(id.getPath() + "_pressure_plate"), () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, props, type.setType()), tab);
+        BlockObject<ButtonBlock> button = registerBlock(Chaumtraft.id(id.getPath() + "_button"), () -> new ButtonBlock(props, type.setType(), 60, false), tab);
 
-        return new WoodBlockSet(planks, log, wood, logStripped, woodStripped, leaves, sapling, stairs, slab,fence, fenceGate, pressurePlate, button);
+        return new WoodBlockSet(type, planks, log, wood, logStripped, woodStripped, leaves, sapling, stairs, slab,fence, fenceGate, pressurePlate, button);
     }
 
-    private static BetterSign.SignObject registerSign(ResourceLocation id) {
+    private static BetterSign.SignObject registerSign(ResourceLocation id, WoodType type, SimpleCreativeTab tab) {
         BlockBehaviour.Properties signProps = BlockBehaviour.Properties.of(Material.WOOD).noCollission().strength(1.0F).sound(SoundType.WOOD);
-        WoodType type = WoodType.create(id.getPath());
         RegistryObject<StandingSignBlock> standingSign = REGISTRY_BLOCKS.register(id.getPath() + "_sign", () -> new BetterSign.BetterStandingSignBlock(signProps, type));
         RegistryObject<WallSignBlock> wallSign = REGISTRY_BLOCKS.register(id.getPath() + "_wall_sign", () -> new BetterSign.BetterWallSignBlock(signProps, type));
-        RegistryObject<SignItem> signItem = REGISTRY_ITEM.register(id.getPath() + "_sign", () -> new SignItem(new Item.Properties().stacksTo(16).tab(Chaumtraft.CREATIVE_TAB), standingSign.get(), wallSign.get()));
+        RegistryObject<SignItem> signItem = REGISTRY_ITEM.register(id.getPath() + "_sign", () -> new SignItem(new Item.Properties().stacksTo(16), standingSign.get(), wallSign.get()));
+        if(tab != null) {
+            tab.register(signItem);
+        }
         BetterSign.SignObject obj = new BetterSign.SignObject(type, standingSign, wallSign, signItem);
         BetterSign.addSign(obj);
         return obj;
     }
 
-    private static <B extends Block, K, I extends Item> MultiItemBlockObject<B, K, I> registerMultiItemBlock(ResourceLocation id, Supplier<B> block, Set<K> itemKeys, Function<K, I> factory) {
+    private static <B extends Block, K, I extends Item> MultiItemBlockObject<B, K, I> registerMultiItemBlock(ResourceLocation id, Supplier<B> block, Set<K> itemKeys, Function<K, I> factory, SimpleCreativeTab tab) {
         RegistryObject<B> blockObject = REGISTRY_BLOCKS.register(id.getPath(), block);
         Map<K, RegistryObject<I>> items = Maps.newHashMap();
-        itemKeys.forEach(k -> items.put(k, REGISTRY_ITEM.register(id.getPath() + "_" + k.toString().toLowerCase(), () -> factory.apply(k))));
+        itemKeys.forEach(k -> {
+            RegistryObject<I> item = REGISTRY_ITEM.register(id.getPath() + "_" + k.toString().toLowerCase(), () -> factory.apply(k));
+            items.put(k, item);
+            tab.register(item);
+        });
         return new MultiItemBlockObject<>(blockObject, ImmutableMap.copyOf(items));
-    }
-
-    private static <B extends Block & BlockEntityType.BlockEntitySupplier<E>, E extends BlockEntity> BlockEntityObject<B, E> registerBlockEntity(ResourceLocation id, Supplier<B> block) {
-        RegistryObject<B> blockObject = REGISTRY_BLOCKS.register(id.getPath(), block);
-        RegistryObject<Item> itemObject = REGISTRY_ITEM.register(id.getPath(), () -> new BlockItem(blockObject.get(), new Item.Properties().stacksTo(64).tab(Chaumtraft.CREATIVE_TAB)));
-        RegistryObject<BlockEntityType<E>> blockEntityType = REGISTRY_BLOCK_ENTITIES.register(id.getPath(), () -> BlockEntityType.Builder.of(blockObject.get(), blockObject.get()).build(null));
-        return new BlockEntityObject<>(blockObject, itemObject, blockEntityType);
-    }
-
-    private static <B extends Block & BlockEntityType.BlockEntitySupplier<E>, E extends BlockEntity> BlockEntityObject<B, E> registerBlockEntity(ResourceLocation id, Supplier<B> block, Supplier<Item> blockItem) {
-        RegistryObject<B> blockObject = REGISTRY_BLOCKS.register(id.getPath(), block);
-        RegistryObject<Item> itemObject = REGISTRY_ITEM.register(id.getPath(), blockItem);
-        RegistryObject<BlockEntityType<E>> blockEntityType = REGISTRY_BLOCK_ENTITIES.register(id.getPath(), () -> BlockEntityType.Builder.of(blockObject.get(), blockObject.get()).build(null));
-        return new BlockEntityObject<>(blockObject, itemObject, blockEntityType);
     }
 
     @RequiredArgsConstructor
@@ -159,26 +162,14 @@ public final class ChaumtraftBlocks {
         }
     }
 
-    @Getter
-    @RequiredArgsConstructor
-    public static class WoodBlockSet {
-
-        private final BlockObject<Block> planks;
-        private final BlockObject<RotatedPillarBlock> log, wood, strippedLog, strippedWood;
-
-        private final BlockObject<LeavesBlock> leaves;
-        private final BlockObject<SaplingBlock> sapling;
-
-        private final BlockObject<StairBlock> stairs;
-        private final BlockObject<SlabBlock> slab;
-
-        private final BlockObject<FenceBlock> fence;
-        private final BlockObject<FenceGateBlock> fenceGate;
-
-        private final BlockObject<PressurePlateBlock> pressurePlate;
-        private final BlockObject<WoodButtonBlock> button;
-
-    }
+    public record WoodBlockSet(WoodType type,
+                               BlockObject<Block> planks,
+                               BlockObject<RotatedPillarBlock> log, BlockObject<RotatedPillarBlock> wood,
+                               BlockObject<RotatedPillarBlock> strippedLog, BlockObject<RotatedPillarBlock> strippedWood,
+                               BlockObject<LeavesBlock> leaves, BlockObject<SaplingBlock> sapling,
+                               BlockObject<StairBlock> stairs, BlockObject<SlabBlock> slab,
+                               BlockObject<FenceBlock> fence, BlockObject<FenceGateBlock> fenceGate,
+                               BlockObject<PressurePlateBlock> pressurePlate, BlockObject<ButtonBlock> button) { }
 
     @RequiredArgsConstructor
     public static class MultiItemBlockObject<B extends Block, K, I extends Item> {
@@ -194,7 +185,7 @@ public final class ChaumtraftBlocks {
             return block;
         }
 
-        public Item items(K key) {
+        public Item item(K key) {
             return items.get(key).get();
         }
 
@@ -202,26 +193,8 @@ public final class ChaumtraftBlocks {
             return items.values().stream().map(RegistryObject::get).collect(Collectors.toSet());
         }
 
-        public RegistryObject<I> itemsObject(K key) {
+        public RegistryObject<I> itemObject(K key) {
             return items.get(key);
-        }
-    }
-
-    public static class BlockEntityObject<B extends Block & BlockEntityType.BlockEntitySupplier<E>, E extends BlockEntity> extends BlockObject<B> {
-
-        private final RegistryObject<BlockEntityType<E>> entityType;
-
-        public BlockEntityObject(RegistryObject<B> block, RegistryObject<Item> item, RegistryObject<BlockEntityType<E>> entityType) {
-            super(block, item);
-            this.entityType = entityType;
-        }
-
-        public BlockEntityType<E> entityType() {
-            return entityType.get();
-        }
-
-        public RegistryObject<BlockEntityType<E>> entityTypeObject() {
-            return entityType;
         }
     }
 }

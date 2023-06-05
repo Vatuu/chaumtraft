@@ -3,8 +3,9 @@ package tld.unknown.mystery.client.screens.widgets;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.Widget;
+import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.AbstractContainerEventHandler;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
@@ -20,7 +21,7 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
-public class DataIndexWidget<T> extends AbstractContainerEventHandler implements Widget, NarratableEntry {
+public class DataIndexWidget<T> extends AbstractContainerEventHandler implements Renderable, NarratableEntry {
 
     private final CodecDataManager<T> manager;
     private final List<Entry<T>> entries;
@@ -47,6 +48,8 @@ public class DataIndexWidget<T> extends AbstractContainerEventHandler implements
                 entries.add(new Entry<>(this, k, manager, getName, getIcon));
         });
     }
+
+
 
     @Override
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
@@ -103,8 +106,8 @@ public class DataIndexWidget<T> extends AbstractContainerEventHandler implements
         }
 
         public void render(PoseStack pPoseStack, int pTop, int pLeft, int pWidth, int pHeight, int pMouseX, int pMouseY, float pPartialTick) {
-            button.x = pLeft;
-            button.y = pTop;
+            button.setX(pLeft);
+            button.setY(pTop);
             button.setWidth(pWidth);
             button.setHeight(pHeight);
             button.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
@@ -112,6 +115,14 @@ public class DataIndexWidget<T> extends AbstractContainerEventHandler implements
 
         public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
             return this.button.mouseClicked(pMouseX, pMouseY, pButton);
+        }
+
+        @Override
+        public void setFocused(boolean p_265728_) { }
+
+        @Override
+        public boolean isFocused() {
+            return false;
         }
     }
 }

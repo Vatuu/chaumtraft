@@ -1,6 +1,7 @@
 package tld.unknown.mystery.registries.client;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
@@ -30,7 +31,7 @@ public final class ChaumtraftMenus {
     }
 
     private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> register(ResourceLocation id, MenuType.MenuSupplier<T> factory) {
-        return REGISTRY.register(id.getPath(), () -> new MenuType<>(factory));
+        return REGISTRY.register(id.getPath(), () -> new MenuType<>(factory, FeatureFlags.DEFAULT_FLAGS));
     }
 
     private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> register(ResourceLocation id, IContainerFactory<T> factory) {

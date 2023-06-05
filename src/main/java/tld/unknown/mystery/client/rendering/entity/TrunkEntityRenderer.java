@@ -31,7 +31,7 @@ public class TrunkEntityRenderer extends LivingEntityRenderer<TrunkEntity, Trunk
 
     @Override
     public ResourceLocation getTextureLocation(TrunkEntity pEntity) {
-        byte upgrades = pEntity.getUpgradeByte();
+        /*byte upgrades = pEntity.getUpgradeByte();
         if(ChaumtraftItems.UPGRADE_RAGE.get().isBitSet(upgrades)) {
             return TEXTURE_RAGE;
         } else if(ChaumtraftItems.UPGRADE_EFFICIENCY.get().isBitSet(upgrades)) {
@@ -40,6 +40,7 @@ public class TrunkEntityRenderer extends LivingEntityRenderer<TrunkEntity, Trunk
             return TEXTURE_CAPACITY;
         } else {
             return TEXTURE_NORMAL;
-        }
+        }*/
+        return TEXTURE_NORMAL;
     }
 }

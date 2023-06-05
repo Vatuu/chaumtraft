@@ -11,7 +11,7 @@ public class UpgradeItem extends Item {
     private final byte upgradeBit;
 
     public UpgradeItem(byte upgradeBit) {
-        super(new Properties().tab(Chaumtraft.CREATIVE_TAB).rarity(Rarity.RARE).stacksTo(1));
+        super(new Properties().rarity(Rarity.RARE).stacksTo(1));
         this.upgradeBit = upgradeBit;
     }
 

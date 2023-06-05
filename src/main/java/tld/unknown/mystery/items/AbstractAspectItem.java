@@ -1,12 +1,10 @@
 package tld.unknown.mystery.items;
 
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import tld.unknown.mystery.api.Aspect;
-import tld.unknown.mystery.api.AspectContainerItem;
+import tld.unknown.mystery.api.aspects.Aspect;
+import tld.unknown.mystery.api.aspects.AspectContainerItem;
 import tld.unknown.mystery.api.ChaumtraftIDs;
 import tld.unknown.mystery.data.ChaumtraftData;
 import tld.unknown.mystery.util.simple.SimpleMetaItem;
