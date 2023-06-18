@@ -211,6 +211,16 @@ public class TubeBlockEntity extends SimpleBlockEntity implements IEssentiaCapab
     }
 
     @Override
+    public boolean canFit(ResourceLocation aspect, int amount, Direction dir) {
+        return false;
+    }
+
+    @Override
+    public boolean contains(ResourceLocation aspect, int amount, Direction dir) {
+        return false;
+    }
+
+    @Override
     public boolean compliesToAspect(ResourceLocation aspect, Direction dir) {
         return false;
     }

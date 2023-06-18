@@ -13,6 +13,8 @@ import tld.unknown.mystery.items.PhialItem;
 import tld.unknown.mystery.items.UpgradeItem;
 import tld.unknown.mystery.util.simple.SimpleCreativeTab;
 
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static tld.unknown.mystery.api.ChaumtraftIDs.Items;
@@ -28,10 +30,12 @@ public final class ChaumtraftItems {
     public static final RegistryObject<UpgradeItem> UPGRADE_RAGE = register(Items.UPGRADE_RAGE, () -> new UpgradeItem((byte)0b00000100), ChaumtraftTabs.MAIN);
     public static final RegistryObject<UpgradeItem> UPGRADE_EFFICIENCY = register(Items.UPGRADE_EFFICIENCY, () -> new UpgradeItem((byte)0b00001000), ChaumtraftTabs.MAIN);*/
 
-    public static final RegistryObject<Item> PHIAL = register(Items.PHIAL, PhialItem::new, ChaumtraftTabs.MAIN);
-    public static final RegistryObject<Item> VIS_CRYSTAL = register(Items.VIS_CRYSTAL, VisCrystalItem::new, ChaumtraftTabs.MAIN);
+    public static final RegistryObject<PhialItem> PHIAL = register(Items.PHIAL, PhialItem::new, ChaumtraftTabs.MAIN);
+    public static final RegistryObject<VisCrystalItem> VIS_CRYSTAL = register(Items.VIS_CRYSTAL, VisCrystalItem::new, ChaumtraftTabs.MAIN);
 
-    public static final RegistryObject<Item> RESONATOR = register(Items.ESSENTIA_RESONATOR, ResonatorItem::new, ChaumtraftTabs.MAIN);
+    public static final RegistryObject<ResonatorItem> RESONATOR = register(Items.ESSENTIA_RESONATOR, ResonatorItem::new, ChaumtraftTabs.MAIN);
+    public static final RegistryObject<Item> JAR_BRACE = register(Items.JAR_BRACE, p -> p, ChaumtraftTabs.MAIN);
+    public static final RegistryObject<Item> JAR_LABEL = register(Items.JAR_LABEL, p -> p, ChaumtraftTabs.MAIN);
 
     /* -------------------------------------------------------------------------------------------------------------- */
 
@@ -39,6 +43,14 @@ public final class ChaumtraftItems {
 
     private static <T extends Item> RegistryObject<T> register(ResourceLocation location, Supplier<T> instance, SimpleCreativeTab tab) {
         RegistryObject<T> obj = REGISTRY.register(location.getPath(), instance);
+        if(tab != null) {
+            tab.register(obj);
+        }
+        return obj;
+    }
+
+    private static RegistryObject<Item> register(ResourceLocation location, Function<Item.Properties, Item.Properties> properties, SimpleCreativeTab tab) {
+        RegistryObject<Item> obj = REGISTRY.register(location.getPath(), () -> new Item(properties.apply(new Item.Properties())));
         if(tab != null) {
             tab.register(obj);
         }

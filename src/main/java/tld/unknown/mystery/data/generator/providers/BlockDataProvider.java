@@ -1,17 +1,23 @@
 package tld.unknown.mystery.data.generator.providers;
 
 import com.google.common.collect.ImmutableMap;
+import net.minecraft.client.renderer.block.model.MultiVariant;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 import tld.unknown.mystery.Chaumtraft;
 import tld.unknown.mystery.api.ChaumtraftIDs;
+import tld.unknown.mystery.blocks.CreativeAspectSourceBlock;
 import tld.unknown.mystery.blocks.CrystalBlock;
+import tld.unknown.mystery.blocks.JarBlock;
 import tld.unknown.mystery.blocks.TubeBlock;
 import tld.unknown.mystery.registries.ChaumtraftBlockEntities;
 import tld.unknown.mystery.registries.ChaumtraftBlocks;
@@ -58,8 +64,9 @@ public class BlockDataProvider extends BlockStateProvider {
             case 2 -> CRYSTAL_2;
             default -> CRYSTAL_0;
         }));
-
         itemModels().basicItem(Items.ESSENTIA_RESONATOR);
+        itemModels().basicItem(Items.JAR_BRACE);
+        itemModels().basicItem(Items.JAR_LABEL);
 
         itemModels().basicItem(Items.VIS_CRYSTAL);
         itemModels().basicItem(ChaumtraftIDs.Blocks.CRYSTAL_COLONY);
@@ -72,6 +79,36 @@ public class BlockDataProvider extends BlockStateProvider {
 
         registerWoodType(ChaumtraftBlocks.SILVERWOOD);
         registerWoodType(ChaumtraftBlocks.GREATWOOD);
+
+        generateAspectSource();
+        simpleBlockItem(ChaumtraftBlocks.CREATIVE_ASPECT_SOURCE.block(), models().getExistingFile(Chaumtraft.id("block/creative_aspect_source_empty")));
+
+        generateJar(ChaumtraftBlocks.WARDED_JAR.block());
+        generateJar(ChaumtraftBlocks.VOID_JAR.block());
+    }
+
+
+    private void generateAspectSource() {
+        ResourceLocation filled = TextureMapping.getBlockTexture(ChaumtraftBlocks.CREATIVE_ASPECT_SOURCE.block());
+        ResourceLocation top = TextureMapping.getBlockTexture(ChaumtraftBlocks.CREATIVE_ASPECT_SOURCE.block(), "_top");
+        getVariantBuilder(ChaumtraftBlocks.CREATIVE_ASPECT_SOURCE.block()).forAllStates(s -> {
+            if(s.getValue(CreativeAspectSourceBlock.HAS_ASPECT)) {
+                return ConfiguredModel.builder().modelFile(models().cubeTop(ChaumtraftIDs.Blocks.CREATIVE_ASPECT_SOURCE + "_filled", filled, top)).build();
+            } else {
+                return ConfiguredModel.builder().modelFile(models().cubeTop(ChaumtraftIDs.Blocks.CREATIVE_ASPECT_SOURCE + "_empty", top, top)).build();
+            }
+        });
+    }
+
+    private void generateJar(JarBlock block) {
+        MultiPartBlockStateBuilder builder = getMultipartBuilder(block);
+        ResourceLocation base = block.isVoid() ? Chaumtraft.id("block/void_jar_body") : Chaumtraft.id("block/warded_jar_body");
+        ResourceLocation brace = Chaumtraft.id("block/jar_brace");
+        ResourceLocation tube = Chaumtraft.id("block/jar_tube");
+
+        builder.part().modelFile(models().getExistingFile(base)).addModel().end();
+        builder.part().modelFile(models().getExistingFile(brace)).addModel().condition(JarBlock.BRACED, true).end();
+        builder.part().modelFile(models().getExistingFile(tube)).addModel().condition(JarBlock.CONNECTED, true).end();
     }
 
     private ConfiguredModel[] getCrystalModels(Direction dir, ModelFile model) {

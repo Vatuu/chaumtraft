@@ -33,6 +33,12 @@ public abstract class SimpleMetaItem<T> extends Item implements SimpleCreativeTa
         return hasContent(stack) ? read(stack.getTag().getString(CONTENT_KEY)) : null;
     }
 
+    public ItemStack create(T value) {
+        ItemStack item = new ItemStack(this);
+        item.getOrCreateTag().putString(CONTENT_KEY, write(value));
+        return item;
+    }
+
     protected abstract T read(String value);
 
     protected abstract String write(T value);

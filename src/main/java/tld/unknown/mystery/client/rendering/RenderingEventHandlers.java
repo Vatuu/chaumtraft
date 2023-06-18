@@ -9,9 +9,7 @@ import net.minecraftforge.fml.common.Mod;
 import tld.unknown.mystery.Chaumtraft;
 import tld.unknown.mystery.api.aspects.Aspect;
 import tld.unknown.mystery.blocks.CrystalBlock;
-import tld.unknown.mystery.client.rendering.ber.CrucibleBER;
-import tld.unknown.mystery.client.rendering.ber.PedestalBER;
-import tld.unknown.mystery.client.rendering.ber.RunicMatrixBER;
+import tld.unknown.mystery.client.rendering.ber.*;
 import tld.unknown.mystery.client.rendering.entity.TrunkEntityRenderer;
 import tld.unknown.mystery.client.rendering.ui.AspectTooltip;
 import tld.unknown.mystery.data.ChaumtraftData;
@@ -47,6 +45,8 @@ public final class RenderingEventHandlers {
             e.registerBlockEntityRenderer(ChaumtraftBlockEntities.CRUCIBLE.entityType(), CrucibleBER::new);
             e.registerBlockEntityRenderer(ChaumtraftBlockEntities.RUNIC_MATRIX.entityType(), RunicMatrixBER::new);
             e.registerBlockEntityRenderer(ChaumtraftBlockEntities.PEDESTAL.entityType(), PedestalBER::new);
+            e.registerBlockEntityRenderer(ChaumtraftBlockEntities.CREATIVE_ASPECT_SOURCE.entityType(), CreativeAspectSourceBER::new);
+            e.registerBlockEntityRenderer(ChaumtraftBlockEntities.JAR.entityType(), JarBER::new);
 
             e.registerEntityRenderer(ChaumtraftEntities.LIVING_TRUNK.entityType(), TrunkEntityRenderer::new);
         }

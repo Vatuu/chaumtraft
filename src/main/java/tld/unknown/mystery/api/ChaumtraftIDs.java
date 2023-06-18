@@ -49,7 +49,8 @@ public final class ChaumtraftIDs {
     public static final class Items {
 
         public static final ResourceLocation THAUMONOMICON = Chaumtraft.id("thaumonomicon");
-
+        public static final ResourceLocation JAR_BRACE = Chaumtraft.id("jar_brace");
+        public static final ResourceLocation JAR_LABEL = Chaumtraft.id("jar_label");
         public static final ResourceLocation ESSENTIA_RESONATOR = Chaumtraft.id("resonator");
 
         public static final ResourceLocation PHIAL = Chaumtraft.id("phial");
@@ -88,6 +89,8 @@ public final class ChaumtraftIDs {
         public static final ResourceLocation GREATWOOD = Chaumtraft.id("greatwood");
 
         public static final ResourceLocation TUBE = Chaumtraft.id("tube");
+
+        public static final ResourceLocation CREATIVE_ASPECT_SOURCE = Chaumtraft.id("creative_aspect_source");
     }
 
     public static final class CreativeTabs {
@@ -102,6 +105,7 @@ public final class ChaumtraftIDs {
         public static final ResourceLocation PEDESTAL = Chaumtraft.id("pedestal");
         public static final ResourceLocation JAR = Chaumtraft.id("jar");
         public static final ResourceLocation TUBE = Blocks.TUBE;
+        public static final ResourceLocation CREATIVE_ASPECT_SOURCE = Blocks.CREATIVE_ASPECT_SOURCE;
     }
 
     public static final class Entities {

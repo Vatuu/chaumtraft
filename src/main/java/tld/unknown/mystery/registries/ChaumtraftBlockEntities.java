@@ -50,6 +50,10 @@ public final class ChaumtraftBlockEntities {
             TubeBlockEntity::new,
             ChaumtraftBlocks.TUBE);
 
+    public static final BlockEntityObject<CreativeAspectSourceBlockEntity> CREATIVE_ASPECT_SOURCE = register(BlockEntities.CREATIVE_ASPECT_SOURCE,
+            CreativeAspectSourceBlockEntity::new,
+            ChaumtraftBlocks.CREATIVE_ASPECT_SOURCE);
+
     /* -------------------------------------------------------------------------------------------------------------- */
 
     public static void init(IEventBus bus) {

@@ -1,5 +1,7 @@
 package tld.unknown.mystery.blocks.entities;
 
+import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -24,7 +26,9 @@ public class JarBlockEntity extends SimpleBlockEntity implements AspectContainer
 
     private static final int MAX_ESSENTIA = 250;
 
-    private ResourceLocation label, currentAspect;
+    @Getter @Setter
+    private ResourceLocation label;
+    private ResourceLocation currentAspect;
     private int amount;
 
     public JarBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -66,6 +70,10 @@ public class JarBlockEntity extends SimpleBlockEntity implements AspectContainer
 
     private boolean isVoid() {
         return ((JarBlock)getBlockState().getBlock()).isVoid();
+    }
+
+    public float getFillPercent() {
+        return (float)this.amount / MAX_ESSENTIA;
     }
 
     /* -------------------------------------------------------------------------------------------------------------- */
@@ -177,5 +185,15 @@ public class JarBlockEntity extends SimpleBlockEntity implements AspectContainer
     @Override
     public boolean compliesToAspect(ResourceLocation aspect, Direction dir) {
         return dir == Direction.UP && (label == null || aspect.equals(label)) && (currentAspect == null || aspect.equals(currentAspect));
+    }
+
+    @Override
+    public boolean canFit(ResourceLocation aspect, int amount, Direction dir) {
+        return compliesToAspect(aspect, dir) && (isVoid() || amount <= MAX_ESSENTIA - this.amount);
+    }
+
+    @Override
+    public boolean contains(ResourceLocation aspect, int amount, Direction dir) {
+        return (aspect == null || compliesToAspect(aspect, dir)) && this.amount >= amount;
     }
 }

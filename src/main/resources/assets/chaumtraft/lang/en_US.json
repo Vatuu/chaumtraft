@@ -7,6 +7,9 @@
   "block.chaumtraft.crystal_colony": "Crystal Colony",
   "block.chaumtraft.crystal_colony.filled": "%s Crystal Colony",
   "block.chaumtraft.tube": "Essentia Tube",
+  "block.chaumtraft.creative_aspect_source": "Creative Aspect Fountain",
+  "block.chaumtraft.warded_jar": "Warded Jar",
+  "block.chaumtraft.void_jar": "Void Jar",
 
   "item.chaumtraft.thaumonomicon": "Thaumaninamunanumayeahicon",
   "item.chaumtraft.phial": "Glass Phial",

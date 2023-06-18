@@ -21,6 +21,9 @@ public interface IEssentiaCapability {
     int drainAspect(ResourceLocation aspect, int amount, Direction dir);
     int fillAspect(ResourceLocation aspect, int amount, Direction dir);
 
+    boolean canFit(ResourceLocation aspect, int amount, Direction dir);
+    boolean contains(ResourceLocation aspect, int amount, Direction dir);
+
     boolean compliesToAspect(ResourceLocation aspect, Direction dir);
 
     @Getter

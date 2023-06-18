@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -57,6 +58,8 @@ public final class ChaumtraftBlocks {
 
     public static final BlockObject<TubeBlock> TUBE = registerBlock(Blocks.TUBE, TubeBlock::new, ChaumtraftTabs.MAIN);
 
+    public static final BlockObject<CreativeAspectSourceBlock> CREATIVE_ASPECT_SOURCE = registerBlock(Blocks.CREATIVE_ASPECT_SOURCE, CreativeAspectSourceBlock::new, Rarity.EPIC, ChaumtraftTabs.MAIN);
+
     /* -------------------------------------------------------------------------------------------------------------- */
 
     public static void init(IEventBus bus) {
@@ -68,6 +71,15 @@ public final class ChaumtraftBlocks {
     private static <B extends Block> BlockObject<B> registerBlock(ResourceLocation id, Supplier<B> block, SimpleCreativeTab tab) {
         RegistryObject<B> blockObject = REGISTRY_BLOCKS.register(id.getPath(), block);
         RegistryObject<Item> itemObject = REGISTRY_ITEM.register(id.getPath(), () -> new BlockItem(blockObject.get(), new Item.Properties().stacksTo(64)));
+        if(tab != null) {
+            tab.register(itemObject);
+        }
+        return new BlockObject<>(blockObject, itemObject);
+    }
+
+    private static <B extends Block> BlockObject<B> registerBlock(ResourceLocation id, Supplier<B> block, Rarity rarity, SimpleCreativeTab tab) {
+        RegistryObject<B> blockObject = REGISTRY_BLOCKS.register(id.getPath(), block);
+        RegistryObject<Item> itemObject = REGISTRY_ITEM.register(id.getPath(), () -> new BlockItem(blockObject.get(), new Item.Properties().stacksTo(64).rarity(rarity)));
         if(tab != null) {
             tab.register(itemObject);
         }

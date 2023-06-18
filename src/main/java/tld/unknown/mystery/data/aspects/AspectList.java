@@ -90,6 +90,10 @@ public class AspectList implements INBTSerializable<CompoundTag> {
         return true;
     }
 
+    public List<ResourceLocation> aspects() {
+        return Lists.newArrayList(aspects.keySet().iterator());
+    }
+
     public boolean contains(ResourceLocation type) {
         return aspects.containsKey(type);
     }
@@ -166,6 +170,10 @@ public class AspectList implements INBTSerializable<CompoundTag> {
     public void deserializeNBT(CompoundTag tag) {
         clear();
         tag.getAllKeys().forEach(s -> add(ResourceLocation.tryParse(s), tag.getShort(s)));
+    }
+
+    public Set<ResourceLocation> getAspects() {
+        return aspects.keySet();
     }
 
     public static final Codec<AspectList> CODEC = Codec.unboundedMap(ResourceLocation.CODEC, Codec.SHORT).xmap(AspectList::new, al -> al.aspects);
