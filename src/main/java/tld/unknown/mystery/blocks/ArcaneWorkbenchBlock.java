@@ -2,14 +2,17 @@ package tld.unknown.mystery.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.CraftingMenu;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.CraftingTableBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -22,9 +25,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import tld.unknown.mystery.blocks.entities.ArcaneWorkbenchBlockEntity;
 import tld.unknown.mystery.menus.ArcaneWorkbenchMenu;
-import tld.unknown.mystery.registries.ChaumtraftBlockEntities;
 import tld.unknown.mystery.util.simple.SimpleEntityBlock;
-
 public class ArcaneWorkbenchBlock extends SimpleEntityBlock<ArcaneWorkbenchBlockEntity> {
 
     private static final Component CONTAINER_TITLE = Component.translatable("container.chaumtraft.arcane_workbench");
@@ -33,11 +34,9 @@ public class ArcaneWorkbenchBlock extends SimpleEntityBlock<ArcaneWorkbenchBlock
             Shapes.join(
                     Shapes.box(6, 2, 6, 8, 11, 8),
                     Shapes.box(0, 11, 0, 16, 16, 16), BooleanOp.AND), BooleanOp.OR);
-
     public ArcaneWorkbenchBlock() {
         super(BlockBehaviour.Properties.of(Material.WOOD, MaterialColor.WOOD), ChaumtraftBlockEntities.ARCANE_WORKBENCH.entityTypeObject());
     }
-
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (pLevel.isClientSide) {
             return InteractionResult.SUCCESS;
