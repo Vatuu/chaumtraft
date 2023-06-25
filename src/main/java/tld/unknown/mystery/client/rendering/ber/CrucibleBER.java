@@ -1,10 +1,18 @@
 package tld.unknown.mystery.client.rendering.ber;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.core.Direction;
+import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraftforge.fluids.FluidStack;
 import org.joml.Quaternionf;
+import org.joml.Vector3f;
 import tld.unknown.mystery.Chaumtraft;
 import tld.unknown.mystery.blocks.entities.CrucibleBlockEntity;
 import tld.unknown.mystery.client.rendering.RenderHelper;
@@ -17,8 +25,6 @@ public class CrucibleBER extends SimpleBER<CrucibleBlockEntity> {
     private static final float FLUID_HEIGHT = 1 / 16F * 9;
     private static final float ASPECT_HEIGHT = 1 / 16F * 3;
 
-    private static final Quaternionf QUATERNION = Axis.YN.rotationDegrees(90);
-
     public CrucibleBER(BlockEntityRendererProvider.Context context) {
         super(context);
     }
@@ -27,15 +33,20 @@ public class CrucibleBER extends SimpleBER<CrucibleBlockEntity> {
     public void render(CrucibleBlockEntity pBlockEntity, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBufferSource, int pPackedLight, int pPackedOverlay) {
         pPoseStack.pushPose();
         if(Chaumtraft.isDev()) {
-            renderNametag(pPoseStack, pBufferSource, 1, FluidHelper.serializeTankStatus(pBlockEntity), pPackedLight);
-            renderNametag(pPoseStack, pBufferSource, .75F, pBlockEntity.isCooking() ? "Hot" : "Cool", pPackedLight);
+            renderNametag(pPoseStack, pBufferSource, 1, pBlockEntity.isCooking() ? "Hot" : "Cool", pPackedLight);
+            renderNametag(pPoseStack, pBufferSource, .75F, FluidHelper.serializeTankStatus(pBlockEntity), pPackedLight);
         }
         float fluidHeight = pBlockEntity.getFluidPercentage();
         if(fluidHeight > 0) {
             float aspectHeight = pBlockEntity.getAspectPercentage();
-            pPoseStack.translate(0, FLUID_START + (FLUID_HEIGHT * fluidHeight) + (ASPECT_HEIGHT * aspectHeight) + (fluidHeight + aspectHeight >= 2 ? 0.0001 : 0), 1);
-            pPoseStack.mulPose(QUATERNION);
-            RenderHelper.renderFluidTexture(pPoseStack, pBufferSource, pBlockEntity.getFluidInTank(0), 1, 1, 1, 1, pPackedLight);
+            FluidStack fluid = pBlockEntity.getFluidInTank(0);
+            TextureAtlasSprite sprite = RenderHelper.getFluidSprite(fluid);
+            pPoseStack.translate(0, FLUID_START + (FLUID_HEIGHT * fluidHeight) + (ASPECT_HEIGHT * aspectHeight) + (fluidHeight + aspectHeight >= 2 ? 0.0001 : 0), 0);
+            RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
+            RenderHelper.drawFace(Direction.UP,
+                    pBufferSource.getBuffer(RenderType.cutout()), pPoseStack.last().pose(),
+                    new Vector3f(0, 0, 0), new Vector3f(1, 0, 1), RenderHelper.getFluidTint(fluid),
+                    sprite.getU0(), sprite.getV0(), sprite.getU1(), sprite.getV1(), true, pPackedLight);
         }
         pPoseStack.popPose();
     }

@@ -25,6 +25,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import tld.unknown.mystery.blocks.entities.ArcaneWorkbenchBlockEntity;
 import tld.unknown.mystery.menus.ArcaneWorkbenchMenu;
+import tld.unknown.mystery.registries.ChaumtraftBlockEntities;
 import tld.unknown.mystery.util.simple.SimpleEntityBlock;
 public class ArcaneWorkbenchBlock extends SimpleEntityBlock<ArcaneWorkbenchBlockEntity> {
 

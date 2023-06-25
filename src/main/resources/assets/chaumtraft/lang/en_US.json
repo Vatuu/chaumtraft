@@ -11,7 +11,7 @@
   "block.chaumtraft.warded_jar": "Warded Jar",
   "block.chaumtraft.void_jar": "Void Jar",
 
-  "item.chaumtraft.thaumonomicon": "Thaumaninamunanumayeahicon",
+  "item.chaumtraft.thaumonomicon": "Thaumonomicon",
   "item.chaumtraft.phial": "Glass Phial",
   "item.chaumtraft.phial.filled": "Phial of %s Essentia",
   "item.chaumtraft.vis_crystal": "Vis Crystal",
@@ -40,5 +40,7 @@
   "msg.chaumtraft.resonator.suction": "Suction",
   "msg.chaumtraft.resonator.suction.value": "%d %s",
   "msg.chaumtraft.resonator.content": "Contains",
-  "msg.chaumtraft.resonator.content.value": "%d %s Essentia"
+  "msg.chaumtraft.resonator.content.value": "%d %s Essentia",
+
+  "container.chaumtraft.arcane_workbench": "Arcane Workbench"
 }

@@ -26,4 +26,8 @@ public final class MathUtils {
         }
         return set;
     }
+
+    public static float px(float amount) {
+        return 1F / 16 * amount;
+    }
 }

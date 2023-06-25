@@ -7,6 +7,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.joml.Matrix4f;
 
@@ -15,7 +16,7 @@ public abstract class SimpleBER<T extends BlockEntity> implements BlockEntityRen
 
     protected final BlockEntityRendererProvider.Context context;
 
-    protected void renderNametag(PoseStack stack, MultiBufferSource source, float y, String text, int light) {
+    protected void renderNametag(PoseStack stack, MultiBufferSource source, float y, Component text, int light) {
         stack.pushPose();
 
         stack.translate(.5D, .5D + y, .5D);
@@ -30,5 +31,9 @@ public abstract class SimpleBER<T extends BlockEntity> implements BlockEntityRen
         font.drawInBatch(text, centerOffset, 0, -1, false, matrix4f, source, Font.DisplayMode.NORMAL, 0, light);
 
         stack.popPose();
+    }
+
+    protected void renderNametag(PoseStack stack, MultiBufferSource source, float y, String text, int light) {
+        renderNametag(stack, source, y, Component.literal(text), light);
     }
 }
