@@ -32,7 +32,6 @@ public class JarBER extends SimpleBER<JarBlockEntity> {
 
     @Override
     public void render(JarBlockEntity pBlockEntity, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBufferSource, int pPackedLight, int pPackedOverlay) {
-        pPoseStack.pushPose();
         if(Chaumtraft.isDev()) {
             ResourceLocation type = pBlockEntity.getEssentiaType(Direction.UP);
             type = type != null ? type : (pBlockEntity.getLabel() != null ? pBlockEntity.getLabel() : ChaumtraftIDs.Aspects.ANY);
@@ -41,19 +40,17 @@ public class JarBER extends SimpleBER<JarBlockEntity> {
         }
 
         if(pBlockEntity.getEssentia(Direction.UP) > 0) {
+            pPoseStack.pushPose();
             VertexConsumer consumer = pBufferSource.getBuffer(RenderType.cutoutMipped());
-            pPoseStack.translate(MathUtils.px(4), MathUtils.px(1) + 1, MathUtils.px(4));
+            pPoseStack.translate(MathUtils.px(4), MathUtils.px(1), MathUtils.px(4));
             TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(FILLED_TEXTURE);
             RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
             float fluidHeight = FLUID_HEIGHT * pBlockEntity.getFillPercent();
-            RenderHelper.CUBOID_RENDERER.prepare(FLUID_WIDTH, FLUID_HEIGHT, FLUID_WIDTH, 16, 16, sprite)
-                    .setUVs(Direction.Axis.X, 0, 0, 1, 1)
-                    .setUVs(Direction.Axis.Z, 0, 0, 1, 1)
-                    .setUVs(Direction.Axis.Y, 0, 0, 1, 1)
-                    /*.setUVs(Direction.Axis.X, 4, 0, 12, fluidHeight)
+            RenderHelper.CUBOID_RENDERER.prepare(FLUID_WIDTH, fluidHeight, FLUID_WIDTH, 16, 16, sprite)
+                    .setUVs(Direction.Axis.X, 4, 0, 12, fluidHeight)
                     .setUVs(Direction.Axis.Z, 4, 0, 12, fluidHeight)
-                    .setUVs(Direction.Axis.Y, 4, 4, 12, 12)*/
-                    .draw(consumer, pPoseStack.last().pose(), ChaumtraftData.ASPECTS.getOptional(pBlockEntity.getEssentiaType(Direction.UP)).orElse(Aspect.UNKNOWN).getColor().getValue(), true, pPackedLight);
+                    .setUVs(Direction.Axis.Y, 4, 4, 12, 12)
+                    .draw(consumer, pPoseStack.last().pose(), /*ChaumtraftData.ASPECTS.getOptional(pBlockEntity.getEssentiaType(Direction.UP)).orElse(Aspect.UNKNOWN).getColor().getValue()*/0xFFFFFFFF, true, pPackedLight);
             pPoseStack.popPose();
         }
     }

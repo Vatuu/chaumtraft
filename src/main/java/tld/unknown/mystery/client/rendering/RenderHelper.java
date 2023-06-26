@@ -47,34 +47,34 @@ public final class RenderHelper {
                 fillVertex(consumer, modelMatrix, max.x(), max.y(), max.z(), colour, maxU, maxV, applyLight, light);
             }
             case DOWN -> {
-                fillVertex(consumer, modelMatrix, min.x(), min.y(), min.z(), colour, minU, maxV, applyLight, light);
-                fillVertex(consumer, modelMatrix, max.x(), min.y(), min.z(), colour, maxU, maxV, applyLight, light);
-                fillVertex(consumer, modelMatrix, max.x(), min.y(), max.z(), colour, maxU, minV, applyLight, light);
-                fillVertex(consumer, modelMatrix, max.x(), min.y(), min.z(), colour, minU, minV, applyLight, light);
+                fillVertex(consumer, modelMatrix, max.x(), min.y(), min.z(), colour, maxU, minV, applyLight, light);
+                fillVertex(consumer, modelMatrix, max.x(), min.y(), max.z(), colour, maxU, maxV, applyLight, light);
+                fillVertex(consumer, modelMatrix, min.x(), min.y(), max.z(), colour, minU, maxV, applyLight, light);
+                fillVertex(consumer, modelMatrix, min.x(), min.y(), min.z(), colour, minU, minV, applyLight, light);
             }
             case NORTH -> {
-                fillVertex(consumer, modelMatrix, min.x(), min.y(), max.z(), colour, minU, minV, applyLight, light);
+                fillVertex(consumer, modelMatrix, max.x(), min.y(), min.z(), colour, maxU, minV, applyLight, light);
+                fillVertex(consumer, modelMatrix, min.x(), min.y(), min.z(), colour, minU, minV, applyLight, light);
+                fillVertex(consumer, modelMatrix, min.x(), max.y(), min.z(), colour, minU, maxV, applyLight, light);
+                fillVertex(consumer, modelMatrix, max.x(), max.y(), min.z(), colour, maxU, maxV, applyLight, light);
+            }
+            case SOUTH -> {
                 fillVertex(consumer, modelMatrix, max.x(), min.y(), max.z(), colour, maxU, minV, applyLight, light);
                 fillVertex(consumer, modelMatrix, max.x(), max.y(), max.z(), colour, maxU, maxV, applyLight, light);
                 fillVertex(consumer, modelMatrix, min.x(), max.y(), max.z(), colour, minU, maxV, applyLight, light);
-            }
-            case SOUTH -> {
-                fillVertex(consumer, modelMatrix, min.x(), min.y(), min.z(), colour, minU, minV, applyLight, light);
-                fillVertex(consumer, modelMatrix, max.x(), min.y(), min.z(), colour, maxU, minV, applyLight, light);
-                fillVertex(consumer, modelMatrix, max.x(), max.y(), min.z(), colour, maxU, maxV, applyLight, light);
-                fillVertex(consumer, modelMatrix, min.x(), max.y(), min.z(), colour, minU, maxV, applyLight, light);
+                fillVertex(consumer, modelMatrix, min.x(), min.y(), max.z(), colour, minU, minV, applyLight, light);
             }
             case EAST -> {
-                fillVertex(consumer, modelMatrix, max.x(), min.y(), max.z(), colour, minU, minV, applyLight, light);
-                fillVertex(consumer, modelMatrix, max.x(), min.y(), min.z(), colour, maxU, minV, applyLight, light);
-                fillVertex(consumer, modelMatrix, max.x(), max.y(), min.z(), colour, maxU, maxV, applyLight, light);
-                fillVertex(consumer, modelMatrix, max.x(), max.y(), max.z(), colour, minU, maxV, applyLight, light);
+                fillVertex(consumer, modelMatrix, max.x(), min.y(), max.z(), colour, maxU, minV, applyLight, light);
+                fillVertex(consumer, modelMatrix, max.x(), min.y(), min.z(), colour, minU, minV, applyLight, light);
+                fillVertex(consumer, modelMatrix, max.x(), max.y(), min.z(), colour, minU, maxV, applyLight, light);
+                fillVertex(consumer, modelMatrix, max.x(), max.y(), max.z(), colour, maxU, maxV, applyLight, light);
             }
             case WEST -> {
-                fillVertex(consumer, modelMatrix, min.x(), min.y(), max.z(), colour, minU, minV, applyLight, light);
-                fillVertex(consumer, modelMatrix, min.x(), min.y(), min.z(), colour, maxU, minV, applyLight, light);
-                fillVertex(consumer, modelMatrix, min.x(), max.y(), min.z(), colour, maxU, maxV, applyLight, light);
-                fillVertex(consumer, modelMatrix, min.x(), max.y(), max.z(), colour, minU, maxV, applyLight, light);
+                fillVertex(consumer, modelMatrix, min.x(), min.y(), max.z(), colour, maxU, minV, applyLight, light);
+                fillVertex(consumer, modelMatrix, min.x(), max.y(), max.z(), colour, maxU, maxV, applyLight, light);
+                fillVertex(consumer, modelMatrix, min.x(), max.y(), min.z(), colour, minU, maxV, applyLight, light);
+                fillVertex(consumer, modelMatrix, min.x(), min.y(), min.z(), colour, minU, minV, applyLight, light);
             }
         }
     }
