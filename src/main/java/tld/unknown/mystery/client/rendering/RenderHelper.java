@@ -5,14 +5,17 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
+import tld.unknown.mystery.Chaumtraft;
 
 public final class RenderHelper {
 
@@ -79,8 +82,15 @@ public final class RenderHelper {
         }
     }
 
+    public static boolean debugIsLookingAtBlock(BlockPos pos) {
+        if(Chaumtraft.isDev() && Minecraft.getInstance().player.isCrouching() && Minecraft.getInstance().hitResult instanceof BlockHitResult hit) {
+            return hit.getBlockPos().equals(pos);
+        }
+        return false;
+    }
+
     private static void fillVertex(VertexConsumer consumer, Matrix4f modelMatrix, float x, float y, float z, int colour, float u, float v, boolean applyLight, int packedLight) {
-        consumer.vertex(modelMatrix, x, y, z).color((colour >> 16) & 0xFF, (colour >> 8), colour & 0xFF, (colour >> 24) & 0xFF).uv(u, v);
+        consumer.vertex(modelMatrix, x, y, z).color((colour >> 16) & 0xFF, (colour >> 8), colour & 0xFF, 0xFF).uv(u, v);
         if(applyLight) {
             consumer.uv2(packedLight);
         }

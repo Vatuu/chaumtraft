@@ -10,7 +10,7 @@ public class CuboidRenderer {
 
     private TextureAtlasSprite atlasSprite;
 
-    private int texSizeWidth, textSizeHeight;
+    private int texSizeWidth, texSizeHeight;
 
     private float xMinU, xMinV, xMaxU, xMaxV;
     private float yMinU, yMinV, yMaxU, yMaxV;
@@ -38,7 +38,7 @@ public class CuboidRenderer {
         this.atlasSprite = sprite;
 
         this.texSizeWidth = textureWidth;
-        this.textSizeHeight = textureHeight;
+        this.texSizeHeight = textureHeight;
 
         this.xMinU = this.yMinU = this.zMinU = this.xMinV = this.yMinV = this.zMinV = 0;
         this.xMaxU = this.yMaxU = this.zMaxU = textureWidth;
@@ -83,42 +83,42 @@ public class CuboidRenderer {
 
     private float getMinU(Direction dir) {
         float minU = switch(dir) {
-            case UP, DOWN -> texCoord(texSizeWidth, yMinU);
-            case NORTH, SOUTH -> texCoord(texSizeWidth, zMinU);
-            case EAST, WEST -> texCoord(texSizeWidth, xMinU);
+            case UP, DOWN -> yMinU;
+            case NORTH, SOUTH -> zMinU;
+            case EAST, WEST -> xMinU;
         };
 
-        return atlasSprite != null ? atlasSprite.getU(minU) : minU;
+        return atlasSprite != null ? atlasSprite.getU(minU) : texCoord(texSizeWidth, minU);
     }
 
     private float getMinV(Direction dir) {
         float minV = switch(dir) {
-            case UP, DOWN -> texCoord(textSizeHeight, yMinV);
-            case NORTH, SOUTH -> texCoord(textSizeHeight, zMinV);
-            case EAST, WEST -> texCoord(textSizeHeight, xMinV);
+            case UP, DOWN -> yMinV;
+            case NORTH, SOUTH -> zMinV;
+            case EAST, WEST -> xMinV;
         };
 
-        return atlasSprite != null ? atlasSprite.getV(minV) : minV;
+        return atlasSprite != null ? atlasSprite.getV(minV) : texCoord(texSizeHeight, minV);
     }
 
     private float getMaxU(Direction dir) {
         float maxU = switch(dir) {
-            case UP, DOWN -> texCoord(texSizeWidth, yMaxU);
-            case NORTH, SOUTH -> texCoord(texSizeWidth, zMaxU);
-            case EAST, WEST -> texCoord(texSizeWidth, xMaxU);
+            case UP, DOWN -> yMaxU;
+            case NORTH, SOUTH -> zMaxU;
+            case EAST, WEST -> xMaxU;
         };
 
-        return atlasSprite != null ? atlasSprite.getU(maxU) : maxU;
+        return atlasSprite != null ? atlasSprite.getU(maxU) : texCoord(texSizeWidth, maxU);
     }
 
     private float getMaxV(Direction dir) {
         float maxV = switch(dir) {
-            case UP, DOWN -> texCoord(textSizeHeight, yMaxV);
-            case NORTH, SOUTH -> texCoord(textSizeHeight, zMaxV);
-            case EAST, WEST -> texCoord(textSizeHeight, xMaxV);
+            case UP, DOWN -> yMaxV;
+            case NORTH, SOUTH -> zMaxV;
+            case EAST, WEST -> xMaxV;
         };
 
-        return atlasSprite != null ? atlasSprite.getV(maxV) : maxV;
+        return atlasSprite != null ? atlasSprite.getV(maxV) : texCoord(texSizeHeight, maxV);
     }
 
     private float texCoord(int size, float value) {
