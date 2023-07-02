@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
+import org.joml.Vector3f;
 import tld.unknown.mystery.Chaumtraft;
 import tld.unknown.mystery.api.ChaumtraftIDs;
 import tld.unknown.mystery.api.aspects.Aspect;
@@ -24,7 +25,8 @@ public class JarBER extends SimpleBER<JarBlockEntity> {
 
     private static final float FLUID_HEIGHT = MathUtils.px(10);
     private static final float FLUID_WIDTH = MathUtils.px(8);
-    private static final ResourceLocation FILLED_TEXTURE = Chaumtraft.id("block/essentia_fluid");
+    private static final ResourceLocation FILLED_TEXTURE = Chaumtraft.id("textures/misc/essentia_fluid.png");
+    private static final ResourceLocation LABEL = Chaumtraft.id("textures/misc/label.png");
 
     public JarBER(BlockEntityRendererProvider.Context context) {
         super(context);
@@ -41,16 +43,31 @@ public class JarBER extends SimpleBER<JarBlockEntity> {
 
         if(pBlockEntity.getEssentia(Direction.UP) > 0) {
             pPoseStack.pushPose();
-            VertexConsumer consumer = pBufferSource.getBuffer(RenderType.cutoutMipped());
             pPoseStack.translate(MathUtils.px(4), MathUtils.px(1), MathUtils.px(4));
-            TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(FILLED_TEXTURE);
-            RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
+            VertexConsumer consumer = pBufferSource.getBuffer(RenderType.entitySolid(FILLED_TEXTURE));
             float fluidHeight = FLUID_HEIGHT * pBlockEntity.getFillPercent();
-            RenderHelper.CUBOID_RENDERER.prepare(FLUID_WIDTH, fluidHeight, FLUID_WIDTH, 16, 16, sprite)
+            RenderHelper.CUBOID_RENDERER.prepare(FLUID_WIDTH, fluidHeight, FLUID_WIDTH, 16, 16)
                     .setUVs(Direction.Axis.X, 4, 0, 12, 10 * pBlockEntity.getFillPercent())
                     .setUVs(Direction.Axis.Z, 4, 0, 12, 10 * pBlockEntity.getFillPercent())
                     .setUVs(Direction.Axis.Y, 4, 4, 12, 12)
-                    .draw(consumer, pPoseStack.last().pose(), ChaumtraftData.ASPECTS.getOptional(pBlockEntity.getEssentiaType(Direction.UP)).orElse(Aspect.UNKNOWN).getColor().getValue(), true, pPackedLight);
+                    .draw(consumer, pPoseStack.last().pose(), ChaumtraftData.ASPECTS.getOptional(pBlockEntity.getEssentiaType(Direction.UP)).orElse(Aspect.UNKNOWN).getColor().getValue(), true, pPackedLight, true, pPackedOverlay);
+            pPoseStack.popPose();
+        }
+
+        // Colour 0.1F, 0.1F, 0.1F, alpha * 0.8F
+        if(pBlockEntity.getLabel() != null && pBlockEntity.getLabelDirection() != null) {
+            pPoseStack.pushPose();
+            pPoseStack.translate(MathUtils.px(4F), MathUtils.px(2.5F), MathUtils.px(3 - 0.001F));
+            VertexConsumer consumer = pBufferSource.getBuffer(RenderType.entityCutoutNoCull(LABEL));
+            RenderHelper.drawFace(
+                    pBlockEntity.getLabelDirection(), consumer, pPoseStack.last().pose(),
+                    new Vector3f(0, 0, 0), MathUtils.pxVector3f(8, 8, 8),
+                    0xFFFFFFFF, 0, 0, 1, 1, true, pPackedLight, true, pPackedOverlay);
+            consumer = pBufferSource.getBuffer(RenderType.entityTranslucentCull(Aspect.getTexture(pBlockEntity.getLabel(), false)));
+            RenderHelper.drawFace(
+                    pBlockEntity.getLabelDirection(), consumer, pPoseStack.last().pose(),
+                    MathUtils.pxVector3f(1.5F, 1.5F, -.001f), MathUtils.pxVector3f(6.5F, 6.5F, 6.5F),
+                    0xFF000000, 0, 0, 1, 1, true, pPackedLight, true, pPackedOverlay);
             pPoseStack.popPose();
         }
     }

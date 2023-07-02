@@ -19,13 +19,13 @@ public class CuboidRenderer {
     private Vector3f bfl, bfr, bbl, bbr;
     private Vector3f tfl, tfr, tbl, tbr;
 
-    public void draw(VertexConsumer consumer, Matrix4f modelMatrix, int colour, boolean applyLight, int light) {
-        RenderHelper.drawFace(Direction.NORTH, consumer, modelMatrix, bfl, tfr, colour, getMinU(Direction.NORTH), getMinV(Direction.NORTH), getMaxU(Direction.NORTH), getMaxV(Direction.NORTH), applyLight, light);
-        RenderHelper.drawFace(Direction.SOUTH, consumer, modelMatrix, bbl, tbr, colour, getMinU(Direction.SOUTH), getMinV(Direction.SOUTH), getMaxU(Direction.SOUTH), getMaxV(Direction.SOUTH), applyLight, light);
-        RenderHelper.drawFace(Direction.EAST, consumer, modelMatrix, bfr, tbr, colour, getMinU(Direction.EAST), getMinV(Direction.EAST), getMaxU(Direction.EAST), getMaxV(Direction.EAST), applyLight, light);
-        RenderHelper.drawFace(Direction.WEST, consumer, modelMatrix, bfl, tbl, colour, getMinU(Direction.WEST), getMinV(Direction.WEST), getMaxU(Direction.WEST), getMaxV(Direction.WEST), applyLight, light);
-        RenderHelper.drawFace(Direction.UP, consumer, modelMatrix, tfl, tbr, colour, getMinU(Direction.UP), getMinV(Direction.UP), getMaxU(Direction.UP), getMaxV(Direction.UP), applyLight, light);
-        RenderHelper.drawFace(Direction.DOWN, consumer, modelMatrix, bfl, bbr, colour, getMinU(Direction.DOWN), getMinV(Direction.DOWN), getMaxU(Direction.DOWN), getMaxV(Direction.DOWN), applyLight, light);
+    public void draw(VertexConsumer consumer, Matrix4f modelMatrix, int colour, boolean applyLight, int light, boolean applyOverlay, int overlay) {
+        RenderHelper.drawFace(Direction.NORTH, consumer, modelMatrix, bfl, tfr, colour, getMinU(Direction.NORTH), getMinV(Direction.NORTH), getMaxU(Direction.NORTH), getMaxV(Direction.NORTH), applyLight, light, applyOverlay, overlay);
+        RenderHelper.drawFace(Direction.SOUTH, consumer, modelMatrix, bbl, tbr, colour, getMinU(Direction.SOUTH), getMinV(Direction.SOUTH), getMaxU(Direction.SOUTH), getMaxV(Direction.SOUTH), applyLight, light, applyOverlay, overlay);
+        RenderHelper.drawFace(Direction.EAST, consumer, modelMatrix, bfr, tbr, colour, getMinU(Direction.EAST), getMinV(Direction.EAST), getMaxU(Direction.EAST), getMaxV(Direction.EAST), applyLight, light, applyOverlay, overlay);
+        RenderHelper.drawFace(Direction.WEST, consumer, modelMatrix, bfl, tbl, colour, getMinU(Direction.WEST), getMinV(Direction.WEST), getMaxU(Direction.WEST), getMaxV(Direction.WEST), applyLight, light, applyOverlay, overlay);
+        RenderHelper.drawFace(Direction.UP, consumer, modelMatrix, tfl, tbr, colour, getMinU(Direction.UP), getMinV(Direction.UP), getMaxU(Direction.UP), getMaxV(Direction.UP), applyLight, light, applyOverlay, overlay);
+        RenderHelper.drawFace(Direction.DOWN, consumer, modelMatrix, bfl, bbr, colour, getMinU(Direction.DOWN), getMinV(Direction.DOWN), getMaxU(Direction.DOWN), getMaxV(Direction.DOWN), applyLight, light, applyOverlay, overlay);
     }
 
     public CuboidRenderer prepare(float width, float height, float depth, int textureWidth, int textureHeight) {

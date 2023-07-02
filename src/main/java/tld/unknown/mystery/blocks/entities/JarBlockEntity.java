@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import org.apache.commons.lang3.EnumUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tld.unknown.mystery.Chaumtraft;
@@ -27,14 +28,18 @@ public class JarBlockEntity extends SimpleBlockEntity implements AspectContainer
     private static final int MAX_ESSENTIA = 250;
 
     @Getter @Setter
-    private ResourceLocation label;
     private ResourceLocation currentAspect;
+    @Getter
+    private ResourceLocation label;
+    @Getter
+    private Direction labelDirection;
     private int amount;
 
     public JarBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ChaumtraftBlockEntities.JAR.entityType(), pPos, pBlockState);
-        this.label = null;
         this.currentAspect = null;
+        this.label = ChaumtraftIDs.Aspects.TAINT;
+        this.labelDirection = Direction.NORTH;
         this.amount = 0;
     }
 
@@ -47,6 +52,7 @@ public class JarBlockEntity extends SimpleBlockEntity implements AspectContainer
         }
         if(nbt.contains("label")) {
             this.label = ResourceLocation.tryParse(nbt.getString("label"));
+            this.labelDirection = Direction.byName(nbt.getString("label_dir"));
         }
     }
 
@@ -60,6 +66,7 @@ public class JarBlockEntity extends SimpleBlockEntity implements AspectContainer
         }
         if(label != null) {
             nbt.putString("label", this.label.toString());
+            nbt.putString("label_dir", this.labelDirection.getSerializedName());
         }
     }
 

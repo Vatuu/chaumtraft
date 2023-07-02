@@ -41,9 +41,9 @@ public class CrucibleBER extends SimpleBER<CrucibleBlockEntity> {
             pPoseStack.translate(0, FLUID_START + (FLUID_HEIGHT * fluidHeight) + (ASPECT_HEIGHT * aspectHeight) + (fluidHeight + aspectHeight >= 2 ? 0.0001 : 0), 0);
             RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
             RenderHelper.drawFace(Direction.UP,
-                    pBufferSource.getBuffer(RenderType.cutout()), pPoseStack.last().pose(),
+                    pBufferSource.getBuffer(RenderType.translucent()), pPoseStack.last().pose(),
                     new Vector3f(0, 0, 0), new Vector3f(1, 0, 1), RenderHelper.getFluidTint(fluid),
-                    sprite.getU0(), sprite.getV0(), sprite.getU1(), sprite.getV1(), true, pPackedLight);
+                    sprite.getU0(), sprite.getV0(), sprite.getU1(), sprite.getV1(), true, pPackedLight, false, 0);
             pPoseStack.popPose();
         }
     }

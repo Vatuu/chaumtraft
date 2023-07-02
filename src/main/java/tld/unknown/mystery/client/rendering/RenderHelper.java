@@ -4,6 +4,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.screens.Overlay;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -41,43 +43,43 @@ public final class RenderHelper {
         stack.popPose();
     }
 
-    public static void drawFace(Direction dir, VertexConsumer consumer, Matrix4f modelMatrix, Vector3f min, Vector3f max, int colour, float minU, float minV, float maxU, float maxV, boolean applyLight, int light) {
+    public static void drawFace(Direction dir, VertexConsumer consumer, Matrix4f modelMatrix, Vector3f min, Vector3f max, int colour, float minU, float minV, float maxU, float maxV, boolean applyLight, int light, boolean applyOverlay, int overlay) {
         switch(dir) {
             case UP -> {
-                fillVertex(consumer, modelMatrix, max.x(), max.y(), min.z(), colour, maxU, minV, applyLight, light);
-                fillVertex(consumer, modelMatrix, min.x(), max.y(), min.z(), colour, minU, minV, applyLight, light);
-                fillVertex(consumer, modelMatrix, min.x(), max.y(), max.z(), colour, minU, maxV, applyLight, light);
-                fillVertex(consumer, modelMatrix, max.x(), max.y(), max.z(), colour, maxU, maxV, applyLight, light);
+                fillVertex(consumer, modelMatrix, max.x(), max.y(), min.z(), colour, maxU, minV, applyLight, light, applyOverlay, overlay);
+                fillVertex(consumer, modelMatrix, min.x(), max.y(), min.z(), colour, minU, minV, applyLight, light, applyOverlay, overlay);
+                fillVertex(consumer, modelMatrix, min.x(), max.y(), max.z(), colour, minU, maxV, applyLight, light, applyOverlay, overlay);
+                fillVertex(consumer, modelMatrix, max.x(), max.y(), max.z(), colour, maxU, maxV, applyLight, light, applyOverlay, overlay);
             }
             case DOWN -> {
-                fillVertex(consumer, modelMatrix, max.x(), min.y(), min.z(), colour, maxU, minV, applyLight, light);
-                fillVertex(consumer, modelMatrix, max.x(), min.y(), max.z(), colour, maxU, maxV, applyLight, light);
-                fillVertex(consumer, modelMatrix, min.x(), min.y(), max.z(), colour, minU, maxV, applyLight, light);
-                fillVertex(consumer, modelMatrix, min.x(), min.y(), min.z(), colour, minU, minV, applyLight, light);
+                fillVertex(consumer, modelMatrix, max.x(), min.y(), min.z(), colour, maxU, minV, applyLight, light, applyOverlay, overlay);
+                fillVertex(consumer, modelMatrix, max.x(), min.y(), max.z(), colour, maxU, maxV, applyLight, light, applyOverlay, overlay);
+                fillVertex(consumer, modelMatrix, min.x(), min.y(), max.z(), colour, minU, maxV, applyLight, light, applyOverlay, overlay);
+                fillVertex(consumer, modelMatrix, min.x(), min.y(), min.z(), colour, minU, minV, applyLight, light, applyOverlay, overlay);
             }
             case NORTH -> {
-                fillVertex(consumer, modelMatrix, max.x(), min.y(), min.z(), colour, maxU, minV, applyLight, light);
-                fillVertex(consumer, modelMatrix, min.x(), min.y(), min.z(), colour, minU, minV, applyLight, light);
-                fillVertex(consumer, modelMatrix, min.x(), max.y(), min.z(), colour, minU, maxV, applyLight, light);
-                fillVertex(consumer, modelMatrix, max.x(), max.y(), min.z(), colour, maxU, maxV, applyLight, light);
+                fillVertex(consumer, modelMatrix, max.x(), min.y(), min.z(), colour, maxU, minV, applyLight, light, applyOverlay, overlay);
+                fillVertex(consumer, modelMatrix, min.x(), min.y(), min.z(), colour, minU, minV, applyLight, light, applyOverlay, overlay);
+                fillVertex(consumer, modelMatrix, min.x(), max.y(), min.z(), colour, minU, maxV, applyLight, light, applyOverlay, overlay);
+                fillVertex(consumer, modelMatrix, max.x(), max.y(), min.z(), colour, maxU, maxV, applyLight, light, applyOverlay, overlay);
             }
             case SOUTH -> {
-                fillVertex(consumer, modelMatrix, max.x(), min.y(), max.z(), colour, maxU, minV, applyLight, light);
-                fillVertex(consumer, modelMatrix, max.x(), max.y(), max.z(), colour, maxU, maxV, applyLight, light);
-                fillVertex(consumer, modelMatrix, min.x(), max.y(), max.z(), colour, minU, maxV, applyLight, light);
-                fillVertex(consumer, modelMatrix, min.x(), min.y(), max.z(), colour, minU, minV, applyLight, light);
+                fillVertex(consumer, modelMatrix, max.x(), min.y(), max.z(), colour, maxU, minV, applyLight, light, applyOverlay, overlay);
+                fillVertex(consumer, modelMatrix, max.x(), max.y(), max.z(), colour, maxU, maxV, applyLight, light, applyOverlay, overlay);
+                fillVertex(consumer, modelMatrix, min.x(), max.y(), max.z(), colour, minU, maxV, applyLight, light, applyOverlay, overlay);
+                fillVertex(consumer, modelMatrix, min.x(), min.y(), max.z(), colour, minU, minV, applyLight, light, applyOverlay, overlay);
             }
             case EAST -> {
-                fillVertex(consumer, modelMatrix, max.x(), min.y(), max.z(), colour, maxU, minV, applyLight, light);
-                fillVertex(consumer, modelMatrix, max.x(), min.y(), min.z(), colour, minU, minV, applyLight, light);
-                fillVertex(consumer, modelMatrix, max.x(), max.y(), min.z(), colour, minU, maxV, applyLight, light);
-                fillVertex(consumer, modelMatrix, max.x(), max.y(), max.z(), colour, maxU, maxV, applyLight, light);
+                fillVertex(consumer, modelMatrix, max.x(), min.y(), max.z(), colour, maxU, minV, applyLight, light, applyOverlay, overlay);
+                fillVertex(consumer, modelMatrix, max.x(), min.y(), min.z(), colour, minU, minV, applyLight, light, applyOverlay, overlay);
+                fillVertex(consumer, modelMatrix, max.x(), max.y(), min.z(), colour, minU, maxV, applyLight, light, applyOverlay, overlay);
+                fillVertex(consumer, modelMatrix, max.x(), max.y(), max.z(), colour, maxU, maxV, applyLight, light, applyOverlay, overlay);
             }
             case WEST -> {
-                fillVertex(consumer, modelMatrix, min.x(), min.y(), max.z(), colour, maxU, minV, applyLight, light);
-                fillVertex(consumer, modelMatrix, min.x(), max.y(), max.z(), colour, maxU, maxV, applyLight, light);
-                fillVertex(consumer, modelMatrix, min.x(), max.y(), min.z(), colour, minU, maxV, applyLight, light);
-                fillVertex(consumer, modelMatrix, min.x(), min.y(), min.z(), colour, minU, minV, applyLight, light);
+                fillVertex(consumer, modelMatrix, min.x(), min.y(), max.z(), colour, maxU, minV, applyLight, light, applyOverlay, overlay);
+                fillVertex(consumer, modelMatrix, min.x(), max.y(), max.z(), colour, maxU, maxV, applyLight, light, applyOverlay, overlay);
+                fillVertex(consumer, modelMatrix, min.x(), max.y(), min.z(), colour, minU, maxV, applyLight, light, applyOverlay, overlay);
+                fillVertex(consumer, modelMatrix, min.x(), min.y(), min.z(), colour, minU, minV, applyLight, light, applyOverlay, overlay);
             }
         }
     }
@@ -89,8 +91,11 @@ public final class RenderHelper {
         return false;
     }
 
-    private static void fillVertex(VertexConsumer consumer, Matrix4f modelMatrix, float x, float y, float z, int colour, float u, float v, boolean applyLight, int packedLight) {
+    private static void fillVertex(VertexConsumer consumer, Matrix4f modelMatrix, float x, float y, float z, int colour, float u, float v, boolean applyLight, int packedLight, boolean applyOverlay, int overlay) {
         consumer.vertex(modelMatrix, x, y, z).color((colour >> 16) & 0xFF, (colour >> 8), colour & 0xFF, 0xFF).uv(u, v);
+        if(applyOverlay) {
+            consumer.overlayCoords(overlay);
+        }
         if(applyLight) {
             consumer.uv2(packedLight);
         }
