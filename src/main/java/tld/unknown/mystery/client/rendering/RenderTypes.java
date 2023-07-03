@@ -90,7 +90,7 @@ public final class RenderTypes {
 
         @SubscribeEvent
         public static void shaderRegistry(RegisterShadersEvent e) throws IOException {
-            e.registerShader(new ShaderInstance(e.getResourceProvider(), Chaumtraft.id("rendertype_halo"), DefaultVertexFormat.POSITION_COLOR), shaderInstance -> HaloRenderType.instance = shaderInstance);
+            //e.registerShader(new ShaderInstance(e.getResourceProvider(), Chaumtraft.id("rendertype_halo"), DefaultVertexFormat.POSITION_COLOR), shaderInstance -> HaloRenderType.instance = shaderInstance);
         }
     }
 }

@@ -36,4 +36,13 @@ public final class MathUtils {
     public static Vector3f pxVector3f(float x, float y, float z) {
         return new Vector3f(px(x), px(y), px(z));
     }
+
+    public static int packRGBA(float red, float green, float blue, float alpha) {
+        int colour = 0;
+        colour |= (int)(255 * alpha) & 0xFF << 24;
+        colour |= (int)(255 * red) & 0xFF << 16;
+        colour |= (int)(255 * green) & 0xFF << 8;
+        colour |= (int)(255 * blue) & 0xFF;
+        return colour;
+    }
 }

@@ -54,7 +54,6 @@ public class JarBER extends SimpleBER<JarBlockEntity> {
             pPoseStack.popPose();
         }
 
-        // Colour 0.1F, 0.1F, 0.1F, alpha * 0.8F
         if(pBlockEntity.getLabel() != null && pBlockEntity.getLabelDirection() != null) {
             pPoseStack.pushPose();
             pPoseStack.translate(MathUtils.px(4F), MathUtils.px(2.5F), MathUtils.px(3 - 0.001F));
@@ -67,7 +66,7 @@ public class JarBER extends SimpleBER<JarBlockEntity> {
             RenderHelper.drawFace(
                     pBlockEntity.getLabelDirection(), consumer, pPoseStack.last().pose(),
                     MathUtils.pxVector3f(1.5F, 1.5F, -.001f), MathUtils.pxVector3f(6.5F, 6.5F, 6.5F),
-                    0xFF000000, 0, 0, 1, 1, true, pPackedLight, true, pPackedOverlay);
+                    MathUtils.packRGBA(.1F, .1F, .1F, .8F), 0, 0, 1, 1, true, pPackedLight, true, pPackedOverlay);
             pPoseStack.popPose();
         }
     }
